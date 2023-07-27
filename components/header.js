@@ -131,11 +131,13 @@ export default function Header() {
         <>
             <AppBar position="static">
                 <Toolbar disableGutters>
-                    <Link href="/" >
-                        <Image src="/logo_w.svg" alt="LOGO" width={100} height={32} href="/" />
-                    </Link>
+                    <Box sx={{ marginLeft: '20px' }}>
+                        <Link href="/">
+                            <Image src="/logo_w.svg" alt="LOGO" width={100} height={32} href="/" />
+                        </Link>
+                    </Box>
 
-                    <Box sx={{ marginLeft: 'auto' }}>
+                    <Box sx={{ marginRight: '20px', marginLeft: 'auto' }}>
                         {loggedIn ? (
                             <MenuItem onClick={handleOpenUserMenu}>
                                 <Typography textAlign="center">My Info</Typography>
