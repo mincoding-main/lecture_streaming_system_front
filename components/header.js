@@ -12,6 +12,7 @@ import JoinModal from './modal/join-modal';
 import FindPasswordModal from './modal/find-password-modal';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import axios from 'axios';
 
 const settings = [
     { label: 'Dashboard', path: '/dash-board/lecture-list' },
@@ -19,7 +20,6 @@ const settings = [
 
 export default function Header() {
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const [users, setUsers] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -41,24 +41,30 @@ export default function Header() {
         setAnchorElUser(null);
     };
 
-    const handleLogin = (modalEmail, modalPassword) => {
-        console.log(users);
-        const foundUser = users.find((user) => user.email === modalEmail && user.password === modalPassword);
+    const handleLogin = async (modalEmail, modalPassword) => {
+        try {
+            const response = await axios.get('/api/users'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
+            const userData = response.data;
 
-        if (foundUser) {
-            setLoggedIn(true);
-            if (foundUser.isAdmin) setIsAdmin(true);
-            handleCloseModal();
-            handleCloseUserMenu();
-            setOpenLoginModal(false);
-            setShowLoginMessage(true);
-            setTimeout(() => {
-                setShowLoginMessage(false);
-            }, 1000);
-        } else {
-            setLoginError('이메일과 비밀번호가 일치하지 않습니다');
+            // 서버에서 받아온 유저 데이터를 기반으로 로그인 처리
+            const foundUser = userData.find((user) => user.email === modalEmail && user.password === modalPassword);
+
+            if (foundUser) {
+                setLoggedIn(true);
+                if (foundUser.isAdmin) setIsAdmin(true);
+                handleCloseModal();
+                handleCloseUserMenu();
+                setOpenLoginModal(false);
+                setShowLoginMessage(true);
+                setTimeout(() => {
+                    setShowLoginMessage(false);
+                }, 1000);
+            } else {
+                setLoginError('이메일과 비밀번호가 일치하지 않습니다');
+            }
+        } catch (error) {
+            console.error('유저 데이터를 가져오는데 실패했습니다:', error.message);
         }
-
     };
 
     const handleLogout = () => {
@@ -92,17 +98,36 @@ export default function Header() {
 
 
 
-    const handleJoin = (joinEmail, joinPassword, employeeId) => {
-        // admin 수정 필요
-        const newUser = { id: users.length + 1, email: joinEmail, password: joinPassword, employeeId, isAdmin: true };
-        setUsers([...users, newUser]);
-        setLoggedIn(false);
-        handleCloseUserMenu();
-        setShowJoinMessage(true);
-        setTimeout(() => {
-            setShowJoinMessage(false);
-        }, 2000);
-        setOpenJoinModal(false);
+    const handleJoin = async (joinEmail, joinPassword, employeeId) => {
+        try {
+            // 새로운 사용자 정보
+            const newUser = {
+                email: joinEmail,
+                password: joinPassword,
+                employeeId,
+                isAdmin: true,
+            };
+
+            // 서버로 POST 요청을 보냄
+            const response = await axios.post('/api/users', newUser);
+
+            // 응답으로 받은 데이터 확인
+            const addedUser = response.data;
+            console.log('새로운 사용자 추가됨:', addedUser);
+
+            // 성공적으로 사용자가 추가된 경우에 처리
+            setLoggedIn(false);
+            handleCloseUserMenu();
+            setShowJoinMessage(true);
+            setTimeout(() => {
+                setShowJoinMessage(false);
+            }, 2000);
+            setOpenJoinModal(false);
+        } catch (error) {
+            // 오류가 발생한 경우 에러 메시지를 처리 (예: 서버 오류, 네트워크 오류 등)
+            console.error('사용자 추가 실패:', error.message);
+            // 에러를 상태로 설정하여 화면에 표시하거나 다른 처리를 할 수 있음
+        }
     };
 
     const handleOpenFindPasswordModal = () => {
@@ -113,8 +138,12 @@ export default function Header() {
 
 
 
-    const handleFindPassword = (email) => {
-        const foundUser = users.find((user) => user.email === email);
+    const handleFindPassword = async (email) => {
+
+        const response = await axios.get('/api/users'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
+        const userData = response.data;
+
+        const foundUser = userData.find((user) => user.email === email);
 
         if (foundUser) {
             setOpenFindPasswordModal(false);
@@ -247,7 +276,6 @@ export default function Header() {
                 open={openJoinModal}
                 onClose={() => setOpenJoinModal(false)}
                 onJoin={handleJoin}
-                users={users}
             />
             <FindPasswordModal
                 open={openFindPasswordModal}

@@ -4,8 +4,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
+import axios from 'axios';
 
-export default function JoinModal({ open, onClose, onJoin, users }) {
+export default function JoinModal({ open, onClose, onJoin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -30,9 +31,12 @@ export default function JoinModal({ open, onClose, onJoin, users }) {
     }, [open]);
 
     // 중복확인 버튼 클릭 시 호출되는 함수
-    const handleDuplicateCheck = () => {
+    const handleDuplicateCheck = async () => {
+        const response = await axios.get('/api/users'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
+        const userData = response.data;
+
         // Check if the entered email already exists in the users array
-        const isDuplicate = users.some((user) => user.email === email);
+        const isDuplicate = userData.some((user) => user.email === email);
         if (isDuplicate) {
             setMessage({ type: 'error', content: '이미 존재하는 이메일입니다.' });
         } else {

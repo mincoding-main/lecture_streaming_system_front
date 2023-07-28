@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "email": "111",
+    "password": "111",
+    "employeeId": "111",
+    "isAdmin": true
+  }
+]
