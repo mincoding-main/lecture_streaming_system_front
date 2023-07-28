@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,6 +13,7 @@ import FindPasswordModal from './modal/find-password-modal';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const settings = [
     { label: 'Dashboard', path: '/dash-board/lecture-list' },
@@ -31,7 +32,12 @@ export default function Header() {
     const [showJoinMessage, setShowJoinMessage] = useState(false);
     const [showLogoutMessage, setShowLogoutMessage] = useState(false);
     const [showPasswordRecoverySuccess, setShowPasswordRecoverySuccess] = useState(false);
+    const router = useRouter();
 
+
+    useEffect(() => {
+        checkLoggedIn();
+    }, []);
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -50,6 +56,7 @@ export default function Header() {
             const foundUser = userData.find((user) => user.email === modalEmail && user.password === modalPassword);
 
             if (foundUser) {
+                sessionStorage.setItem('user', JSON.stringify(foundUser));
                 setLoggedIn(true);
                 if (foundUser.isAdmin) setIsAdmin(true);
                 handleCloseModal();
@@ -68,6 +75,7 @@ export default function Header() {
     };
 
     const handleLogout = () => {
+        sessionStorage.removeItem('user');
         setLoggedIn(false);
         setIsAdmin(false);
         handleCloseUserMenu();
@@ -75,6 +83,17 @@ export default function Header() {
         setTimeout(() => {
             setShowLogoutMessage(false);
         }, 2000);
+        // 메인 이외의 page에서는 알람이 보이지 않음
+        router.push('/');
+    };
+
+
+    // 로그인 여부를 체크하는 함수
+    const checkLoggedIn = () => {
+        // 로그인 상태를 확인하는 로직
+        // 예를 들어, 로컬 스토리지나 쿠키에서 로그인 상태를 가져올 수 있습니다.
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        setLoggedIn(!!user); // 유저 정보가 있으면 로그인 상태로 설정
     };
 
     const handleOpenModal = () => {
@@ -155,6 +174,7 @@ export default function Header() {
             setFindPasswordError('해당 이메일이 존재하지 않습니다.');
         }
     };
+
 
     return (
         <>

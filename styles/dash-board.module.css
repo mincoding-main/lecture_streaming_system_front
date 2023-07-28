@@ -1,0 +1,56 @@
+/* =============================== */
+.dashBoardTop {
+    width: 80%;
+    margin: 0 auto;
+    height: auto;
+    min-width: 1160px;
+}
+
+.dashBoardBtnBar {
+    margin-top: 1rem;
+    height: 4rem;
+    background-color: #a4d2ff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+
+}
+
+.dashBoardBtn {
+
+    width: 15%;
+    height: 60%;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: none !important;
+}
+
+.introTextBig {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.introText {
+    margin: 0;
+}
+
+.sectionTitle {
+    margin-top: 0;
+    background-color: #62b1ff;
+    color: #fff;
+    text-align: center;
+}
+
+.dashBoardView {
+    width: 80%;
+    margin: 0 auto;
+    height: auto;
+    min-width: 1160px;
+}
+
+.cardList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}

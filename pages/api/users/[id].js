@@ -13,7 +13,6 @@ export default function handler(req, res) {
 
     // 해당 아이디를 가진 사용자 정보를 찾음
     const user = userData.find((user) => user.id === Number(id));
-
     if (user) {
         // 사용자 정보가 있으면 해당 정보를 클라이언트로 전송
         res.status(200).json(user);

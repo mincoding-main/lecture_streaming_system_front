@@ -25,6 +25,7 @@ export default function handler(req, res) {
                 password,
                 employeeId,
                 isAdmin: true,
+                lectureID: [],
             };
 
             // 새로운 사용자 정보를 기존 사용자 데이터에 추가
