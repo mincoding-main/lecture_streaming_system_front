@@ -10,7 +10,7 @@ export default function LectureListCard({ lectureData }) {
     return (
         <div className={utilStyles.cardList}>
             {lectureData.map((lecture) => (
-                <Card key={lecture.id} sx={{ width: 250, marginLeft: '2rem', marginBottom: '2rem' }}>
+                <Card key={lecture.id} sx={{ width: 250, marginLeft: '2rem', marginBottom: '2rem', marginTop: '2rem' }}>
                     <CardActionArea
                         component="a" // 클릭 시 a 태그로 동작하도록 설정
                         href={lecture.link} // 해당 강의의 링크 URL을 데이터베이스에서 가져온 값으로 설정
