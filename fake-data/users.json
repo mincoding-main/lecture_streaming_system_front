@@ -16,6 +16,9 @@
         "password": "222",
         "employeeId": "aasdasfasd",
         "isAdmin": true,
-        "lectureId": []
+        "lectureId": [
+            4,
+            5
+        ]
     }
 ]

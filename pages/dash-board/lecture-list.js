@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import dashBoardStyle from '@/styles/dash-board.module.css';
-import LectureListCard from '@/components/lecture-list-card';
+import LectureListCard from '@/components/lecture-list-personal';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import config from '@/config';
@@ -26,16 +26,16 @@ export default function LectureList() {
             const userResponse = await axios.get(`/api/users/${userId}`); // 1은 특정 사용자의 id라고 가정
             const userData = userResponse.data;
             setUser(userData);
-
             // lecture API 호출
             // lecture API 호출
             const lectureResponse = await axios.get('/api/lectures', {
                 params: {
-                    lectureIds: user.lectureId, // 파라미터로 user의 lectureId를 넘겨줌
+                    lectureIds: user.lectureId ? user.lectureId : [], // 파라미터로 user의 lectureId를 넘겨줌
                 },
             });
             const lectureData = lectureResponse.data;
             setLectureData(lectureData);
+
         } catch (error) {
             console.error('Failed to fetch data:', error);
         }
