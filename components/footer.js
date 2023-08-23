@@ -41,7 +41,7 @@ export default function Footer() {
                         <li>
                             <span>주식회사 민코딩</span>&nbsp;&nbsp;&nbsp;
                             <span>대표자: 장지효</span>&nbsp;&nbsp;&nbsp;
-                            <span>경기도 성남시 분당구 미금일로 75, 501호</span>
+                            <span>경기도 용인시 기흥구 진산로 222 B동 1901호</span>
                         </li>
                         <li>
                             <span>사업자등록번호: 485-88-02212</span>&nbsp;&nbsp;&nbsp;
