@@ -58,6 +58,7 @@ export default function Header() {
             if (foundUser) {
                 sessionStorage.setItem('user', JSON.stringify(foundUser));
                 setLoggedIn(true);
+                console.log(foundUser.isAdmin)
                 if (foundUser.isAdmin) setIsAdmin(true);
                 handleCloseModal();
                 handleCloseUserMenu();
@@ -94,6 +95,9 @@ export default function Header() {
         // 예를 들어, 로컬 스토리지나 쿠키에서 로그인 상태를 가져올 수 있습니다.
         const user = JSON.parse(sessionStorage.getItem('user'));
         setLoggedIn(!!user); // 유저 정보가 있으면 로그인 상태로 설정
+        if (user && user.isAdmin) {
+            setIsAdmin(true); // 만약 사용자가 admin인 경우에 isAdmin 상태를 true로 설정
+        }
     };
 
     const handleOpenModal = () => {

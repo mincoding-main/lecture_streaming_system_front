@@ -15,7 +15,7 @@
         "email": "222",
         "password": "222",
         "employeeId": "aasdasfasd",
-        "isAdmin": true,
+        "isAdmin": false,
         "lectureId": [
             4,
             5
