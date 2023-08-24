@@ -8,14 +8,23 @@ import LectureListCard from '@/components/lecture-list-personal';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import config from '@/config';
+import { useRouter } from 'next/router';
 
 export default function LectureList() {
+    const router = useRouter();
     const [selectedTab, setSelectedTab] = useState('lectureList');
     const [user, setUser] = useState(null);
     const [lectureData, setLectureData] = useState([]);
 
     const handleTabClick = (tabName) => {
         setSelectedTab(tabName);
+        if (tabName === 'updateProfile') {
+            // "내 정보 수정" 탭 클릭 시 profile-update 페이지로 이동
+            router.push('/dash-board/profile-update');
+        } else if (tabName === 'lectureList') {
+            // "강의 목록" 탭 클릭 시 lecture-list 페이지로 이동
+            router.push('/dash-board/lecture-list');
+        }
     };
 
     const fetchUserAndLectureData = async () => {
@@ -71,22 +80,12 @@ export default function LectureList() {
 
             <section className={dashBoardStyle.dashBoardView}>
                 {/* 상태에 따라 다른 내용 출력 */}
-                {selectedTab === 'lectureList' ? (
-                    <>
-                        <div className={dashBoardStyle.sectionTitle}>내 강의 목록</div>
-                        <div className={dashBoardStyle.cardList}>
-                            <LectureListCard lectureData={lectureData} />
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        <div className={dashBoardStyle.sectionTitle}>내 정보 수정</div>
-                        <div>{user?.email}</div>
-                        <div>{user?.employeeId}</div>
-                        <div>{String(user?.isAdmin)}</div>
-                        <div>{user?.lectureId ? user.lectureId.join(',') : ''}</div>
-                    </>
-                )}
+                <>
+                    <div className={dashBoardStyle.sectionTitle}>내 강의 목록</div>
+                    <div className={dashBoardStyle.cardList}>
+                        <LectureListCard lectureData={lectureData} />
+                    </div>
+                </>
             </section>
             <Footer />
         </>
