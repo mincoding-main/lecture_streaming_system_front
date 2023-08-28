@@ -12,7 +12,6 @@ export default function LectureStreaming() {
     const { lectureId } = router.query;
     const { videoId } = router.query;
     const [lecture, setLecture] = useState(null);
-    const [videos, setVideos] = useState(null);
 
     useEffect(() => {
         if (lectureId) {
@@ -20,7 +19,7 @@ export default function LectureStreaming() {
             axios.get(`/api/lectures/${lectureId}`).then((response) => {
                 setLecture(response.data);
             });
-            setVideos(videoId);
+
         }
     }, [lectureId]);
 
@@ -37,7 +36,7 @@ export default function LectureStreaming() {
                         {/* <img src={lecture.imageUrl} alt={lecture.title} /> */}
                     </div>
                     <div className={lectureStreamingStyle.streamingIntroText}>
-                        <h1>{lecture.videos[videoId].title}</h1>
+                        <h1>{lecture.videos[videoId - 1].title}</h1>
                         {/* <p>{lecture[videoId].description}</p> */}
                     </div>
                 </div>
