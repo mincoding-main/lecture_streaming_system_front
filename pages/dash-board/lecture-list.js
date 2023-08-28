@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import dashBoardStyle from '@/styles/dash-board.module.css';
-import LectureListCard from '@/components/lecture-list-item';
+import LectureListItem from '@/components/lecture-list-item';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -78,7 +78,7 @@ export default function LectureList() {
                 <>
                     <div className={dashBoardStyle.sectionTitle}>내 강의 목록</div>
                     <div className={dashBoardStyle.cardList}>
-                        <LectureListCard lectureData={lectureData} />
+                        <LectureListItem lectureData={lectureData} />
                     </div>
                 </>
             </section>
