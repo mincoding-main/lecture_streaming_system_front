@@ -1,13 +1,10 @@
-// lecture-list.js
-
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import dashBoardStyle from '@/styles/dash-board.module.css';
-import LectureListCard from '@/components/lecture-list-personal';
+import LectureListCard from '@/components/lecture-list-item';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import config from '@/config';
 import { useRouter } from 'next/router';
 
 export default function LectureList() {
@@ -31,12 +28,10 @@ export default function LectureList() {
         try {
             const user = JSON.parse(sessionStorage.getItem('user'));
             const userId = user && user.id;
-            // user API 호출
             const userResponse = await axios.get(`/api/users/${userId}`); // 1은 특정 사용자의 id라고 가정
             const userData = userResponse.data;
             setUser(userData);
-            // lecture API 호출
-            // lecture API 호출
+
             const lectureResponse = await axios.get('/api/lectures', {
                 params: {
                     lectureIds: user.lectureId ? user.lectureId : [], // 파라미터로 user의 lectureId를 넘겨줌

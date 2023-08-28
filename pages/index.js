@@ -1,7 +1,7 @@
 import utilStyles from '../styles/utils.module.css';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import LectureListCard from '@/components/lecture-list-card';
+import LectureListCard from '@/components/lecture-card-item';
 import axios from 'axios';
 import config from '../config';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import dashBoardStyle from '@/styles/dash-board.module.css';
-import LectureListCard from "@/components/lecture-list-card";
+import LectureListCard from "@/components/lecture-card-item";
 import Button from '@mui/material/Button';
 import axios from "axios";
 import config from '@/config';
