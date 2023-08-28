@@ -33,17 +33,25 @@ export default function ProfileUpdate() {
         fetchUserAndLectureData();
     }, []);
 
-    const handleUpdateProfile = async () => {
-        try {
+    const handleUpdateProfile = () => {
+        // Confirm the update with the user
+        const isConfirmed = window.confirm('프로필을 업데이트하시겠습니까?');
+
+        if (isConfirmed) {
+            // Perform the profile update
             if (password !== confirmPassword) {
                 setMessage({ type: 'error', content: '비밀번호와 비밀번호 확인이 일치하지 않습니다.' });
                 return;
             }
 
-            const response = await axios.put(`/api/users/${user.id}`, { employeeId, password });
-            setMessage({ type: 'success', content: '프로필이 업데이트되었습니다.' });
-        } catch (error) {
-            setMessage({ type: 'error', content: '프로필 업데이트에 실패했습니다.' });
+            axios
+                .put(`/api/users/${user.id}`, { employeeId, password })
+                .then((response) => {
+                    setMessage({ type: 'success', content: '프로필이 업데이트되었습니다.' });
+                })
+                .catch((error) => {
+                    setMessage({ type: 'error', content: '프로필 업데이트에 실패했습니다.' });
+                });
         }
     };
 
@@ -83,6 +91,9 @@ export default function ProfileUpdate() {
                     borderRadius={"0.6rem"}
                     sx={{ backgroundColor: '#62b1ff2e' }}
                 >
+                    <div>
+                        <div style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'black' }}>내 정보 수정</div>
+                    </div>
                     <div>
                         <TextField
                             label="Email"
@@ -129,7 +140,7 @@ export default function ProfileUpdate() {
                     )}
                     <div>
                         <Button variant="contained" onClick={handleUpdateProfile}>
-                            프로필 수정
+                            수정
                         </Button>
                     </div>
                 </Box>
