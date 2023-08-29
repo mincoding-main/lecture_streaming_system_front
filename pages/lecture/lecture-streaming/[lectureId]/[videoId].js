@@ -57,7 +57,7 @@ export default function LectureStreaming() {
                                 <CKEditor
                                     style={{ height: '300px' }}
                                     editor={ClassicEditorBuild}
-                                    data={editedContent}
+                                    data={editedContent+ "&autoplay=1"}
                                     onChange={(event, editor) => {
                                         const data = editor.getData();
                                         setEditedContent(data);
@@ -67,15 +67,16 @@ export default function LectureStreaming() {
                         ) : (
                             <div className={lectureStreamingStyle.streamingVideo}>
                                 <iframe
-                                    src={editedContent}
+                                    src={editedContent + "&autoplay=1"}
                                     width="100%"
                                     height="100%"
                                     frameBorder="0"
                                     allowFullScreen
+                                    allow="autoplay"
                                 />
                             </div>
                         )}
-                        {isAdmin && (
+                        {!isAdmin && (
                             <div>
                                 {editMode ? (
                                     <Button variant="contained" onClick={handleSave} className={lectureStreamingStyle.editModeBtn}>
