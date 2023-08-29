@@ -1,47 +1,21 @@
-/* lecture-detail.module.css */
+/* lecture-streaming.module.css */
 .streamingIntroSection {
     background-color: #1e90ff0f;
     width: 100%;
-    height: auto;
+    min-height: 80vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
     padding: 2rem;
 }
 
-.streamingIntroContent {
-    width: 80%;
-    /* 비율 조절 */
-    padding: 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.streamingContainer {
     display: flex;
-    align-items: center;
-}
-
-.streamingIntroImage {
-    width: 50%;
-    /* 이미지의 비율 조절 */
-    margin-right: 2rem;
-}
-
-.streamingIntroImage img {
     width: 100%;
-    height: auto;
+    height: 80vh;
 }
 
-.streamingIntroText {
-    width: 50%;
-    text-align: center;
-}
-
-
-.streamingCourseSection {
-    margin-top: 2rem;
-    width: 80%;
-    /* 비율 조절 */
+.streamingVideoContainer {
+    flex: 7.8;
     padding: 1rem;
     background-color: white;
     border-radius: 0.5rem;
@@ -49,28 +23,39 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.streamingCourseTitleText {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.streamingCourseText {
-    margin-top: 1rem;
-    font-size: 0.9rem;
+    justify-content: space-around;
 }
 
 
-.streamingVideoSection {
-    margin-top: 2rem;
-    width: 80%;
-    /* 비율 조절 */
-    padding: 1rem;
+.videoTitleText {
+    flex: 0.5;
+    /* 타이틀의 비율 */
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.streamingVideo {
+    flex: 8.5;
+    width: 100%;
+    height: 100%;
+}
+
+.editModeBtn {
+    flex: 1;
+}
+
+.listContainer {
+    flex: 2.2;
+    margin-left: 2rem;
     background-color: white;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: 80vh;
+    /* overflow-y: scroll; */
+    overflow: auto;
+}
+
+.listPaper {
+    height: 100%;
+    /* 강의 리스트 영역을 100% 높이로 설정 */
 }

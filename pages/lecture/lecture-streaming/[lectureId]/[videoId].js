@@ -1,10 +1,14 @@
+/* LectureStreaming.js */
+
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
+import { Button, List, ListItem, ListItemText, Paper, Typography } from '@mui/material';
 import lectureStreamingStyle from '@/styles/lecture-streaming.module.css';
-import VideoListItem from '@/components/lecture-video-item';
 
 
 export default function LectureStreaming() {
@@ -12,16 +16,28 @@ export default function LectureStreaming() {
     const { lectureId } = router.query;
     const { videoId } = router.query;
     const [lecture, setLecture] = useState(null);
+    const [editMode, setEditMode] = useState(false);
+    const [editedContent, setEditedContent] = useState(""); // 초기값 설정
+    const [isAdmin, setIsAdmin] = useState(false); // 사용자의 권한 여부를 나타내는 상태 변수
 
     useEffect(() => {
         if (lectureId) {
-            // 동적 라우팅 파라미터인 id를 이용해 해당 강의 정보를 가져옴
             axios.get(`/api/lectures/${lectureId}`).then((response) => {
                 setLecture(response.data);
+                setEditedContent(response.data.videos[videoId - 1].url);
             });
-
         }
-    }, [lectureId]);
+    }, [lectureId, videoId]);
+
+    const toggleEditMode = () => {
+        setEditMode(!editMode);
+    };
+
+    const handleSave = () => {
+        // 수정된 내용을 저장하는 로직을 여기에 추가
+        console.log("Saved:", editedContent);
+        setEditMode(false); // 편집 모드 종료
+    };
 
     if (!lecture) {
         return <div>Loading...</div>;
@@ -31,25 +47,69 @@ export default function LectureStreaming() {
         <>
             <Header />
             <section className={lectureStreamingStyle.streamingIntroSection}>
-                <div className={lectureStreamingStyle.streamingIntroContent}>
-                    <div className={lectureStreamingStyle.streamingIntroImage}>
-                        {/* <img src={lecture.imageUrl} alt={lecture.title} /> */}
+                <div className={lectureStreamingStyle.streamingContainer}>
+                    <div className={lectureStreamingStyle.streamingVideoContainer}>
+                        <div className={lectureStreamingStyle.videoTitleText}>
+                            {lecture.videos[videoId - 1].title}
+                        </div>
+                        {editMode ? (
+                            <div className={lectureStreamingStyle.streamingVideo}>
+                                <CKEditor
+                                    style={{ height: '300px' }}
+                                    editor={ClassicEditorBuild}
+                                    data={editedContent}
+                                    onChange={(event, editor) => {
+                                        const data = editor.getData();
+                                        setEditedContent(data);
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            <div className={lectureStreamingStyle.streamingVideo}>
+                                <iframe
+                                    src={editedContent}
+                                    width="100%"
+                                    height="100%"
+                                    frameBorder="0"
+                                    allowFullScreen
+                                />
+                            </div>
+                        )}
+                        {isAdmin && (
+                            <div>
+                                {editMode ? (
+                                    <Button variant="contained" onClick={handleSave} className={lectureStreamingStyle.editModeBtn}>
+                                        저장
+                                    </Button>
+                                ) : (
+                                    <Button variant="contained" onClick={toggleEditMode} className={lectureStreamingStyle.editModeBtn}>
+                                        수정
+                                    </Button>
+                                )}
+                            </div>
+                        )}
                     </div>
-                    <div className={lectureStreamingStyle.streamingIntroText}>
-                        <h1>{lecture.videos[videoId - 1].title}</h1>
-                        {/* <p>{lecture[videoId].description}</p> */}
+                    <div className={lectureStreamingStyle.listContainer}>
+                        <Paper elevation={3} className={lectureStreamingStyle.listPaper}>
+                            <List>
+                                {lecture.videos.map((video, index) => (
+                                    <ListItem
+                                        key={video.id}
+                                        button
+                                        onClick={() => {
+                                            // 해당 강의로 이동하는 경로 생성
+                                            const videoPath = `/lecture/lecture-streaming/${lectureId}/${index + 1}`;
+                                            router.push(videoPath); // 해당 경로로 이동
+                                        }}
+                                    >
+                                        <ListItemText primary={`강의 ${index + 1}`} secondary={video.title} />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Paper>
                     </div>
                 </div>
-                {/* <div className={lectureStreamingStyle.streamingCourseSection}>
-                    <div className={lectureStreamingStyle.streamingCourseTitleText}>교육과정안내</div>
-                    <div className={lectureStreamingStyle.streamingCourseText} dangerouslySetInnerHTML={{ __html: lecture.courseDescription }} />
-                </div>
-                <div className={lectureStreamingStyle.streamingVideoSection}>
-                    <VideoListItem Videos={lecture.videos} LectureId={lecture.id} />
-                </div> */}
             </section>
-            {/* 강의 상세 정보 렌더링 */}
-
             <Footer />
         </>
     );
