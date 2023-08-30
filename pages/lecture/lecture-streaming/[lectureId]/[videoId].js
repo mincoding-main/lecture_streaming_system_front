@@ -57,7 +57,7 @@ export default function LectureStreaming() {
                                 <CKEditor
                                     style={{ height: '300px' }}
                                     editor={ClassicEditorBuild}
-                                    data={editedContent+ "&autoplay=1"}
+                                    data={editedContent + "&autoplay=1"}
                                     onChange={(event, editor) => {
                                         const data = editor.getData();
                                         setEditedContent(data);
@@ -76,7 +76,7 @@ export default function LectureStreaming() {
                                 />
                             </div>
                         )}
-                        {!isAdmin && (
+                        {isAdmin && (
                             <div>
                                 {editMode ? (
                                     <Button variant="contained" onClick={handleSave} className={lectureStreamingStyle.editModeBtn}>

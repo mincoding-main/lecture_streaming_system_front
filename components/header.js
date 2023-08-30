@@ -225,7 +225,7 @@ export default function Header() {
                             ))}
                             {isAdmin ? (
                                 <MenuItem>
-                                    <Link href="/admin-page" passHref>
+                                    <Link href="/admin/user-list" passHref>
                                         <Typography textAlign="center">Admin Page</Typography>
                                     </Link>
                                 </MenuItem>
