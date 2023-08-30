@@ -8,7 +8,6 @@ export default function Footer() {
     return (
         <footer>
             <Container
-                minWidth={'1760px'}
                 maxWidth={null}
                 sx={{
                     display: 'flex',
@@ -16,6 +15,7 @@ export default function Footer() {
                     alignItems: 'center',
                     py: 2,
                     backgroundColor: '#1976d2',
+                    minWidth: '1760px'
                 }}
             >
                 <Link href="/">
@@ -36,7 +36,7 @@ export default function Footer() {
                 </span>
 
             </Container>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff', backgroundColor: '#1976d2' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff', backgroundColor: '#1976d2', minWidth: '1760px' }}>
                 <div style={{ padding: '16px', paddingTop: '0' }}>
                     <ul style={{ listStyle: 'none', padding: 0, color: '#fff', fontSize: '14px' }}>
                         <li>
