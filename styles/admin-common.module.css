@@ -1,0 +1,94 @@
+/* lecture-detail.module.css */
+.backGroundSection {
+    background-color: #1e90ff0f;
+    min-width: 1760px;
+    min-height: 955px;
+    height: 95vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+
+}
+
+.sideNavContainer {
+    flex: 1.5;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 2rem;
+}
+
+
+.mainContainer {
+    flex: 8.5;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.sideContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sideUserContainer {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sideUserTitle {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.sideUserBtn {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.sideVideoContainer {
+    width: 90%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.sideVideoTitle {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.sideVideoBtn {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.sideVideoBtn>button {
+    margin-bottom: 0.5rem;
+}

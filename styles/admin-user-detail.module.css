@@ -1,76 +1,63 @@
-/* lecture-detail.module.css */
-.lectureIntroSection {
-    background-color: #1e90ff0f;
+.userSearchContainer {
     width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+    height: 5%;
 }
 
-.lectureIntroContent {
-    width: 80%;
-    /* 비율 조절 */
+.userContainer {
+    width: 100%;
+    height: 90%;
+}
+
+.userItem {
+    width: 100%;
+    display: flex;
     padding: 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
+}
+
+.userInfo {
+    flex: 9;
+    margin-right: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 0.3rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-}
-
-.lectureIntroImage {
-    width: 50%;
-    /* 이미지의 비율 조절 */
-    margin-right: 2rem;
-}
-
-.lectureIntroImage img {
-    width: 100%;
-    height: auto;
-}
-
-.lectureIntroText {
-    width: 50%;
     text-align: center;
-}
-
-
-.lectureCourseSection {
-    margin-top: 2rem;
-    width: 80%;
-    /* 비율 조절 */
-    padding: 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+    height: 2.4rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
-.lectureCourseTitleText {
-    font-size: 1.2rem;
+.userInfoTitle {
+    font-size: 0.9rem;
+    text-align: center;
     font-weight: bold;
 }
 
-.lectureCourseText {
-    margin-top: 1rem;
+.userEditBtnTitle {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 0.9rem;
+    font-weight: bold;
+    background-color: #f7f7f7;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-.lectureVideoSection {
-    margin-top: 2rem;
-    width: 80%;
-    /* 비율 조절 */
-    padding: 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.userEditBtn {
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center
+}
+
+.userEditBtn>button {
+    width: 100%;
+    font-size: 0.8rem;
+}
+
+.paginationContainer {
+    height: 5%;
+    display: flex;
+    justify-content: center;
 }

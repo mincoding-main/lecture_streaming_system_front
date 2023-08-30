@@ -4,49 +4,88 @@ import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import adminUserDetailStyle from '@/styles/admin-user-detail.module.css';
-import VideoListItem from '@/components/lecture-video-item';
+import adminCommonStyle from '@/styles/admin-common.module.css';
+import AdminSideNavBar from '@/components/admin-side-navbar';
+import Pagination from '@mui/material/Pagination';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 
 export default function UserList() {
     const router = useRouter();
-    const { lectureId } = router.query;
-    const [lecture, setLecture] = useState(null);
+    const [users, setUsers] = useState([]);
+    const [page, setPage] = useState(1);
+    const itemsPerPage = 8;
 
     useEffect(() => {
-        if (lectureId) {
-            // 동적 라우팅 파라미터인 id를 이용해 해당 강의 정보를 가져옴
-            axios.get(`/api/lectures/${lectureId}`).then((response) => {
-                setLecture(response.data);
-            });
-        }
-    }, [lectureId]);
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get('/api/users');
+                setUsers(response.data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
 
-    if (!lecture) {
-        return <div>Loading...</div>;
-    }
+        fetchUsers();
+    }, []);
 
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const startIdx = (page - 1) * itemsPerPage;
+    const endIdx = startIdx + itemsPerPage;
     return (
         <>
             <Header />
-            <section className={adminUserDetailStyle.lectureIntroSection}>
-                <div className={adminUserDetailStyle.lectureIntroContent}>
-                    <div className={adminUserDetailStyle.lectureIntroImage}>
-                        <img src={lecture.imageUrl} alt={lecture.title} />
+            <section className={adminCommonStyle.backGroundSection}>
+                <div className={adminCommonStyle.sideNavContainer}>
+                    <AdminSideNavBar />
+                </div>
+                <div className={adminCommonStyle.mainContainer}>
+                    <div className={adminUserDetailStyle.userSearchContainer}>검색창</div>
+                    <div className={adminUserDetailStyle.userContainer}>
+                        <div className={adminUserDetailStyle.userItem}>
+                            <div className={adminUserDetailStyle.userInfo}>
+                                <Grid container spacing={2} >
+                                    <Grid item xs={1} className={adminUserDetailStyle.userInfoTitle}>회원 ID</Grid>
+                                    <Grid item xs={3} className={adminUserDetailStyle.userInfoTitle}>Email</Grid>
+                                    <Grid item xs={2} className={adminUserDetailStyle.userInfoTitle}>사번</Grid>
+                                    <Grid item xs={3} className={adminUserDetailStyle.userInfoTitle}>유저 권한</Grid>
+                                    <Grid item xs={3} className={adminUserDetailStyle.userInfoTitle}>강의 종류</Grid>
+                                </Grid>
+                            </div>
+                            <div className={adminUserDetailStyle.userEditBtnTitle} >정보 조회 / 수정</div>
+                        </div>
+                        {users.slice(startIdx, endIdx).map(user => (
+                            <div key={user.id} className={adminUserDetailStyle.userItem}>
+                                <div className={adminUserDetailStyle.userInfo}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={1}>{user.id}</Grid>
+                                        <Grid item xs={3}>{user.email}</Grid>
+                                        <Grid item xs={2}>{user.employeeId}</Grid>
+                                        <Grid item xs={3}>{user.isAdmin ? '관리자' : '사용자'}</Grid>
+                                        <Grid item xs={3}>{user.lectureId.join(', ')}</Grid>
+                                    </Grid>
+                                </div>
+                                <div className={adminUserDetailStyle.userEditBtn}>
+                                    <Button variant="contained">
+                                        수정
+                                    </Button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                    <div className={adminUserDetailStyle.lectureIntroText}>
-                        <h1>{lecture.title}</h1>
-                        <p>{lecture.description}</p>
+                    <div className={adminUserDetailStyle.paginationContainer}>
+                        <Pagination
+                            count={Math.ceil(users.length / itemsPerPage)}
+                            page={page}
+                            onChange={handleChangePage}
+                        />
                     </div>
                 </div>
-                <div className={adminUserDetailStyle.lectureCourseSection}>
-                    <div className={adminUserDetailStyle.lectureCourseTitleText}>교육과정안내</div>
-                    <div className={adminUserDetailStyle.lectureCourseText} dangerouslySetInnerHTML={{ __html: lecture.courseDescription }} />
-                </div>
-                <div className={adminUserDetailStyle.lectureVideoSection}>
-                    <VideoListItem Videos={lecture.videos} LectureId={lecture.id} />
-                </div>
-            </section>
-            {/* 강의 상세 정보 렌더링 */}
+            </section >
 
             <Footer />
         </>
