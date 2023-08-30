@@ -182,8 +182,8 @@ export default function Header() {
 
     return (
         <>
-            <AppBar position="static">
-                <Toolbar disableGutters>
+            <AppBar position="static" style={{ minWidth: '1760px' }}>
+                <Toolbar disableGutters >
                     <Box sx={{ marginLeft: '20px' }}>
                         <Link href="/">
                             <Image src="/logo_w.svg" alt="LOGO" width={100} height={32} href="/" />

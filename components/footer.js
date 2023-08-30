@@ -8,6 +8,7 @@ export default function Footer() {
     return (
         <footer>
             <Container
+                minWidth={'1760px'}
                 maxWidth={null}
                 sx={{
                     display: 'flex',
