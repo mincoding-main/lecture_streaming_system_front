@@ -12,7 +12,7 @@ export default function AdminSideNavBar() {
     };
 
     const handleLectureManagementClick = () => {
-        router.push('/admin/user-list/#');
+        router.push('/admin/lecture-classification');
     };
 
     const handleCategoryManagementClick = () => {
@@ -36,10 +36,10 @@ export default function AdminSideNavBar() {
                     동영상 강의
                 </div>
                 <div className={adminCommonStyle.sideVideoBtn}>
-                    <Button variant="outlined" onClick={handleCategoryManagementClick}>
+                    <Button variant="outlined" onClick={handleLectureManagementClick}>
                         강의 분류 관리
                     </Button>
-                    <Button variant="outlined" onClick={handleLectureManagementClick}>
+                    <Button variant="outlined" onClick={handleCategoryManagementClick}>
                         강의 관리
                     </Button>
                 </div>
