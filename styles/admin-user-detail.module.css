@@ -8,17 +8,9 @@
 .userSearchInput {
     width: 20rem;
     height: 2.3rem;
+    padding-top: 0.3rem;
 }
 
-.searchCategory {
-    margin-right: 1rem;
-    min-width: 150px;
-}
-
-.userSearchContainer>button {
-    margin-left: 1rem;
-    width: 4rem;
-}
 
 .userContainer {
     width: 100%;
