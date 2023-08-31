@@ -1,0 +1,69 @@
+.lectureVideoSubTitle {
+    width: 100%;
+    height: 8%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.lectureVideoTitle {
+    height: 5%;
+    font-size: 1.8rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+
+.lectureVideoCreateBtn {
+    flex: 0.8;
+    height: 2.4rem;
+    margin-left: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.lectureVideoContainer {
+    width: 100%;
+    height: 82%;
+}
+
+.lectureVideoItem {
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+}
+
+.lectureVideoInfo {
+    flex: 9;
+    margin-right: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+}
+
+.lectureVideoEditBtn {
+    flex: 1;
+    display: flex;
+    justify-content: center
+}
+
+.lectureVideoEditBtn>button {
+    width: 100%;
+    font-size: 0.8rem;
+}
+
+.paginationContainer {
+    height: 5%;
+    display: flex;
+    justify-content: center;
+}

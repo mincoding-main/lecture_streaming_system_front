@@ -16,7 +16,7 @@ export default function AdminSideNavBar() {
     };
 
     const handleCategoryManagementClick = () => {
-        router.push('/admin/user-list/#');
+        router.push('/admin/lecture-management');
     };
 
     return (
@@ -40,7 +40,7 @@ export default function AdminSideNavBar() {
                         강의 분류 관리
                     </Button>
                     <Button variant="outlined" onClick={handleCategoryManagementClick}>
-                        강의 관리
+                        강의 비디오 관리
                     </Button>
                 </div>
             </div>
