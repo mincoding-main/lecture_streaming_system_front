@@ -19,7 +19,7 @@ export default function UserList() {
     const router = useRouter();
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
-    const itemsPerPage = 8;
+    const itemsPerPage = 7;
     const [searchKeyword, setSearchKeyword] = useState('');
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [openUserInfoModal, setOpenUserInfoModal] = useState(false);
@@ -108,6 +108,9 @@ export default function UserList() {
                     <AdminSideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
+                    <div className={adminUserDetailStyle.userUserTitle}>
+                        회원정보
+                    </div>
                     <div className={adminUserDetailStyle.userSearchContainer}>
                         <TextField
                             className={adminUserDetailStyle.userSearchInput}

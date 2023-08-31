@@ -1,8 +1,16 @@
 .userSearchContainer {
     width: 100%;
-    height: 5%;
+    height: 8%;
     display: flex;
     flex-direction: row-reverse;
+}
+
+.userUserTitle {
+    height: 5%;
+    font-size: 1.8rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 .userSearchInput {
@@ -14,7 +22,7 @@
 
 .userContainer {
     width: 100%;
-    height: 90%;
+    height: 82%;
 }
 
 .userItem {
