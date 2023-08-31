@@ -47,7 +47,13 @@ export default function UserList() {
     const handleSearchChange = (event) => {
         const keyword = event.target.value;
         setSearchKeyword(keyword);
-        updateFilteredUsers(keyword);
+        if (keyword) {
+            setPage(1); // 검색 시 페이지를 1페이지로 초기화
+            updateFilteredUsers(keyword);
+        } else {
+            // 검색어가 없을 때는 전체 사용자 목록을 보여줌
+            setFilteredUsers(users);
+        }
     };
 
     // 검색 구현

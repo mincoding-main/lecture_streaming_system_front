@@ -14,7 +14,7 @@
     "id": 2,
     "email": "222",
     "password": "222",
-    "employeeId": "알고싶어3",
+    "employeeId": "알고싶어2",
     "isAdmin": false,
     "lectureId": [
       4,
@@ -89,7 +89,7 @@
     "id": 9,
     "email": "999",
     "password": "999",
-    "employeeId": "gggf999",
+    "employeeId": "gggf999rrrr",
     "isAdmin": false,
     "lectureId": [
       5
