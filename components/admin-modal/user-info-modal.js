@@ -22,7 +22,6 @@ export default function AdminUserInfoModal({ open, onClose, user, onUpdateUser, 
 
     useEffect(() => {
         setUpdatedUser({ ...user, password: '' });
-        setErrorMessage('');
     }, [user])
 
     // 전체 강의 가져오기
@@ -30,7 +29,11 @@ export default function AdminUserInfoModal({ open, onClose, user, onUpdateUser, 
         const fetchLectures = async () => {
             const response = await axios.get('/api/lectures');
             setLectures(response.data);
-            setSelectedLectures(new Set(user.lectureId));
+            if (user && user.lectureId) {
+                setSelectedLectures(new Set(user.lectureId));
+            } else {
+                setSelectedLectures(new Set()); // empty set if user or user.lectureId is null
+            }
         };
         fetchLectures();
     }, [user]);
@@ -64,6 +67,20 @@ export default function AdminUserInfoModal({ open, onClose, user, onUpdateUser, 
     // 전체 데이터 업데이트
     const handleUpdateUser = async () => {
         try {
+
+            // 1. 전체 유저 데이터를 가져옵니다.
+            const allUsers = await axios.get('/api/users');
+            const userList = allUsers.data;
+
+            // 2. 중복 검사
+            const duplicateEmail = userList.some(user => user.id !== updatedUser.id && user.email === updatedUser.email);
+            const duplicateEmployeeId = userList.some(user => user.id !== updatedUser.id && user.employeeId === updatedUser.employeeId);
+
+            if (duplicateEmail || duplicateEmployeeId) {
+                setErrorMessage('중복된 이메일 또는 사번입니다.');
+                return; // 중복이 있으므로 업데이트를 중단합니다.
+            }
+
             const sortedLectures = Array.from(selectedLectures).sort((a, b) => a - b); // 정렬
             let payload = { ...updatedUser, lectureId: sortedLectures };  // 정렬된 배열 사용
 
@@ -78,13 +95,18 @@ export default function AdminUserInfoModal({ open, onClose, user, onUpdateUser, 
             console.log('User updated:', response.data);
             onUpdateUser(updatedUser); // 수정된 사용자 정보 전달
             onUpdateFilteredUsers(updatedUser); // 수정된 사용자 정보 업데이트
-            onClose(); // 모달 닫기
+            handleClose(); // 모달 닫기
         } catch (error) {
             console.error('Error updating user:', error);
             setErrorMessage('사용자 정보 업데이트에 실패했습니다.');
         }
     };
 
+    // 모달이 닫힐 때 실행될 로직 추가
+    const handleClose = () => {
+        setErrorMessage(''); // 에러 메시지 초기화
+        onClose(); // 부모 컴포넌트로부터 전달받은 onClose 함수 호출
+    }
 
     return (
         <Modal open={open} onClose={onClose}>
@@ -148,7 +170,7 @@ export default function AdminUserInfoModal({ open, onClose, user, onUpdateUser, 
 
                 {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                    <Button variant="outlined" color='error' onClick={onClose} sx={{ width: '30%', marginTop: '1rem' }}>
+                    <Button variant="outlined" color='error' onClick={handleClose} sx={{ width: '30%', marginTop: '1rem' }}>
                         취소
                     </Button>
                     <Button variant="contained" color='primary' onClick={handleUpdateUser} sx={{ width: '30%', marginTop: '1rem' }}>

@@ -17,6 +17,8 @@
     "employeeId": "알고싶어2",
     "isAdmin": false,
     "lectureId": [
+      2,
+      3,
       4,
       5
     ]
