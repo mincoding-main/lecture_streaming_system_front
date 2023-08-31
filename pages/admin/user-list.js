@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import AdminUserInfoModal from '@/components/admin-modal/user-info-modal'
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import adminUserDetailStyle from '@/styles/admin-user-detail.module.css';
@@ -21,7 +22,8 @@ export default function UserList() {
     const itemsPerPage = 8;
     const [searchKeyword, setSearchKeyword] = useState('');
     const [filteredUsers, setFilteredUsers] = useState([]);
-
+    const [openUserInfoModal, setOpenUserInfoModal] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -36,16 +38,19 @@ export default function UserList() {
         fetchUsers();
     }, []);
 
+    //page 업데이트
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
+    // 검색입력창 업데이트
     const handleSearchChange = (event) => {
         const keyword = event.target.value;
         setSearchKeyword(keyword);
         updateFilteredUsers(keyword);
     };
 
+    // 검색 구현
     const updateFilteredUsers = (keyword) => {
         const keywordLower = keyword.toLowerCase();
 
@@ -65,10 +70,29 @@ export default function UserList() {
         setFilteredUsers(updatedFilteredUsers);
     };
 
-
+    // page 계산
     const startIdx = (page - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;
     const totalPages = searchKeyword !== '' ? Math.ceil(filteredUsers.length / itemsPerPage) : Math.ceil(users.length / itemsPerPage);
+
+
+
+    // 모달 관련
+    const handleOpenUserInfoModal = (user) => {
+        setSelectedUser(user);
+        setOpenUserInfoModal(true);
+    };
+
+    // 모달 수정 후 모달 바깥 화면에 바로 적용
+    const handleUpdateUser = (updatedUser) => {
+        setUsers(prevUsers => prevUsers.map(user => (user.id === updatedUser.id ? updatedUser : user)));
+    };
+    // 검색 한 상태에서 모달 수정 후 모달 바깥 화면에 바로 적용
+    const handleUpdateFilteredUsers = (updatedUser) => {
+        setFilteredUsers(prevFilteredUsers =>
+            prevFilteredUsers.map(user => (user.id === updatedUser.id ? updatedUser : user))
+        );
+    };
 
     return (
         <>
@@ -114,7 +138,7 @@ export default function UserList() {
                                         </Grid>
                                     </div>
                                     <div className={adminUserDetailStyle.userEditBtn}>
-                                        <Button variant="contained">
+                                        <Button variant="contained" onClick={() => handleOpenUserInfoModal(user)}>
                                             수정
                                         </Button>
                                     </div>
@@ -133,7 +157,7 @@ export default function UserList() {
                                         </Grid>
                                     </div>
                                     <div className={adminUserDetailStyle.userEditBtn}>
-                                        <Button variant="contained">
+                                        <Button variant="contained" onClick={() => handleOpenUserInfoModal(user)}>
                                             수정
                                         </Button>
                                     </div>
@@ -152,6 +176,15 @@ export default function UserList() {
             </section >
 
             <Footer />
+
+            {/* Modal */}
+            <AdminUserInfoModal
+                open={openUserInfoModal}
+                onClose={() => setOpenUserInfoModal(false)}
+                user={selectedUser}
+                onUpdateUser={handleUpdateUser}
+                onUpdateFilteredUsers={handleUpdateFilteredUsers} // 수정된 정보 업데이트 함수 전달
+            />
         </>
     );
 }
