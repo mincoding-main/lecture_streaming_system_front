@@ -19,7 +19,6 @@ export default function Home({ lectureData }) {
       </section>
       <h2 className={utilStyles.sectionTitle}>대표 강의 목록</h2>
       <section className={utilStyles.cardSection}>
-
         <div className={utilStyles.cardList}>
           <LectureListCard lectureData={lectureData} />
         </div>
