@@ -19,26 +19,33 @@ export default function LectureClassification() {
     const [selectedLecture, setSelectedLecture] = useState(null);
 
     useEffect(() => {
-        const fetchLectures = async () => {
+        const fetchLecture = async () => {
             try {
-                const response = await axios.get('/api/lectures');
-                setLectures(response.data);
+                // router.query.id에서 쿼리 파라미터로 들어오는 id를 가져옵니다.
+                const id = router.query.id;
+                if (id) {
+                    const response = await axios.get(`/api/lectures/${id}`);
+                    setLectures([response.data]); // 또는 다른 상태 변수를 사용
+
+
+                }
             } catch (error) {
-                console.error('Error fetching lectures:', error);
+                console.error('Error fetching the lecture:', error);
             }
         };
 
-        fetchLectures();
-    }, []);
+        fetchLecture();
+    }, [router.query.id]);  // router.query.id가 변경될 때마다 이 useEffect가 실행됩니다.
 
 
-    const handleOpenLectureInfoPage = (lecture) => {
-        setSelectedLecture(lecture);
-        router.push('/admin/lecture-management-video-manager?mode=edit');  // 수정 모드로 LectureClassificationManager 페이지로 이동
+
+    const handleOpenLectureInfoPage = (video) => {
+        setSelectedLecture(video);
+        router.push(`/admin/lecture-management-video-manager?id=${router.query.id}&videoId=${video.id}&mode=edit`);  // 수정 모드로 LectureClassificationManager 페이지로 이동
     };
 
     const handleCreate = () => {
-        router.push('/admin/lecture-management-video-manager?mode=add'); // 생성 모드로 LectureClassificationManager 페이지로 이동
+        router.push(`/admin/lecture-management-video-manager?id=${router.query.id}&videoId=${video.id}&mode=add`); // 생성 모드로 LectureClassificationManager 페이지로 이동
     };
 
     //page 업데이트
@@ -50,7 +57,6 @@ export default function LectureClassification() {
     const startIdx = (page - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;
     const totalPages = Math.ceil(lectures.length / itemsPerPage);
-
 
     return (
         <>
@@ -72,18 +78,20 @@ export default function LectureClassification() {
                     </div>
                     <div className={adminLectureClassificaitonStyle.lectureContainer}>
                         {lectures.slice(startIdx, endIdx).map(lecture => (
-                            <div key={lecture.id} className={adminLectureClassificaitonStyle.lectureItem}>
-                                <div className={adminLectureClassificaitonStyle.lectureInfo}>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12}>{lecture.title}</Grid>
-                                    </Grid>
+                            lecture.videos.map(video => (
+                                <div key={video.id} className={adminLectureClassificaitonStyle.lectureItem}>
+                                    <div className={adminLectureClassificaitonStyle.lectureInfo}>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12}>{video.title}</Grid>
+                                        </Grid>
+                                    </div>
+                                    <div className={adminLectureClassificaitonStyle.lectureEditBtn}>
+                                        <Button variant="contained" onClick={() => handleOpenLectureInfoPage(video)}>
+                                            수정
+                                        </Button>
+                                    </div>
                                 </div>
-                                <div className={adminLectureClassificaitonStyle.lectureEditBtn}>
-                                    <Button variant="contained" onClick={() => handleOpenLectureInfoPage(lecture)}>
-                                        수정
-                                    </Button>
-                                </div>
-                            </div>
+                            ))
                         ))}
                     </div>
                     <div className={adminLectureClassificaitonStyle.paginationContainer}>
