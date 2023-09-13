@@ -16,7 +16,6 @@ export default function LectureClassification() {
     const [lectures, setLectures] = useState([]);
     const [page, setPage] = useState(1);
     const itemsPerPage = 8;
-    const [selectedLecture, setSelectedLecture] = useState(null);
 
     useEffect(() => {
         const fetchLectures = async () => {
@@ -33,8 +32,7 @@ export default function LectureClassification() {
 
 
     const handleOpenLectureInfoPage = (lecture) => {
-        setSelectedLecture(lecture);
-        router.push('/admin/lecture-classification-manager?mode=edit');  // 수정 모드로 LectureClassificationManager 페이지로 이동
+        router.push(`/admin/lecture-classification-manager?id=${lecture.id}&mode=edit`);  // 수정 모드로 LectureClassificationManager 페이지로 이동
     };
 
     const handleCreate = () => {

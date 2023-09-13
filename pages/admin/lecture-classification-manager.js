@@ -25,12 +25,29 @@ export default function LectureClassificationManager() {
 
     // 가정: 수정 모드일 때 기존 데이터를 불러옵니다.
     useEffect(() => {
+        const fetchLectureAndVideo = async () => {
+            try {
+                // router.query에서 쿼리 파라미터로 들어오는 id와 videoId를 가져옵니다.
+                const id = router.query.id;
+
+                if (mode === 'edit' && id) {
+                    // mode가 'edit'이고 두 id가 모두 있을 때만 API 요청을 수행합니다.
+                    const response = await axios.get(`/api/admin/lectures/${id}`);
+                    // 상태를 업데이트합니다.
+                    setLectureTitle(response.data.title);
+                    setLectureDescription(response.data.description);
+                    // 또는 다른 상태 변수를 사용할 수 있습니다.
+                }
+            } catch (error) {
+                console.error('Error fetching the lecture:', error);
+            }
+        };
+
+        // mode가 'edit'인 경우에만 API 요청을 수행합니다.
         if (mode === 'edit') {
-            // axios를 사용하여 기존 데이터를 불러와 상태를 설정합니다.
-            // 예: setLectureTitle(response.data.title);
-            // 예: setLectureDescription(response.data.description);
+            fetchLectureAndVideo();
         }
-    }, [mode]);
+    }, [router.query.id, mode]);
 
     const handleCancel = () => {
         router.back();  // 이전 페이지로 이동
