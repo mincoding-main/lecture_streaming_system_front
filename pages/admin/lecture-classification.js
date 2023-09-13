@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import LectureClassificationManager from './lecture-classification-manager';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import adminLectureClassificaitonStyle from '@/styles/admin-lecture-classification.module.css';
@@ -10,7 +9,6 @@ import AdminSideNavBar from '@/components/admin-side-navbar';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 
 
 export default function LectureClassification() {

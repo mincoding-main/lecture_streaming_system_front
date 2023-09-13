@@ -93,5 +93,81 @@
         "url": "/video_url_2.mp4"
       }
     ]
+  },
+  {
+    "id": 6,
+    "title": "JAVA SCRIPT",
+    "description": "강의 설명 6",
+    "imageUrl": "/img_main_sec5.png",
+    "courseDescription": "#",
+    "videos": [
+      {
+        "id": 1,
+        "title": "강의 설명 6 / 비디오 제목 1",
+        "url": "/video_url_1.mp4"
+      },
+      {
+        "id": 2,
+        "title": "강의 설명 6 / 비디오 제목 2",
+        "url": "/video_url_2.mp4"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "HELLO MINCO",
+    "description": "강의 설명 7",
+    "imageUrl": "/img_main_sec7.png",
+    "courseDescription": "#",
+    "videos": [
+      {
+        "id": 1,
+        "title": "강의 설명 7 / 비디오 제목 1",
+        "url": "/video_url_1.mp4"
+      },
+      {
+        "id": 2,
+        "title": "강의 설명 7 / 비디오 제목 2",
+        "url": "/video_url_2.mp4"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "JINSEI",
+    "description": "강의 설명 8",
+    "imageUrl": "/img_main_sec8.png",
+    "courseDescription": "#",
+    "videos": [
+      {
+        "id": 1,
+        "title": "강의 설명 8 / 비디오 제목 1",
+        "url": "/video_url_1.mp4"
+      },
+      {
+        "id": 2,
+        "title": "강의 설명 8 / 비디오 제목 2",
+        "url": "/video_url_2.mp4"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "HOW TO SEARCH",
+    "description": "강의 설명 9",
+    "imageUrl": "/img_main_sec9.png",
+    "courseDescription": "#",
+    "videos": [
+      {
+        "id": 1,
+        "title": "강의 설명 9 / 비디오 제목 1",
+        "url": "/video_url_1.mp4"
+      },
+      {
+        "id": 2,
+        "title": "강의 설명 9 / 비디오 제목 2",
+        "url": "/video_url_2.mp4"
+      }
+    ]
   }
 ]
