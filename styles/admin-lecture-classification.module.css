@@ -29,8 +29,9 @@
 }
 
 .lectureContainer {
-    width: 100%;
+    width: 60%;
     height: 82%;
+    margin: auto;
 }
 
 .lectureItem {
