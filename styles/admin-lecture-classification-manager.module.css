@@ -11,35 +11,39 @@
     height: 85%;
     margin: 0 auto;
     margin-top: 2rem;
-    background-color: #1e90ff0f;
+    background-color: #f7f7f7;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.lectureInsideTitle {
+    font-size: 1.3rem;
+    text-align: center;
+}
 
 .lectureItemContainer {
     width: 100%;
-    height: 8%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    justify-content: space-around;
+
 }
 
 .lectureTextField {
     width: 80%;
-    margin-top: 1.5rem;
+
 }
 
 .lectureFormControlContainer {
     width: 80%;
 }
 
-.lectureFormControl {
-    margin-top: 1.5rem;
-}
 
 .lectureBtnContainer {
+    width: 80%;
+    margin-top: 2rem;
     display: flex;
     justify-content: space-around;
 }

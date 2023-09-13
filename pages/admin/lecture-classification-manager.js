@@ -48,24 +48,23 @@ export default function LectureClassificationManager() {
                         강의 분류
                     </div>
                     <div className={adminLectureClassificaitonManagerStyle.lectureInsideContainer}>
+
                         <div className={adminLectureClassificaitonManagerStyle.lectureItemContainer}>
+                            <div className={adminLectureClassificaitonManagerStyle.lectureInsideTitle}>{mode === 'edit' ? '분류 수정' : '분류 생성'} </div>
                             <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
                             <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의 소개" value={lectureDescription} onChange={e => setLectureDescription(e.target.value)} />
                             <FormControl className={adminLectureClassificaitonManagerStyle.lectureFormControlContainer} component="fieldset" margin="normal">
-                                <div className={adminLectureClassificaitonManagerStyle.lectureFormControl}>
-                                    <FormLabel component="legend">유저 권한</FormLabel>
-                                    <RadioGroup
-                                        name="permissions"
-                                        value={permissions}
-                                        onChange={(e) => setPermissions(e.target.value)}
+                                <FormLabel component="legend">유저 권한</FormLabel>
+                                <RadioGroup
+                                    name="permissions"
+                                    value={permissions}
+                                    onChange={(e) => setPermissions(e.target.value)}
 
-                                    >
-                                        <FormControlLabel value="user" control={<Radio />} label="User" />
-                                        <FormControlLabel value="manager" control={<Radio />} label="Manager" />
-                                        <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-                                    </RadioGroup>
-
-                                </div>
+                                >
+                                    <FormControlLabel value="user" control={<Radio />} label="User" />
+                                    <FormControlLabel value="manager" control={<Radio />} label="Manager" />
+                                    <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+                                </RadioGroup>
                             </FormControl>
                             <div className={adminLectureClassificaitonManagerStyle.lectureBtnContainer}>
                                 <Button variant="outlined" color="error" onClick={handleCancel}>
