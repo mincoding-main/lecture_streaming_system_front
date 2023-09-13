@@ -33,7 +33,7 @@ export default function LectureClassification() {
 
     const handleOpenLectureInfoPage = (lecture) => {
         setSelectedLecture(lecture);
-        router.push('/admin/lecture-classification-manager?mode=edit');  // 수정 모드로 LectureClassificationManager 페이지로 이동
+        router.push('/admin/lecture-management-videos');  // 수정 모드로 LectureClassificationManager 페이지로 이동
     };
 
 
