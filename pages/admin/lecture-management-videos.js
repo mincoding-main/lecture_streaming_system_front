@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import adminLectureClassificaitonStyle from '@/styles/admin-lecture-classification.module.css';
+import adminLectureManagementVideosStyle from '@/styles/admin-lecture-management-videos.module.css';
 import adminCommonStyle from '@/styles/admin-common.module.css';
 import AdminSideNavBar from '@/components/admin-side-navbar';
 import Pagination from '@mui/material/Pagination';
@@ -45,7 +45,27 @@ export default function LectureClassification() {
     };
 
     const handleCreate = () => {
-        router.push(`/admin/lecture-management-video-manager?id=${router.query.id}&videoId=${video.id}&mode=add`); // 생성 모드로 LectureClassificationManager 페이지로 이동
+        router.push(`/admin/lecture-management-video-manager?id=${router.query.id}&mode=add`); // 생성 모드로 LectureClassificationManager 페이지로 이동
+    };
+
+
+    const handleDeleteVideo = async (video) => {
+        try {
+            // DELETE 요청을 보내서 비디오를 삭제합니다.
+            const id = router.query.id;
+            await axios.delete(`/api/admin/lectures/${id}/videos/${video.id}`);
+
+            // 삭제 후에 현재 비디오 목록을 업데이트합니다.
+            const updatedLectures = lectures.map(lecture => {
+                if (lecture.id === Number(id)) {
+                    lecture.videos = lecture.videos.filter(v => v.id !== video.id);
+                }
+                return lecture;
+            });
+            setLectures(updatedLectures);
+        } catch (error) {
+            console.error('Error deleting the video:', error);
+        }
     };
 
     //page 업데이트
@@ -66,35 +86,38 @@ export default function LectureClassification() {
                     <AdminSideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminLectureClassificaitonStyle.lectureCreateTitle}>
+                    <div className={adminLectureManagementVideosStyle.lectureCreateTitle}>
                         강의 비디오 관리
                     </div>
-                    <div className={adminLectureClassificaitonStyle.lectureCreateContainer}>
-                        <Button variant="outlined" className={adminLectureClassificaitonStyle.lectureCreateBtn} onClick={handleCreate}>
+                    <div className={adminLectureManagementVideosStyle.lectureCreateContainer}>
+                        <Button variant="outlined" className={adminLectureManagementVideosStyle.lectureCreateBtn} onClick={handleCreate}>
                             생성
                         </Button>
-                        <div className={adminLectureClassificaitonStyle.lectureCreateEmptyAear}>
+                        <div className={adminLectureManagementVideosStyle.lectureCreateEmptyAear}>
                         </div>
                     </div>
-                    <div className={adminLectureClassificaitonStyle.lectureContainer}>
+                    <div className={adminLectureManagementVideosStyle.lectureContainer}>
                         {lectures.slice(startIdx, endIdx).map(lecture => (
                             lecture.videos.map(video => (
-                                <div key={video.id} className={adminLectureClassificaitonStyle.lectureItem}>
-                                    <div className={adminLectureClassificaitonStyle.lectureInfo}>
+                                <div key={video.id} className={adminLectureManagementVideosStyle.lectureItem}>
+                                    <div className={adminLectureManagementVideosStyle.lectureInfo}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12}>{video.title}</Grid>
                                         </Grid>
                                     </div>
-                                    <div className={adminLectureClassificaitonStyle.lectureEditBtn}>
+                                    <div className={adminLectureManagementVideosStyle.lectureEditBtn}>
                                         <Button variant="contained" onClick={() => handleOpenLectureInfoPage(video)}>
                                             수정
+                                        </Button>
+                                        <Button variant="contained" color='error' onClick={() => handleDeleteVideo(video)}>
+                                            삭제
                                         </Button>
                                     </div>
                                 </div>
                             ))
                         ))}
                     </div>
-                    <div className={adminLectureClassificaitonStyle.paginationContainer}>
+                    <div className={adminLectureManagementVideosStyle.paginationContainer}>
                         <Pagination
                             count={totalPages}
                             page={page}
