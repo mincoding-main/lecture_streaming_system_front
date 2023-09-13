@@ -8,7 +8,6 @@ import adminCommonStyle from '@/styles/admin-common.module.css';
 import AdminSideNavBar from '@/components/admin-side-navbar';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 
 
 export default function LectureClassification() {
@@ -16,8 +15,6 @@ export default function LectureClassification() {
     const [lectures, setLectures] = useState([]);
     const [page, setPage] = useState(1);
     const itemsPerPage = 8;
-    const [searchKeyword, setSearchKeyword] = useState('');
-    const [filteredLectures, setFilteredLectures] = useState([]);
     const [selectedLecture, setSelectedLecture] = useState(null);
 
     useEffect(() => {
@@ -39,9 +36,6 @@ export default function LectureClassification() {
         router.push('/admin/lecture-classification-manager?mode=edit');  // 수정 모드로 LectureClassificationManager 페이지로 이동
     };
 
-    const handleCreate = () => {
-        router.push('/admin/lecture-classification-manager?mode=add'); // 생성 모드로 LectureClassificationManager 페이지로 이동
-    };
 
     //page 업데이트
     const handleChangePage = (event, newPage) => {
@@ -51,7 +45,7 @@ export default function LectureClassification() {
     // page 계산
     const startIdx = (page - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;
-    const totalPages = searchKeyword !== '' ? Math.ceil(filteredLectures.length / itemsPerPage) : Math.ceil(lectures.length / itemsPerPage);
+    const totalPages = Math.ceil(lectures.length / itemsPerPage);
 
 
     return (

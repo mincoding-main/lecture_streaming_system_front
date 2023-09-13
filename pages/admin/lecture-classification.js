@@ -16,8 +16,6 @@ export default function LectureClassification() {
     const [lectures, setLectures] = useState([]);
     const [page, setPage] = useState(1);
     const itemsPerPage = 8;
-    const [searchKeyword, setSearchKeyword] = useState('');
-    const [filteredLectures, setFilteredLectures] = useState([]);
     const [selectedLecture, setSelectedLecture] = useState(null);
 
     useEffect(() => {
@@ -51,7 +49,7 @@ export default function LectureClassification() {
     // page 계산
     const startIdx = (page - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;
-    const totalPages = searchKeyword !== '' ? Math.ceil(filteredLectures.length / itemsPerPage) : Math.ceil(lectures.length / itemsPerPage);
+    const totalPages = Math.ceil(lectures.length / itemsPerPage);
 
 
     return (
