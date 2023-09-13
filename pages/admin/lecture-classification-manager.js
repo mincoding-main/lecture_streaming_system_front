@@ -49,6 +49,35 @@ export default function LectureClassificationManager() {
         }
     }, [router.query.id, mode]);
 
+    const handleSave = async () => {
+        try {
+            const payload = {
+                title: lectureTitle,
+                description: lectureDescription,
+            };
+
+            let response;
+
+            if (mode === 'edit') {
+                // 수정 모드일 경우 PUT 요청을 사용
+                const id = router.query.id;
+                response = await axios.put(`/api/admin/lectures/${id}`, payload);
+            } else {
+                // 생성 모드일 경우 POST 요청을 사용
+                response = await axios.post('/api/admin/lectures', payload);
+            }
+
+            if (response.status === 200 || response.status === 201) {
+                // 성공적으로 처리되었을 경우 다른 페이지로 리다이렉트 또는 알림 표시
+                router.back();
+            } else {
+                console.error('Failed to save the lecture');
+            }
+        } catch (error) {
+            console.error('Error saving the lecture:', error);
+        }
+    };
+
     const handleCancel = () => {
         router.back();  // 이전 페이지로 이동
     };
@@ -88,7 +117,7 @@ export default function LectureClassificationManager() {
                                     취소
                                 </Button>
 
-                                <Button variant="outlined" color="primary">
+                                <Button variant="outlined" color="primary" onClick={handleSave}>
                                     {mode === 'edit' ? '수정' : '생성'}
                                 </Button>
 

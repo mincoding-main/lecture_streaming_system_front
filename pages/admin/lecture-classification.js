@@ -39,6 +39,22 @@ export default function LectureClassification() {
         router.push('/admin/lecture-classification-manager?mode=add'); // 생성 모드로 LectureClassificationManager 페이지로 이동
     };
 
+    const handleDeleteLecture = async (lecture) => {
+        try {
+            const response = await axios.delete(`/api/admin/lectures/${lecture.id}`);
+            if (response.status === 200) {
+                // 성공적으로 삭제되면, 해당 강의를 상태에서도 제거
+                const updatedLectures = lectures.filter(l => l.id !== lecture.id);
+                setLectures(updatedLectures);
+            } else {
+                console.error('Failed to delete the lecture');
+            }
+        } catch (error) {
+            console.error('Error deleting lecture:', error);
+        }
+    };
+
+
     //page 업데이트
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -79,6 +95,9 @@ export default function LectureClassification() {
                                 <div className={adminLectureClassificaitonStyle.lectureEditBtn}>
                                     <Button variant="contained" onClick={() => handleOpenLectureInfoPage(lecture)}>
                                         수정
+                                    </Button>
+                                    <Button variant="contained" color='error' onClick={() => handleDeleteLecture(lecture)}>
+                                        삭제
                                     </Button>
                                 </div>
                             </div>

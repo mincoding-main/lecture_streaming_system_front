@@ -5,10 +5,10 @@ import path from 'path';
 const lecturesFilePath = path.join(process.cwd(), 'fake-data', 'lectures.json');
 
 export default function handler(req, res) {
-    if (req.method === 'GET') {
-        // JSON 파일을 불러와서 파싱
-        const lectureData = JSON.parse(fs.readFileSync(lecturesFilePath, 'utf8'));
+    // JSON 파일을 불러와서 파싱
+    const lectureData = JSON.parse(fs.readFileSync(lecturesFilePath, 'utf8'));
 
+    if (req.method === 'GET') {
         // 요청의 쿼리 파라미터에서 lectureIds를 가져옴
         const data = req.query;
         const lectureIds = data['lectureIds[]'];
@@ -24,6 +24,29 @@ export default function handler(req, res) {
             res.status(200).json(lectureData);
         }
     } else if (req.method === 'POST') {
-        // POST 요청 처리
+        const newLecture = req.body;
+
+        // 새로운 강의의 ID를 생성 (가장 마지막 강의의 ID + 1)
+        const newId = lectureData.length ? Math.max(...lectureData.map(lecture => lecture.id)) + 1 : 1;
+
+
+        // 새로운 강의 객체를 생성
+        const fullNewLecture = {
+            id: newId,
+            ...newLecture,
+            imageUrl: "/test.png",
+            courseDescription: "#",
+            videos: [],
+        };
+
+        // 새로운 강의를 배열에 추가
+        lectureData.push(fullNewLecture);
+
+        // 배열을 다시 JSON 파일로 저장
+        fs.writeFileSync(lecturesFilePath, JSON.stringify(lectureData, null, 4));
+
+        // 클라이언트에게 응답
+        res.status(201).json({ message: 'Lecture created successfully!', fullNewLecture });
+
     }
 }
