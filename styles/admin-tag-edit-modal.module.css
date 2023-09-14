@@ -1,0 +1,33 @@
+.modalContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: auto;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+}
+
+
+.deleteContainer {
+    display: flex;
+}
+
+.deleteContainer>Button {
+    margin: auto 0;
+    margin-top: 2.3rem;
+}
+
+
+
+.updateBtnContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.updateBtnContainer>Button {
+    width: 30%;
+    margin-top: 1rem;
+}

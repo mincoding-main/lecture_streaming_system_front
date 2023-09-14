@@ -19,6 +19,11 @@ export default function AdminSideNavBar() {
         router.push('/admin/lecture-management');
     };
 
+
+    const handleTagListClick = () => {
+        router.push('/admin/tag-list');
+    };
+
     return (
         <div className={adminCommonStyle.sideContainer}>
             <div className={adminCommonStyle.sideUserContainer}>
@@ -41,6 +46,16 @@ export default function AdminSideNavBar() {
                     </Button>
                     <Button variant="outlined" onClick={handleCategoryManagementClick}>
                         강의 비디오 관리
+                    </Button>
+                </div>
+            </div>
+            <div className={adminCommonStyle.sideTagContainer}>
+                <div className={adminCommonStyle.sideTagTitle}>
+                    태그관리
+                </div>
+                <div className={adminCommonStyle.sideTagBtn}>
+                    <Button variant="outlined" onClick={handleTagListClick}>
+                        태그 생성
                     </Button>
                 </div>
             </div>
