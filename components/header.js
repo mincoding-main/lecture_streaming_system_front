@@ -58,7 +58,6 @@ export default function Header() {
             if (foundUser) {
                 sessionStorage.setItem('user', JSON.stringify(foundUser));
                 setLoggedIn(true);
-                console.log(foundUser.isAdmin)
                 if (foundUser.isAdmin) setIsAdmin(true);
                 handleCloseModal();
                 handleCloseUserMenu();
@@ -136,7 +135,6 @@ export default function Header() {
 
             // 응답으로 받은 데이터 확인
             const addedUser = response.data;
-            console.log('새로운 사용자 추가됨:', addedUser);
 
             // 성공적으로 사용자가 추가된 경우에 처리
             setLoggedIn(false);

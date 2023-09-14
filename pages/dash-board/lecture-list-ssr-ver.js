@@ -58,8 +58,6 @@ export default function LectureList({ lectureData, user }) {
 export async function getServerSideProps() {
     try {
         const userId = JSON.parse(sessionStorage.getItem('user'));
-        console.log('===========')
-        console.log(userId);
         const apiUrl = config.apiFrontpoint;
 
         // user API 호출

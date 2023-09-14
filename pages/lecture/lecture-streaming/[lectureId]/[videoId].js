@@ -35,7 +35,6 @@ export default function LectureStreaming() {
 
     const handleSave = () => {
         // 수정된 내용을 저장하는 로직을 여기에 추가
-        console.log("Saved:", editedContent);
         setEditMode(false); // 편집 모드 종료
     };
 

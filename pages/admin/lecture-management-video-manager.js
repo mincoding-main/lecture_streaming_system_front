@@ -54,7 +54,6 @@ export default function LectureClassificationManager() {
                     url: lectureUrl,
                     // 여기에 다른 필드를 추가할 수 있습니다.
                 });
-                console.log('Successfully updated:', response.data);
             } else {
                 // 생성 모드인 경우 POST 요청을 보냅니다.
                 const response = await axios.post(`/api/admin/lectures/${id}/videos`, {
@@ -62,7 +61,6 @@ export default function LectureClassificationManager() {
                     url: lectureUrl,
                     // 여기에 다른 필드를 추가할 수 있습니다.
                 });
-                console.log('Successfully created:', response.data);
             }
             router.back(); // 성공적으로 작업을 완료한 후 이전 페이지로 이동
         } catch (error) {

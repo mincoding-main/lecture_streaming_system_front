@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import AdminUserItem from '@/components/admin-user-item'
 import AdminUserInfoModal from '@/components/admin-modal/user-info-modal'
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -100,6 +101,22 @@ export default function UserList() {
         );
     };
 
+    // 유저 삭제
+    const handleDeleteUser = (deletedUserId) => {
+        setUsers(prevUsers => prevUsers.filter(user => user.id !== deletedUserId));
+        setFilteredUsers(prevFilteredUsers => prevFilteredUsers.filter(user => user.id !== deletedUserId));
+
+        // 총 페이지 수 다시 계산
+        const newTotalPages = searchKeyword !== '' ?
+            Math.ceil((filteredUsers.length - 1) / itemsPerPage) :
+            Math.ceil((users.length - 1) / itemsPerPage);
+
+        // 현재 페이지가 총 페이지 수보다 크다면 페이지 수 감소
+        if (page > newTotalPages) {
+            setPage(newTotalPages); // 현재 페이지를 총 페이지 수로 설정
+        }
+    };
+
     return (
         <>
             <Header />
@@ -134,45 +151,11 @@ export default function UserList() {
                             </div>
                             <div className={adminUserDetailStyle.userEditBtnTitle} >정보 조회 / 수정</div>
                         </div>
-                        {(searchKeyword !== '') ? (
-                            filteredUsers.slice(startIdx, endIdx).map(user => (
-                                <div key={user.id} className={adminUserDetailStyle.userItem}>
-                                    <div className={adminUserDetailStyle.userInfo}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={1}>{user.id}</Grid>
-                                            <Grid item xs={3}>{user.email}</Grid>
-                                            <Grid item xs={2}>{user.employeeId}</Grid>
-                                            <Grid item xs={3}>{user.isAdmin ? '관리자' : '사용자'}</Grid>
-                                            <Grid item xs={3}>{user.lectureId.join(', ')}</Grid>
-                                        </Grid>
-                                    </div>
-                                    <div className={adminUserDetailStyle.userEditBtn}>
-                                        <Button variant="contained" onClick={() => handleOpenUserInfoModal(user)}>
-                                            수정
-                                        </Button>
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-                            users.slice(startIdx, endIdx).map(user => (
-                                <div key={user.id} className={adminUserDetailStyle.userItem}>
-                                    <div className={adminUserDetailStyle.userInfo}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={1}>{user.id}</Grid>
-                                            <Grid item xs={3}>{user.email}</Grid>
-                                            <Grid item xs={2}>{user.employeeId}</Grid>
-                                            <Grid item xs={3}>{user.isAdmin ? '관리자' : '사용자'}</Grid>
-                                            <Grid item xs={3}>{user.lectureId.join(', ')}</Grid>
-                                        </Grid>
-                                    </div>
-                                    <div className={adminUserDetailStyle.userEditBtn}>
-                                        <Button variant="contained" onClick={() => handleOpenUserInfoModal(user)}>
-                                            수정
-                                        </Button>
-                                    </div>
-                                </div>
-                            ))
-                        )}
+                        {(searchKeyword !== '' ? filteredUsers : users)
+                            .slice(startIdx, endIdx)
+                            .map(user => (
+                                <AdminUserItem key={user.id} user={user} handleOpen={handleOpenUserInfoModal} />
+                            ))}
                     </div>
                     <div className={adminUserDetailStyle.paginationContainer}>
                         <Pagination
@@ -193,6 +176,7 @@ export default function UserList() {
                 user={selectedUser}
                 onUpdateUser={handleUpdateUser}
                 onUpdateFilteredUsers={handleUpdateFilteredUsers} // 수정된 정보 업데이트 함수 전달
+                onDeleteUser={handleDeleteUser}
             />
         </>
     );
