@@ -37,7 +37,7 @@ export default function AdminSideNavBar() {
                 </div>
                 <div className={adminCommonStyle.sideVideoBtn}>
                     <Button variant="outlined" onClick={handleLectureManagementClick}>
-                        강의 분류 관리
+                        강의 관리
                     </Button>
                     <Button variant="outlined" onClick={handleCategoryManagementClick}>
                         강의 비디오 관리

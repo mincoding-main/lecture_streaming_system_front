@@ -75,7 +75,7 @@ export default function LectureClassification() {
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
                     <div className={adminLectureClassificaitonStyle.lectureCreateTitle}>
-                        강의 분류 관리
+                        강의 관리
                     </div>
                     <div className={adminLectureClassificaitonStyle.lectureCreateContainer}>
                         <Button variant="outlined" className={adminLectureClassificaitonStyle.lectureCreateBtn} onClick={handleCreate}>
