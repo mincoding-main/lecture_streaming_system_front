@@ -143,7 +143,7 @@ export default function AdminUserInfoModal({ open, onClose, user, onUpdateUser, 
         setErrorMessage(''); // 에러 메시지 초기화
         onClose(); // 부모 컴포넌트로부터 전달받은 onClose 함수 호출
     }
-    console.log(user);
+
     return (
         <Modal open={open} onClose={onClose}>
             <div className={adminUserEditModalStyle.modalContainer}>
