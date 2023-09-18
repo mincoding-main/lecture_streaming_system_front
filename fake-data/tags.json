@@ -1,42 +1,42 @@
 [
     {
         "id": 1,
-        "subject": "avv"
+        "name": "avv"
     },
     {
         "id": 2,
-        "subject": "bbb"
+        "name": "bbb"
     },
     {
         "id": 3,
-        "subject": "ccc"
+        "name": "ccc"
     },
     {
         "id": 4,
-        "subject": "ddd"
+        "name": "ddd"
     },
     {
         "id": 5,
-        "subject": "eee"
+        "name": "eee"
     },
     {
         "id": 6,
-        "subject": "fff"
+        "name": "fff"
     },
     {
         "id": 7,
-        "subject": "ggg"
+        "name": "ggg"
     },
     {
         "id": 8,
-        "subject": "hhh44"
+        "name": "hhh44"
     },
     {
         "id": 9,
-        "subject": "12444"
+        "name": "12444"
     },
     {
         "id": 10,
-        "subject": "ㅈ35"
+        "name": "ㅈ35"
     }
 ]

@@ -18,12 +18,12 @@ export default function handler(req, res) {
         }
     } else if (req.method === 'PUT') {
         const { id } = req.query;
-        const { subject } = req.body;
+        const { name } = req.body;
         const tagData = JSON.parse(fs.readFileSync(tagsFilePath, 'utf8'));
         const tagIndex = tagData.findIndex((tag) => tag.id === Number(id));
 
         if (tagIndex !== -1) {
-            tagData[tagIndex].subject = subject;
+            tagData[tagIndex].name = name;
 
             fs.writeFileSync(tagsFilePath, JSON.stringify(tagData, null, 4), 'utf8');
             res.status(200).json({ message: 'tag profile updated successfully' });

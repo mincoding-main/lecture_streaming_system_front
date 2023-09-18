@@ -14,14 +14,14 @@ export default function handler(req, res) {
     } else if (req.method === 'POST') {
         try {
             // POST 요청의 경우 새로운 사용자 데이터를 받아옴
-            const { subject } = req.body;
+            const { name } = req.body;
             // 기존 사용자 데이터를 불러와서 파싱
             const tagData = JSON.parse(fs.readFileSync(tagsFilePath, 'utf8'));
 
             // 새로운 사용자 객체 생성
             const newtag = {
                 id: tagData.length + 1,
-                subject: subject
+                name: name
             };
 
             // 새로운 사용자 정보를 기존 사용자 데이터에 추가
