@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import adminLectureClassificaitonManagerStyle from '@/styles/admin-lecture-classification-manager.module.css';
-import adminCommonStyle from '@/styles/admin-common.module.css';
 import AdminSideNavBar from '@/components/admin-side-navbar';
+import AdminTagSearchModal from '@/components/admin-modal/tag-search-modal';
+import axios from 'axios';
+
+import adminCommonStyle from '@/styles/admin-common.module.css';
+import adminLectureClassificaitonManagerStyle from '@/styles/admin-lecture-classification-manager.module.css';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
@@ -13,15 +16,21 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Chip from '@mui/material/Chip';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 export default function LectureClassificationManager() {
     const router = useRouter();
     const { mode } = router.query;
-
-
     const [lectureTitle, setLectureTitle] = useState(mode === 'edit' ? '기존 강의명' : '');
     const [lectureDescription, setLectureDescription] = useState(mode === 'edit' ? '기존 강의 소개' : '');
     const [permissions, setPermissions] = useState('user');
+    const [tags, setTags] = useState([]);
+    // 모달을 위한 상태 변수를 추가합니다.
+    const [tagSearchModalOpen, setTagSearchModalOpen] = useState(false);
+
+
 
     // 가정: 수정 모드일 때 기존 데이터를 불러옵니다.
     useEffect(() => {
@@ -54,6 +63,8 @@ export default function LectureClassificationManager() {
             const payload = {
                 title: lectureTitle,
                 description: lectureDescription,
+                tags: tags,
+                permissions: permissions
             };
 
             let response;
@@ -82,6 +93,31 @@ export default function LectureClassificationManager() {
         router.back();  // 이전 페이지로 이동
     };
 
+    const addTag = (newTag) => {
+        if (Array.isArray(newTag)) {
+            setTags([...tags, ...newTag]);
+        } else {
+            setTags([...tags, newTag]);
+        }
+    };
+
+    const removeTag = (index) => {
+        const newTags = tags.filter((_, i) => i !== index);
+        setTags(newTags);
+    };
+
+
+    const showAddTagModal = () => {
+        // 모달을 열기 위해 상태를 변경합니다.
+        setTagSearchModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        // 모달을 닫기 위해 상태를 변경합니다.
+        setTagSearchModalOpen(false);
+    };
+
+    console.log(tags);
     return (
         <>
             <Header />
@@ -91,14 +127,32 @@ export default function LectureClassificationManager() {
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
                     <div className={adminLectureClassificaitonManagerStyle.lectureCreateTitle}>
-                        강의 분류
+                        강의 관리
                     </div>
                     <div className={adminLectureClassificaitonManagerStyle.lectureInsideContainer}>
 
                         <div className={adminLectureClassificaitonManagerStyle.lectureItemContainer}>
-                            <div className={adminLectureClassificaitonManagerStyle.lectureInsideTitle}>{mode === 'edit' ? '분류 수정' : '분류 생성'} </div>
+                            <div className={adminLectureClassificaitonManagerStyle.lectureInsideTitle}>{mode === 'edit' ? '강의 수정' : '강의 생성'} </div>
                             <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
                             <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의 소개" value={lectureDescription} onChange={e => setLectureDescription(e.target.value)} />
+                            <div className={adminLectureClassificaitonManagerStyle.tagContainer}>
+                                <Button variant="outlined" color="primary" onClick={showAddTagModal}>
+                                    태그 추가
+                                </Button>
+                                <div className={adminLectureClassificaitonManagerStyle.selectedTagItems}>
+                                    {tags.map((tag, index) => (
+                                        <Chip className={adminLectureClassificaitonManagerStyle.selectedTagItem}
+                                            key={tag.id}
+                                            label={tag.subject}
+                                            onDelete={() => removeTag(index)}
+                                            deleteIcon={<CloseIcon />}
+                                            variant="outlined"
+                                            onMouseEnter={(e) => e.target.style.color = 'darkerColorHere'}
+                                            onMouseLeave={(e) => e.target.style.color = 'normalColorHere'}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
                             <FormControl className={adminLectureClassificaitonManagerStyle.lectureFormControlContainer} component="fieldset" margin="normal">
                                 <FormLabel component="legend">유저 권한</FormLabel>
                                 <RadioGroup
@@ -120,15 +174,18 @@ export default function LectureClassificationManager() {
                                 <Button variant="outlined" color="primary" onClick={handleSave}>
                                     {mode === 'edit' ? '수정' : '생성'}
                                 </Button>
-
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </section >
             <Footer />
+            <AdminTagSearchModal
+                open={tagSearchModalOpen}
+                onClose={handleModalClose}
+                // 모달에서 태그를 선택하면 addTag 함수를 호출합니다.
+                onTagSelected={addTag}
+            />
         </>
     );
 }

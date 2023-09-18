@@ -17,7 +17,17 @@
                 "url": "/video_url_444.mp4"
             }
         ],
-        "permissions": "user"
+        "permissions": "user",
+        "tags": [
+            {
+                "id": 1,
+                "subject": "avv"
+            },
+            {
+                "id": 2,
+                "subject": "bbb"
+            }
+        ]
     },
     {
         "id": 2,
@@ -147,5 +157,24 @@
                 "url": "ㅅㄷㄴㅅ"
             }
         ]
+    },
+    {
+        "id": 9,
+        "title": "test",
+        "description": "test",
+        "tags": [
+            {
+                "id": 2,
+                "subject": "bbb"
+            },
+            {
+                "id": 4,
+                "subject": "ddd"
+            }
+        ],
+        "permissions": "admin",
+        "imageUrl": "/test.png",
+        "courseDescription": "#",
+        "videos": []
     }
 ]

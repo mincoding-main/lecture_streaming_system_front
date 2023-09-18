@@ -25,6 +25,7 @@ export default function handler(req, res) {
         }
     } else if (req.method === 'POST') {
         const newLecture = req.body;
+        console.log(req.body)
 
         // 새로운 강의의 ID를 생성 (가장 마지막 강의의 ID + 1)
         const newId = lectureData.length ? Math.max(...lectureData.map(lecture => lecture.id)) + 1 : 1;

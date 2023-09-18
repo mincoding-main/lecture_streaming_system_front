@@ -36,6 +36,19 @@
 
 }
 
+
+.tagContainer {
+    width: 80%;
+}
+
+.selectedTagItem {
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+
+
+
 .lectureFormControlContainer {
     width: 80%;
 }
