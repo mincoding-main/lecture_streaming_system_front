@@ -45,6 +45,8 @@ export default function LectureClassificationManager() {
                     // 상태를 업데이트합니다.
                     setLectureTitle(response.data.title);
                     setLectureDescription(response.data.description);
+                    setTags(response.data.tags);
+                    setPermissions(response.data.permissions);
                     // 또는 다른 상태 변수를 사용할 수 있습니다.
                 }
             } catch (error) {
