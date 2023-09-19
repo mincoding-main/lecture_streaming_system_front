@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function AdminTagSearchModal({ open, onClose, onTagSelected }) {
+export default function AdminTagSearchModal({ open, onClose, onTagSelected, existingTags }) {
     const [tags, setTags] = useState([]);
     const [filteredTags, setFilteredTags] = useState([]); // 필터링된 태그를 보관
     const [searchKeyword, setSearchKeyword] = useState(''); // 검색 키워드를 보관
@@ -60,7 +60,9 @@ export default function AdminTagSearchModal({ open, onClose, onTagSelected }) {
     };
 
     const handleOpen = (tag) => {
-        if (!selectedTags.some(selectedTag => selectedTag.id === tag.id)) {
+        // 이미 추가된 태그인지 확인
+        if (!existingTags.some(existingTag => existingTag.id === tag.id) &&
+            !selectedTags.some(selectedTag => selectedTag.id === tag.id)) {
             setSelectedTags([...selectedTags, tag]);
         }
     };
@@ -130,7 +132,7 @@ export default function AdminTagSearchModal({ open, onClose, onTagSelected }) {
                     </div>
                     {(searchKeyword !== '' ? filteredTags : tags)
                         .slice(startIdx, endIdx).map(tag => (
-                            <AdminTagItemModal key={tag.id} tag={tag} handleOpen={handleOpen} />
+                            <AdminTagItemModal key={tag.id} tag={tag} handleOpen={handleOpen} existingTags={existingTags} />
                         ))}
                 </div>
 

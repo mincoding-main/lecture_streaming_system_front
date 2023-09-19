@@ -18,16 +18,7 @@
             }
         ],
         "permissions": "user",
-        "tags": [
-            {
-                "id": 1,
-                "name": "avv"
-            },
-            {
-                "id": 4,
-                "name": "ddd"
-            }
-        ]
+        "tags": []
     },
     {
         "id": 2,

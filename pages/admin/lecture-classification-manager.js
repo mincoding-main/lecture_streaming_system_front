@@ -187,6 +187,7 @@ export default function LectureClassificationManager() {
                 onClose={handleModalClose}
                 // 모달에서 태그를 선택하면 addTag 함수를 호출합니다.
                 onTagSelected={addTag}
+                existingTags={tags}
             />
         </>
     );
