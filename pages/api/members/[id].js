@@ -22,30 +22,36 @@ export default function handler(req, res) {
             res.status(404).json({ message: 'member not found' });
         }
     } else if (req.method === 'PUT') {
-        // 동적 라우팅에서 전달된 아이디 값을 가져옴
         const { id } = req.query;
-
-        // 요청 바디에서 업데이트할 데이터 추출
-        const { employeeId, password } = req.body;
-
-        // JSON 파일을 불러와서 파싱
+        const { employeeId, password, isAdmin, lectureId, isDeleted } = req.body;
         const memberData = JSON.parse(fs.readFileSync(membersFilePath, 'utf8'));
-
-        // 해당 아이디를 가진 사용자 정보를 찾음
         const memberIndex = memberData.findIndex((member) => member.id === Number(id));
 
         if (memberIndex !== -1) {
-            // 사용자 정보 업데이트
-            memberData[memberIndex].employeeId = employeeId;
-            memberData[memberIndex].password = password;
+            if (employeeId !== undefined && employeeId !== null) {
+                memberData[memberIndex].employeeId = employeeId;
+            }
 
-            // 업데이트된 사용자 정보를 파일에 저장
+            if (isAdmin !== undefined && isAdmin !== null) {
+                memberData[memberIndex].isAdmin = isAdmin;
+            }
+
+            if (isDeleted !== undefined && isDeleted !== null) {
+                memberData[memberIndex].isDeleted = isDeleted;
+            }
+
+            if (Array.isArray(lectureId)) {
+                memberData[memberIndex].lectureId = lectureId;
+            }
+
+            if (password !== undefined && password !== null && password.trim() !== '') {
+                memberData[memberIndex].password = password;
+            }
+
             fs.writeFileSync(membersFilePath, JSON.stringify(memberData, null, 4), 'utf8');
-
-            res.status(200).json({ message: 'member profile updated successfully' });
+            res.status(200).json({ message: 'Member profile updated successfully' });
         } else {
-            // 사용자 정보가 없으면 에러 메시지를 클라이언트로 전송
-            res.status(404).json({ message: 'member not found' });
+            res.status(404).json({ message: 'Member not found' });
         }
     } else {
         // 지원하지 않는 메서드일 경우 에러 메시지를 클라이언트로 전송

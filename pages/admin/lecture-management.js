@@ -37,7 +37,7 @@ export default function LectureClassificationManager() {
                 const id = router.query.id;
 
                 if (mode === 'edit' && id) {
-                    const response = await axios.get(`/api/admin/lectures/${id}`);
+                    const response = await axios.get(`/api/lectures/${id}`);
                     setLectureTitle(response.data.title);
                     setLectureDescription(response.data.description);
                     setTags(response.data.tags);
@@ -64,9 +64,9 @@ export default function LectureClassificationManager() {
             let response;
             if (mode === 'edit') {
                 const id = router.query.id;
-                response = await axios.put(`/api/admin/lectures/${id}`, payload);
+                response = await axios.put(`/api/lectures/${id}`, payload);
             } else {
-                response = await axios.post('/api/admin/lectures', payload);
+                response = await axios.post('/api/lectures', payload);
             }
 
             if (response.status === 200 || response.status === 201) {

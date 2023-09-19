@@ -68,7 +68,7 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
 
         if (confirmDelete) {
             try {
-                await axios.delete(`/api/admin/members/${updatedMember.id}`);
+                await axios.delete(`/api/members/${updatedMember.id}`);
                 onUpdateMember(prevMembers => prevMembers.filter(member => member.id !== updatedMember.id));
                 onUpdateFilteredMember(prevFilteredMembers => prevFilteredMembers.filter(member => member.id !== updatedMember.id));
                 onDeleteMember(member.id);
@@ -121,7 +121,7 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
                 payload = { ...rest, lectureId: sortedLectures };  // 정렬된 배열 사용
             }
 
-            const response = await axios.put(`/api/admin/members/${updatedMember.id}`, payload);
+            const response = await axios.put(`/api/members/${updatedMember.id}`, payload);
             console.log('Member updated:', response.data);
             onUpdateMember(updatedMember); // 수정된 사용자 정보 전달
             onUpdateFilteredMember(updatedMember); // 수정된 사용자 정보 업데이트

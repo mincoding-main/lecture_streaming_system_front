@@ -41,7 +41,7 @@ export default function LectureView() {
 
     const handleDeleteLecture = async (lecture) => {
         try {
-            const response = await axios.delete(`/api/admin/lectures/${lecture.id}`);
+            const response = await axios.delete(`/api/lectures/${lecture.id}`);
             if (response.status === 200) {
                 const updatedLectures = lectures.filter(l => l.id !== lecture.id);
                 setLectures(updatedLectures);

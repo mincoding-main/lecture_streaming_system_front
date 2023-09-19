@@ -22,7 +22,7 @@ export default function LectureVideoManagement() {
         const fetchLectureAndVideo = async () => {
             try {
                 if (mode === 'edit' && id && videoId) {
-                    const response = await axios.get(`/api/admin/lectures/${id}/videos/${videoId}`);
+                    const response = await axios.get(`/api/lectures/${id}/videos/${videoId}`);
                     setLectureTitle(response.data.title);
                     setLectureUrl(response.data.url);
                 }
@@ -39,13 +39,13 @@ export default function LectureVideoManagement() {
     const handleSave = async () => {
         try {
             if (mode === 'edit') {
-                const response = await axios.patch(`/api/admin/lectures/${id}/videos/${videoId}`, {
+                const response = await axios.patch(`/api/lectures/${id}/videos/${videoId}`, {
                     title: lectureTitle,
                     url: lectureUrl,
                 });
             } else {
 
-                const response = await axios.post(`/api/admin/lectures/${id}/videos`, {
+                const response = await axios.post(`/api/lectures/${id}/videos`, {
                     title: lectureTitle,
                     url: lectureUrl,
                 });

@@ -47,7 +47,7 @@ export default function LectureVideoView() {
     const handleDeleteVideo = async (video) => {
         try {
             const id = router.query.id;
-            await axios.delete(`/api/admin/lectures/${id}/videos/${video.id}`);
+            await axios.delete(`/api/lectures/${id}/videos/${video.id}`);
 
             const updatedLectures = lectures.map(lecture => {
                 if (lecture.id === Number(id)) {

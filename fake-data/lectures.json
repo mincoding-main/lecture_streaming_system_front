@@ -8,7 +8,7 @@
         "videos": [
             {
                 "id": 1,
-                "title": "강의 설명 1 / 비디오 제목 1111",
+                "title": "강의 설명 1 / 비디오 제목 11111",
                 "url": "/video_url_1.mp4"
             },
             {
@@ -151,7 +151,7 @@
     },
     {
         "id": 9,
-        "title": "test",
+        "title": "test11",
         "description": "test",
         "tags": [
             {
@@ -161,9 +161,13 @@
             {
                 "id": 4,
                 "name": "ddd"
+            },
+            {
+                "id": 1,
+                "name": "avv"
             }
         ],
-        "permissions": "admin",
+        "permissions": "user",
         "imageUrl": "/test.png",
         "courseDescription": "#",
         "videos": []

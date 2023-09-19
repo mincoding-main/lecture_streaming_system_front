@@ -26,13 +26,14 @@ export default function handler(req, res) {
                 employeeId,
                 isAdmin: true,
                 lectureID: [],
+                isDeleted: 0
             };
 
             // 새로운 사용자 정보를 기존 사용자 데이터에 추가
             memberData.push(newMember);
 
             // 수정된 사용자 데이터를 다시 JSON 형태로 변환
-            const updatedMemberData = JSON.stringify(memberData, null, 4);
+            const updatedMemberData = JSON.stringify(memberData, null, 2);
 
             // 사용자 데이터를 파일에 쓰기
             fs.writeFileSync(membersFilePath, updatedMemberData);
