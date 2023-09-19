@@ -6,7 +6,7 @@ import adminCommonStyle from '@/styles/admin/common.module.css'
 export default function SideNavBar() {
     const router = useRouter();
 
-    const handleUserListClick = () => {
+    const handleMemberListClick = () => {
         router.push('/admin/member-list');
     };
 
@@ -25,12 +25,12 @@ export default function SideNavBar() {
 
     return (
         <div className={adminCommonStyle.sideContainer}>
-            <div className={adminCommonStyle.sideUserContainer}>
-                <div className={adminCommonStyle.sideUserTitle}>
+            <div className={adminCommonStyle.sideMemberContainer}>
+                <div className={adminCommonStyle.sidMemberTitle}>
                     회원관리
                 </div>
-                <div className={adminCommonStyle.sideUserBtn}>
-                    <Button variant="outlined" onClick={handleUserListClick}>
+                <div className={adminCommonStyle.sideMemberBtn}>
+                    <Button variant="outlined" onClick={handleMemberListClick}>
                         회원정보
                     </Button>
                 </div>
