@@ -145,7 +145,7 @@ export default function LectureClassificationManager() {
                                     {tags.map((tag, index) => (
                                         <Chip className={adminLectureClassificaitonManagerStyle.selectedTagItem}
                                             key={tag.id}
-                                            label={tag.subject}
+                                            label={tag.name}
                                             onDelete={() => removeTag(index)}
                                             deleteIcon={<CloseIcon />}
                                             variant="outlined"

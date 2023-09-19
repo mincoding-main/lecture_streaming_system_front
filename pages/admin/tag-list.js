@@ -12,9 +12,6 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-
-
-
 export default function TagList() {
     const [tags, setTags] = useState([]);
     const [page, setPage] = useState(1);
@@ -27,7 +24,7 @@ export default function TagList() {
     useEffect(() => {
         const fetchTags = async () => {
             try {
-                const response = await axios.get('/api/admin/tags');
+                const response = await axios.get('/api/tags');
                 setTags(response.data);
             } catch (error) {
                 console.error('Error fetching tags:', error);
@@ -60,7 +57,7 @@ export default function TagList() {
         const keywordLower = keyword.toLowerCase();
 
         const updatedFilteredTags = tags.filter(tag => {
-            const fields = ['subject'];
+            const fields = ['name'];
             return fields.some(field => {
                 const fieldValue = tag[field]?.toString().toLowerCase();
                 return fieldValue?.includes(keywordLower);
@@ -83,18 +80,24 @@ export default function TagList() {
         setOpenTagInfoModal(true);
     };
 
-    // 모달 수정 후 모달 바깥 화면에 바로 적용
-    const handleUpdateTag = (updatedTag) => {
-        setTags(prevTags => prevTags.map(tag => (tag.id === updatedTag.id ? updatedTag : tag)));
-    };
-    // 검색 한 상태에서 모달 수정 후 모달 바깥 화면에 바로 적용
-    const handleUpdateFilteredTags = (updatedTag) => {
-        setFilteredTags(prevFilteredTags =>
-            prevFilteredTags.map(tag => (tag.id === updatedTag.id ? updatedTag : tag))
-        );
+    const handleCreateTag = (newTag) => {
+        setTags(prevTags => [...prevTags, newTag]);
     };
 
-    // 유저 삭제
+    const handleUpdateTag = (updatedTag) => {
+        // 기존 태그만 업데이트
+        setTags(prevTags => {
+            return prevTags.map(tag => (tag.id === updatedTag.id ? updatedTag : tag));
+        });
+
+        setFilteredTags(prevFilteredTags => {
+            return prevFilteredTags.map(tag => (tag.id === updatedTag.id ? updatedTag : tag));
+        });
+    };
+
+
+
+    // 태그 삭제
     const handleDeleteTag = (deletedTagId) => {
         setTags(prevTags => prevTags.filter(tag => tag.id !== deletedTagId));
         setFilteredTags(prevFilteredTags => prevFilteredTags.filter(tag => tag.id !== deletedTagId));
@@ -116,7 +119,6 @@ export default function TagList() {
         setOpenTagInfoModal(true);
     };
 
-    console.log(tags)
     return (
         <>
             <Header />
@@ -181,9 +183,9 @@ export default function TagList() {
                 onClose={() => setOpenTagInfoModal(false)}
                 tag={selectedTag}
                 onUpdateTag={handleUpdateTag}
-                onUpdateFilteredTags={handleUpdateFilteredTags}
                 onDeleteTag={handleDeleteTag}
                 mode={selectedTag ? 'edit' : 'create'} // 선택된 태그가 있으면 'edit', 없으면 'create'
+                onAddTag={handleCreateTag}
             />
         </>
     );

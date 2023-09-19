@@ -11,7 +11,7 @@ export default function AdminTagItem({ tag, handleOpen }) {
             <div className={adminTagDetailStyle.tagInfo}>
                 <Grid container spacing={2}>
                     <Grid item xs={2}>{tag.id}</Grid>
-                    <Grid item xs={10}>{tag.subject}</Grid>
+                    <Grid item xs={10}>{tag.name}</Grid>
                 </Grid>
             </div>
             <div className={adminTagDetailStyle.tagEditBtn}>

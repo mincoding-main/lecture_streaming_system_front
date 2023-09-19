@@ -21,7 +21,7 @@ export default function AdminTagSearchModal({ open, onClose, onTagSelected }) {
     // 1. 모든 태그를 가져옴
     useEffect(() => {
         const fetchTags = async () => {
-            const response = await axios.get('/api/admin/tags');
+            const response = await axios.get('/api/tags');
             setTags(response.data);
             setTags(response.data);
             setFilteredTags(response.data);
@@ -34,7 +34,7 @@ export default function AdminTagSearchModal({ open, onClose, onTagSelected }) {
     const updateFilteredTags = (keyword) => {
         const keywordLower = keyword.toLowerCase();
         const updatedFilteredTags = tags.filter(tag => {
-            const fields = ['subject']; // 이 부분은 필터링할 필드에 따라 달라질 수 있습니다.
+            const fields = ['name']; // 이 부분은 필터링할 필드에 따라 달라질 수 있습니다.
             return fields.some(field => {
                 const fieldValue = tag[field]?.toString().toLowerCase();
                 return fieldValue?.includes(keywordLower);
@@ -107,7 +107,7 @@ export default function AdminTagSearchModal({ open, onClose, onTagSelected }) {
                         {selectedTags.map((tag) => (
                             <Chip className={AdminTagSearchStyle.selectedTagItem}
                                 key={tag.id}
-                                label={tag.subject}
+                                label={tag.name}
                                 onDelete={() => handleDeleteTag(tag)}
                                 deleteIcon={<CloseIcon />}
                                 variant="outlined"

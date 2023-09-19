@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
 import adminTagEditModalStyle from '@/styles/admin-tag-edit-modal.module.css'
 
 
-export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onUpdateFilteredTags, onDeleteTag, mode = 'edit' }) {
+export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onDeleteTag, mode = 'edit', onAddTag }) {
     const [updatedTag, setUpdatedTag] = useState({ ...tag });
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -21,14 +19,25 @@ export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onU
 
     const handleCreateTag = async () => {
         try {
-            // 태그 생성 로직
-            const response = await axios.post('/api/admin/tags', updatedTag);
-            const newTag = response.data;  // 이 부분 추가
-            console.log('Tag created:', newTag);
+            // 1. 전체 태그 데이터를 가져옵니다.
+            const allTags = await axios.get('/api/tags');
+            const tagList = allTags.data;
 
-            // 상위 컴포넌트의 태그 목록 상태 업데이트
-            onUpdateTag(prevTags => [...prevTags, newTag]);
-            onUpdateFilteredTags(prevFilteredTags => [...prevFilteredTags, newTag]);
+            // 2. 중복 검사
+            const duplicateSubject = tagList.some(tag => tag.name === updatedTag.name);
+
+            if (duplicateSubject) {
+                setErrorMessage('중복된 태그입니다.');
+                return; // 중복이 있으므로 생성을 중단합니다.
+            }
+
+            // 3. 태그 생성 로직
+            const response = await axios.post('/api/tags', updatedTag);
+            const newTag = response.data;
+
+            onAddTag(newTag);
+            // 4. 상위 컴포넌트의 태그 목록 상태 업데이트
+            // onUpdateTag(prevTags => [...prevTags, newTag]);
             handleClose();
         } catch (error) {
             console.error('Error creating tag:', error);
@@ -41,11 +50,11 @@ export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onU
         try {
 
             // 1. 전체 태그 데이터를 가져옵니다.
-            const allTags = await axios.get('/api/admin/tags');
+            const allTags = await axios.get('/api/tags');
             const tagList = allTags.data;
 
             // 2. 중복 검사
-            const duplicateSubject = tagList.some(tag => tag.id !== updatedTag.id && tag.subject === updatedTag.subject);
+            const duplicateSubject = tagList.some(tag => tag.id !== updatedTag.id && tag.name === updatedTag.name);
 
             if (duplicateSubject) {
                 setErrorMessage('중복된 태그입니다.');
@@ -54,10 +63,8 @@ export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onU
 
             let payload = { ...updatedTag };  // 정렬된 배열 사용
 
-            const response = await axios.put(`/api/admin/tags/${updatedTag.id}`, payload);
-            console.log('Tag updated:', response.data);
+            const response = await axios.put(`/api/tags/${updatedTag.id}`, payload);
             onUpdateTag(updatedTag); // 수정된 사용자 정보 전달
-            onUpdateFilteredTags(updatedTag); // 수정된 사용자 정보 업데이트
             handleClose(); // 모달 닫기
         } catch (error) {
             console.error('Error updating tag:', error);
@@ -71,12 +78,11 @@ export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onU
 
         if (confirmDelete) {
             try {
-                await axios.delete(`/api/admin/tags/${updatedTag.id}`);
-                console.log('Tag deleted');
+                await axios.delete(`/api/tags/${updatedTag.id}`);
 
                 // 부모 컴포넌트에서 전달된 업데이트 함수를 사용하여 상태를 업데이트합니다.
                 onUpdateTag(prevTags => prevTags.filter(tag => tag.id !== updatedTag.id));
-                onUpdateFilteredTags(prevFilteredTags => prevFilteredTags.filter(tag => tag.id !== updatedTag.id));
+                onUpdateTag(prevFilteredTags => prevFilteredTags.filter(tag => tag.id !== updatedTag.id));
 
 
                 onDeleteTag(tag.id);
@@ -97,6 +103,7 @@ export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onU
     // 모달이 닫힐 때 실행될 로직 추가
     const handleClose = () => {
         setErrorMessage(''); // 에러 메시지 초기화
+        setUpdatedTag({});
         onClose(); // 부모 컴포넌트로부터 전달받은 onClose 함수 호출
     }
 
@@ -105,8 +112,8 @@ export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onU
             <div className={adminTagEditModalStyle.modalContainer}>
                 <TextField
                     label="태그 제목"
-                    name="subject"
-                    value={updatedTag.subject || ''}
+                    name="name"
+                    value={updatedTag.name || ''}
                     onChange={handleInputChange}
                     variant="outlined"
                     fullWidth

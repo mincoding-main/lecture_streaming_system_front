@@ -21,11 +21,11 @@
         "tags": [
             {
                 "id": 1,
-                "subject": "avv"
+                "name": "avv"
             },
             {
-                "id": 2,
-                "subject": "bbb"
+                "id": 4,
+                "name": "ddd"
             }
         ]
     },
@@ -165,11 +165,11 @@
         "tags": [
             {
                 "id": 2,
-                "subject": "bbb"
+                "name": "bbb"
             },
             {
                 "id": 4,
-                "subject": "ddd"
+                "name": "ddd"
             }
         ],
         "permissions": "admin",
