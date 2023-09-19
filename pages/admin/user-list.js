@@ -4,7 +4,7 @@ import Footer from '@/components/footer';
 import UserItemView from '@/components/admin/user-item-view'
 import UserManagementModal from '@/components/admin/admin-modal/user-management-modal'
 import axios from 'axios';
-import adminUserDetailStyle from '@/styles/admin/user-detail.module.css';
+import adminMemberDetailStyle from '@/styles/admin/member-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
 import Pagination from '@mui/material/Pagination';
@@ -120,12 +120,12 @@ export default function UserList() {
                     <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminUserDetailStyle.userUserTitle}>
+                    <div className={adminMemberDetailStyle.userUserTitle}>
                         회원정보
                     </div>
-                    <div className={adminUserDetailStyle.userSearchContainer}>
+                    <div className={adminMemberDetailStyle.userSearchContainer}>
                         <TextField
-                            className={adminUserDetailStyle.userSearchInput}
+                            className={adminMemberDetailStyle.userSearchInput}
                             label="회원 ID / 이름 / Email / 사번 검색"
                             variant="outlined"
                             value={searchKeyword}
@@ -133,18 +133,18 @@ export default function UserList() {
                             InputProps={{ sx: { height: '2.3rem' } }}
                         />
                     </div>
-                    <div className={adminUserDetailStyle.userContainer}>
-                        <div className={adminUserDetailStyle.userItem}>
-                            <div className={adminUserDetailStyle.userInfo}>
+                    <div className={adminMemberDetailStyle.userContainer}>
+                        <div className={adminMemberDetailStyle.userItem}>
+                            <div className={adminMemberDetailStyle.userInfo}>
                                 <Grid container spacing={2} >
-                                    <Grid item xs={1} className={adminUserDetailStyle.userInfoTitle}>회원 ID</Grid>
-                                    <Grid item xs={3} className={adminUserDetailStyle.userInfoTitle}>Email</Grid>
-                                    <Grid item xs={2} className={adminUserDetailStyle.userInfoTitle}>사번</Grid>
-                                    <Grid item xs={3} className={adminUserDetailStyle.userInfoTitle}>유저 권한</Grid>
-                                    <Grid item xs={3} className={adminUserDetailStyle.userInfoTitle}>강의 종류</Grid>
+                                    <Grid item xs={1} className={adminMemberDetailStyle.userInfoTitle}>회원 ID</Grid>
+                                    <Grid item xs={3} className={adminMemberDetailStyle.userInfoTitle}>Email</Grid>
+                                    <Grid item xs={2} className={adminMemberDetailStyle.userInfoTitle}>사번</Grid>
+                                    <Grid item xs={3} className={adminMemberDetailStyle.userInfoTitle}>유저 권한</Grid>
+                                    <Grid item xs={3} className={adminMemberDetailStyle.userInfoTitle}>강의 종류</Grid>
                                 </Grid>
                             </div>
-                            <div className={adminUserDetailStyle.userEditBtnTitle} >정보 조회 / 수정</div>
+                            <div className={adminMemberDetailStyle.userEditBtnTitle} >정보 조회 / 수정</div>
                         </div>
                         {(searchKeyword !== '' ? filteredUsers : users)
                             .slice(startIdx, endIdx)
@@ -152,7 +152,7 @@ export default function UserList() {
                                 <UserItemView key={user.id} user={user} handleOpen={handleOpenUserInfoModal} />
                             ))}
                     </div>
-                    <div className={adminUserDetailStyle.paginationContainer}>
+                    <div className={adminMemberDetailStyle.paginationContainer}>
                         <Pagination
                             count={totalPages}
                             page={page}

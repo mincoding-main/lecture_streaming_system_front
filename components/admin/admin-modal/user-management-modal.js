@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
-import adminUserEditModalStyle from '@/styles/admin/user-edit-modal.module.css'
+import adminMemberEditModalStyle from '@/styles/admin/member-edit-modal.module.css'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -146,7 +146,7 @@ export default function UserManagementModal({ open, onClose, user, onUpdateUser,
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div className={adminUserEditModalStyle.modalContainer}>
+            <div className={adminMemberEditModalStyle.modalContainer}>
                 <TextField
                     label="이메일"
                     name="email"
@@ -202,7 +202,7 @@ export default function UserManagementModal({ open, onClose, user, onUpdateUser,
                         />
                     ))}
                 </FormControl>
-                <div className={adminUserEditModalStyle.deleteContainer}>
+                <div className={adminMemberEditModalStyle.deleteContainer}>
                     <FormControl component="fieldset" margin="normal">
                         <FormLabel component="legend">삭제 대기</FormLabel>
                         <RadioGroup
@@ -223,7 +223,7 @@ export default function UserManagementModal({ open, onClose, user, onUpdateUser,
 
 
                 {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-                <div className={adminUserEditModalStyle.updateBtnContainer}>
+                <div className={adminMemberEditModalStyle.updateBtnContainer}>
                     <Button variant="outlined" color='error' onClick={handleClose} >
                         취소
                     </Button>
