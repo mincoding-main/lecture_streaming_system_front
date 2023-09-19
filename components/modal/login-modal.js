@@ -58,6 +58,11 @@ export default function LoginModal({ open, onClose, onLogin, onJoinClick, onPass
                         variant="outlined"
                         fullWidth
                         sx={{ marginBottom: '1rem', borderColor: email === '' ? 'red' : undefined }}
+                        onKeyUp={(e) => {
+                            if (e.key === 'Enter') {
+                                handleLogin();
+                            }
+                        }}
                     />
                     <TextField
                         label="Password"
@@ -67,6 +72,11 @@ export default function LoginModal({ open, onClose, onLogin, onJoinClick, onPass
                         variant="outlined"
                         fullWidth
                         sx={{ marginBottom: '1rem', borderColor: password === '' ? 'red' : undefined }}
+                        onKeyUp={(e) => {
+                            if (e.key === 'Enter') {
+                                handleLogin();
+                            }
+                        }}
                     />
                     {error && (
                         <Alert severity="error" sx={{ width: '560px', marginBottom: '1rem' }}>
