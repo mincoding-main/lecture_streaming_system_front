@@ -120,12 +120,12 @@ export default function MemberList() {
                     <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminMemberDetailStyle.userUserTitle}>
+                    <div className={adminMemberDetailStyle.memberTitle}>
                         회원정보
                     </div>
-                    <div className={adminMemberDetailStyle.userSearchContainer}>
+                    <div className={adminMemberDetailStyle.memberSearchContainer}>
                         <TextField
-                            className={adminMemberDetailStyle.userSearchInput}
+                            className={adminMemberDetailStyle.memberSearchInput}
                             label="회원 ID / 이름 / Email / 사번 검색"
                             variant="outlined"
                             value={searchKeyword}
@@ -133,18 +133,18 @@ export default function MemberList() {
                             InputProps={{ sx: { height: '2.3rem' } }}
                         />
                     </div>
-                    <div className={adminMemberDetailStyle.userContainer}>
-                        <div className={adminMemberDetailStyle.userItem}>
-                            <div className={adminMemberDetailStyle.userInfo}>
+                    <div className={adminMemberDetailStyle.memberContainer}>
+                        <div className={adminMemberDetailStyle.memberItem}>
+                            <div className={adminMemberDetailStyle.memberInfo}>
                                 <Grid container spacing={2} >
-                                    <Grid item xs={1} className={adminMemberDetailStyle.userInfoTitle}>회원 ID</Grid>
-                                    <Grid item xs={3} className={adminMemberDetailStyle.userInfoTitle}>Email</Grid>
-                                    <Grid item xs={2} className={adminMemberDetailStyle.userInfoTitle}>사번</Grid>
-                                    <Grid item xs={3} className={adminMemberDetailStyle.userInfoTitle}>유저 권한</Grid>
-                                    <Grid item xs={3} className={adminMemberDetailStyle.userInfoTitle}>강의 종류</Grid>
+                                    <Grid item xs={1} className={adminMemberDetailStyle.memberInfoTitle}>회원 ID</Grid>
+                                    <Grid item xs={3} className={adminMemberDetailStyle.memberInfoTitle}>Email</Grid>
+                                    <Grid item xs={2} className={adminMemberDetailStyle.memberInfoTitle}>사번</Grid>
+                                    <Grid item xs={3} className={adminMemberDetailStyle.memberInfoTitle}>유저 권한</Grid>
+                                    <Grid item xs={3} className={adminMemberDetailStyle.memberInfoTitle}>강의 종류</Grid>
                                 </Grid>
                             </div>
-                            <div className={adminMemberDetailStyle.userEditBtnTitle} >정보 조회 / 수정</div>
+                            <div className={adminMemberDetailStyle.memberEditBtnTitle} >정보 조회 / 수정</div>
                         </div>
                         {(searchKeyword !== '' ? filteredMembers : members)
                             .slice(startIdx, endIdx)

@@ -8,8 +8,8 @@ import adminMemberDetailStyle from '@/styles/admin/member-detail.module.css';
 export default function MemberItemView({ member, handleOpen }) {
     const commonStyle = member.isDeleted === 1 ? adminMemberDetailStyle.deleted : '';
     return (
-        <div key={member.id} className={adminMemberDetailStyle.userItem}>
-            <div className={adminMemberDetailStyle.userInfo}>
+        <div key={member.id} className={adminMemberDetailStyle.memberItem}>
+            <div className={adminMemberDetailStyle.memberInfo}>
                 <Grid container spacing={2}>
                     <Grid item xs={1} className={commonStyle}>{member.id}</Grid>
                     <Grid item xs={3} className={commonStyle}>{member.email}</Grid>
@@ -18,7 +18,7 @@ export default function MemberItemView({ member, handleOpen }) {
                     <Grid item xs={3} className={commonStyle}>{member.lectureId.join(', ')}</Grid>
                 </Grid>
             </div>
-            <div className={adminMemberDetailStyle.userEditBtn}>
+            <div className={adminMemberDetailStyle.memberEditBtn}>
                 <Button variant="contained" onClick={() => handleOpen(member)}>
                     수정
                 </Button>
