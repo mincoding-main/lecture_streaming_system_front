@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import adminLectureClassificaitonStyle from '@/styles/admin/lecture-classification.module.css';
+import adminLectureViewStyle from '@/styles/admin/lecture-view.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
 import Pagination from '@mui/material/Pagination';
@@ -70,25 +70,25 @@ export default function LectureView() {
                     <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminLectureClassificaitonStyle.lectureCreateTitle}>
+                    <div className={adminLectureViewStyle.lectureCreateTitle}>
                         강의 관리
                     </div>
-                    <div className={adminLectureClassificaitonStyle.lectureCreateContainer}>
-                        <Button variant="outlined" className={adminLectureClassificaitonStyle.lectureCreateBtn} onClick={handleCreate}>
+                    <div className={adminLectureViewStyle.lectureCreateContainer}>
+                        <Button variant="outlined" className={adminLectureViewStyle.lectureCreateBtn} onClick={handleCreate}>
                             생성
                         </Button>
-                        <div className={adminLectureClassificaitonStyle.lectureCreateEmptyAear}>
+                        <div className={adminLectureViewStyle.lectureCreateEmptyAear}>
                         </div>
                     </div>
-                    <div className={adminLectureClassificaitonStyle.lectureContainer}>
+                    <div className={adminLectureViewStyle.lectureContainer}>
                         {lectures.slice(startIdx, endIdx).map(lecture => (
-                            <div key={lecture.id} className={adminLectureClassificaitonStyle.lectureItem}>
-                                <div className={adminLectureClassificaitonStyle.lectureInfo}>
+                            <div key={lecture.id} className={adminLectureViewStyle.lectureItem}>
+                                <div className={adminLectureViewStyle.lectureInfo}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>{lecture.title}</Grid>
                                     </Grid>
                                 </div>
-                                <div className={adminLectureClassificaitonStyle.lectureEditBtn}>
+                                <div className={adminLectureViewStyle.lectureEditBtn}>
                                     <Button variant="contained" onClick={() => handleOpenLectureInfoPage(lecture)}>
                                         수정
                                     </Button>
@@ -99,7 +99,7 @@ export default function LectureView() {
                             </div>
                         ))}
                     </div>
-                    <div className={adminLectureClassificaitonStyle.paginationContainer}>
+                    <div className={adminLectureViewStyle.paginationContainer}>
                         <Pagination
                             count={totalPages}
                             page={page}

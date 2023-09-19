@@ -7,7 +7,7 @@ import TagSearchModal from '@/components/admin/admin-modal/tag-search-modal';
 import axios from 'axios';
 
 import adminCommonStyle from '@/styles/admin/common.module.css';
-import adminLectureClassificaitonManagerStyle from '@/styles/admin/lecture-classification-manager.module.css';
+import adminLectureManagementStyle from '@/styles/admin/lecture-management.module.css';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -114,22 +114,22 @@ export default function LectureClassificationManager() {
                     <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminLectureClassificaitonManagerStyle.lectureCreateTitle}>
+                    <div className={adminLectureManagementStyle.lectureCreateTitle}>
                         강의 관리
                     </div>
-                    <div className={adminLectureClassificaitonManagerStyle.lectureInsideContainer}>
+                    <div className={adminLectureManagementStyle.lectureInsideContainer}>
 
-                        <div className={adminLectureClassificaitonManagerStyle.lectureItemContainer}>
-                            <div className={adminLectureClassificaitonManagerStyle.lectureInsideTitle}>{mode === 'edit' ? '강의 수정' : '강의 생성'} </div>
-                            <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
-                            <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의 소개" value={lectureDescription} onChange={e => setLectureDescription(e.target.value)} />
-                            <div className={adminLectureClassificaitonManagerStyle.tagContainer}>
+                        <div className={adminLectureManagementStyle.lectureItemContainer}>
+                            <div className={adminLectureManagementStyle.lectureInsideTitle}>{mode === 'edit' ? '강의 수정' : '강의 생성'} </div>
+                            <TextField className={adminLectureManagementStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
+                            <TextField className={adminLectureManagementStyle.lectureTextField} label="강의 소개" value={lectureDescription} onChange={e => setLectureDescription(e.target.value)} />
+                            <div className={adminLectureManagementStyle.tagContainer}>
                                 <Button variant="outlined" color="primary" onClick={showAddTagModal}>
                                     태그 추가
                                 </Button>
-                                <div className={adminLectureClassificaitonManagerStyle.selectedTagItems}>
+                                <div className={adminLectureManagementStyle.selectedTagItems}>
                                     {tags.map((tag, index) => (
-                                        <Chip className={adminLectureClassificaitonManagerStyle.selectedTagItem}
+                                        <Chip className={adminLectureManagementStyle.selectedTagItem}
                                             key={tag.id}
                                             label={tag.name}
                                             onDelete={() => removeTag(index)}
@@ -141,7 +141,7 @@ export default function LectureClassificationManager() {
                                     ))}
                                 </div>
                             </div>
-                            <FormControl className={adminLectureClassificaitonManagerStyle.lectureFormControlContainer} component="fieldset" margin="normal">
+                            <FormControl className={adminLectureManagementStyle.lectureFormControlContainer} component="fieldset" margin="normal">
                                 <FormLabel component="legend">유저 권한</FormLabel>
                                 <RadioGroup
                                     name="permissions"
@@ -154,7 +154,7 @@ export default function LectureClassificationManager() {
                                     <FormControlLabel value="admin" control={<Radio />} label="Admin" />
                                 </RadioGroup>
                             </FormControl>
-                            <div className={adminLectureClassificaitonManagerStyle.lectureBtnContainer}>
+                            <div className={adminLectureManagementStyle.lectureBtnContainer}>
                                 <Button variant="outlined" color="error" onClick={handleCancel}>
                                     취소
                                 </Button>

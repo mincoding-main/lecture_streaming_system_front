@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import adminLectureManagementVideosStyle from '@/styles/admin/lecture-management-videos.module.css';
+import adminLectureVideoViewStyle from '@/styles/admin/lecture-video-view.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
 import Pagination from '@mui/material/Pagination';
@@ -77,26 +77,26 @@ export default function LectureVideoView() {
                     <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminLectureManagementVideosStyle.lectureCreateTitle}>
+                    <div className={adminLectureVideoViewStyle.lectureCreateTitle}>
                         강의 비디오 관리
                     </div>
-                    <div className={adminLectureManagementVideosStyle.lectureCreateContainer}>
-                        <Button variant="outlined" className={adminLectureManagementVideosStyle.lectureCreateBtn} onClick={handleCreate}>
+                    <div className={adminLectureVideoViewStyle.lectureCreateContainer}>
+                        <Button variant="outlined" className={adminLectureVideoViewStyle.lectureCreateBtn} onClick={handleCreate}>
                             생성
                         </Button>
-                        <div className={adminLectureManagementVideosStyle.lectureCreateEmptyAear}>
+                        <div className={adminLectureVideoViewStyle.lectureCreateEmptyAear}>
                         </div>
                     </div>
-                    <div className={adminLectureManagementVideosStyle.lectureContainer}>
+                    <div className={adminLectureVideoViewStyle.lectureContainer}>
                         {lectures.slice(startIdx, endIdx).map(lecture => (
                             lecture.videos.map(video => (
-                                <div key={video.id} className={adminLectureManagementVideosStyle.lectureItem}>
-                                    <div className={adminLectureManagementVideosStyle.lectureInfo}>
+                                <div key={video.id} className={adminLectureVideoViewStyle.lectureItem}>
+                                    <div className={adminLectureVideoViewStyle.lectureInfo}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12}>{video.title}</Grid>
                                         </Grid>
                                     </div>
-                                    <div className={adminLectureManagementVideosStyle.lectureEditBtn}>
+                                    <div className={adminLectureVideoViewStyle.lectureEditBtn}>
                                         <Button variant="contained" onClick={() => handleOpenLectureInfoPage(video)}>
                                             수정
                                         </Button>
@@ -108,7 +108,7 @@ export default function LectureVideoView() {
                             ))
                         ))}
                     </div>
-                    <div className={adminLectureManagementVideosStyle.paginationContainer}>
+                    <div className={adminLectureVideoViewStyle.paginationContainer}>
                         <Pagination
                             count={totalPages}
                             page={page}

@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import adminLectureClassificaitonManagerStyle from '@/styles/admin/lecture-classification-manager.module.css';
+import adminLectureVideoManagementStyle from '@/styles/admin/lecture-video-management.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
 import Button from '@mui/material/Button';
@@ -68,16 +68,15 @@ export default function LectureVideoManagement() {
                     <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminLectureClassificaitonManagerStyle.lectureCreateTitle}>
+                    <div className={adminLectureVideoManagementStyle.lectureVideoTitle}>
                         강의 비디오 관리
                     </div>
-                    <div className={adminLectureClassificaitonManagerStyle.lectureInsideContainer}>
-
-                        <div className={adminLectureClassificaitonManagerStyle.lectureItemContainer}>
-                            <div className={adminLectureClassificaitonManagerStyle.lectureInsideTitle}>{mode === 'edit' ? '강의 비디오 수정' : '강의 비디오 생성'} </div>
-                            <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
-                            <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의 링크" value={lectureUrl} onChange={e => setLectureUrl(e.target.value)} />
-                            <div className={adminLectureClassificaitonManagerStyle.lectureBtnContainer}>
+                    <div className={adminLectureVideoManagementStyle.lectureVideoInsideContainer}>
+                        <div className={adminLectureVideoManagementStyle.lectureVideoItemContainer}>
+                            <div className={adminLectureVideoManagementStyle.lectureVideoInsideTitle}>{mode === 'edit' ? '강의 비디오 수정' : '강의 비디오 생성'} </div>
+                            <TextField className={adminLectureVideoManagementStyle.lectureVideoTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
+                            <TextField className={adminLectureVideoManagementStyle.lectureVideoTextField} label="강의 링크" value={lectureUrl} onChange={e => setLectureUrl(e.target.value)} />
+                            <div className={adminLectureVideoManagementStyle.lectureVideoBtnContainer}>
                                 <Button variant="outlined" color="error" onClick={handleCancel}>
                                     취소
                                 </Button>

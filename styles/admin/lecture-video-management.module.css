@@ -1,4 +1,4 @@
-.lectureCreateTitle {
+.lectureVideoTitle {
     height: 5%;
     font-size: 1.8rem;
     font-weight: bold;
@@ -6,7 +6,7 @@
     justify-content: center;
 }
 
-.lectureInsideContainer {
+.lectureVideoInsideContainer {
     width: 80%;
     height: 85%;
     margin: 0 auto;
@@ -16,12 +16,12 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.lectureInsideTitle {
+.lectureVideoInsideTitle {
     font-size: 1.3rem;
     text-align: center;
 }
 
-.lectureItemContainer {
+.lectureVideoItemContainer {
     width: 100%;
     height: 100%;
     display: flex;
@@ -31,7 +31,7 @@
 
 }
 
-.lectureTextField {
+.lectureVideoTextField {
     width: 80%;
 
 }
@@ -49,12 +49,12 @@
 
 
 
-.lectureFormControlContainer {
+.lectureVideoFormControlContainer {
     width: 80%;
 }
 
 
-.lectureBtnContainer {
+.lectureVideoBtnContainer {
     width: 80%;
     margin-top: 2rem;
     display: flex;
@@ -62,7 +62,7 @@
 }
 
 
-.lectureBtnContainer>button {
+.lectureVideoBtnContainer>button {
     width: 30%;
     font-size: 0.8rem;
     margin-bottom: 2rem;

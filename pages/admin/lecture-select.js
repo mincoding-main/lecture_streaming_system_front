@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import adminLectureClassificaitonStyle from '@/styles/admin/lecture-management.module.css';
+import adminLectureSelectStyle from '@/styles/admin/lecture-select.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
 import Pagination from '@mui/material/Pagination';
@@ -52,24 +52,24 @@ export default function LectureSelect() {
                     <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminLectureClassificaitonStyle.lectureVideoTitle}>
+                    <div className={adminLectureSelectStyle.lectureVideoTitle}>
                         강의 비디오 관리
                     </div>
-                    <div className={adminLectureClassificaitonStyle.lectureVideoSubTitle}>
+                    <div className={adminLectureSelectStyle.lectureVideoSubTitle}>
                         강의 선택
                     </div>
-                    <Grid container spacing={2} className={adminLectureClassificaitonStyle.lectureContainer}>
+                    <Grid container spacing={2} className={adminLectureSelectStyle.lectureContainer}>
                         {lectures.slice(startIdx, endIdx).map(lecture => (
                             <Grid item xs={6} key={lecture.id} onClick={() => handleOpenLectureInfoPage(lecture)}>
-                                <div className={adminLectureClassificaitonStyle.lectureItem}>
-                                    <div className={adminLectureClassificaitonStyle.lectureInfo}>
+                                <div className={adminLectureSelectStyle.lectureItem}>
+                                    <div className={adminLectureSelectStyle.lectureInfo}>
                                         {lecture.title}
                                     </div>
                                 </div>
                             </Grid>
                         ))}
                     </Grid>
-                    <div className={adminLectureClassificaitonStyle.paginationContainer}>
+                    <div className={adminLectureSelectStyle.paginationContainer}>
                         <Pagination
                             count={totalPages}
                             page={page}

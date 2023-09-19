@@ -1,4 +1,4 @@
-.lectureVideoTitle {
+.lectureCreateTitle {
     height: 5%;
     font-size: 1.8rem;
     font-weight: bold;
@@ -6,51 +6,64 @@
     justify-content: center;
 }
 
-.lectureVideoSubTitle {
-    width: 100%;
-    height: 8%;
-    font-size: 1.2rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-}
-
-.lectureContainer {
-    width: 60%;
-    height: 82%;
-    margin: auto;
-}
-
-.lectureItem {
-    width: 100%;
-    padding: 1rem;
-    text-align: center;
-
-}
-
-.lectureInfo {
-    margin-right: 1rem;
+.lectureInsideContainer {
+    width: 80%;
+    height: 85%;
+    margin: 0 auto;
+    margin-top: 2rem;
     background-color: #f7f7f7;
-    border-radius: 0.3rem;
+    border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.lectureInsideTitle {
+    font-size: 1.3rem;
     text-align: center;
-    font-size: 0.8rem;
-    height: 4rem;
+}
+
+.lectureItemContainer {
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    justify-content: space-around;
+
 }
 
-.lectureInfo:hover {
-    background-color: #f1f1f1;
+.lectureTextField {
+    width: 80%;
+
 }
 
-.paginationContainer {
-    height: 5%;
+
+.tagContainer {
+    width: 80%;
+}
+
+.selectedTagItem {
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+
+
+
+.lectureFormControlContainer {
+    width: 80%;
+}
+
+
+.lectureBtnContainer {
+    width: 80%;
+    margin-top: 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+}
+
+
+.lectureBtnContainer>button {
+    width: 30%;
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
 }
