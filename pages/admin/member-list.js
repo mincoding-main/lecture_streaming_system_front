@@ -12,26 +12,26 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
 
-export default function UserList() {
-    const [users, setUsers] = useState([]);
+export default function MemberList() {
+    const [members, setMembers] = useState([]);
     const [page, setPage] = useState(1);
     const itemsPerPage = 7;
     const [searchKeyword, setSearchKeyword] = useState('');
-    const [filteredUsers, setFilteredUsers] = useState([]);
-    const [openUserInfoModal, setOpenUserInfoModal] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
+    const [filteredMembers, setFilteredMembers] = useState([]);
+    const [openMemberInfoModal, setOpenMemberInfoModal] = useState(false);
+    const [selectedMember, setSelectedMember] = useState(null);
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchMembers = async () => {
             try {
                 const response = await axios.get('/api/members');
-                setUsers(response.data);
+                setMembers(response.data);
             } catch (error) {
-                console.error('Error fetching users:', error);
+                console.error('Error fetching Members:', error);
             }
         };
 
-        fetchUsers();
+        fetchMembers();
     }, []);
 
     //page 업데이트
@@ -45,66 +45,66 @@ export default function UserList() {
         setSearchKeyword(keyword);
         if (keyword) {
             setPage(1); // 검색 시 페이지를 1페이지로 초기화
-            updateFilteredUsers(keyword);
+            updateFilteredMembers(keyword);
         } else {
             // 검색어가 없을 때는 전체 사용자 목록을 보여줌
-            setFilteredUsers(users);
+            setFilteredMembers(members);
         }
     };
 
     // 검색 구현
-    const updateFilteredUsers = (keyword) => {
+    const updateFilteredMembers = (keyword) => {
         const keywordLower = keyword.toLowerCase();
 
-        const updatedFilteredUsers = users.filter(user => {
+        const updatedFilteredMembers = members.filter(member => {
             const fields = ['email', 'employeeId', 'isAdmin', 'id', 'lectureId'];
             return fields.some(field => {
                 if (field === 'isAdmin') {
-                    const adminText = user.isAdmin ? '관리자' : '사용자';
+                    const adminText = member.isAdmin ? '관리자' : '사용자';
                     return adminText.toLowerCase().includes(keywordLower);
                 } else {
-                    const fieldValue = user[field]?.toString().toLowerCase();
+                    const fieldValue = member[field]?.toString().toLowerCase();
                     return fieldValue?.includes(keywordLower);
                 }
             });
         });
 
-        setFilteredUsers(updatedFilteredUsers);
+        setFilteredMembers(updatedFilteredMembers);
     };
 
     // page 계산
     const startIdx = (page - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;
-    const totalPages = searchKeyword !== '' ? Math.ceil(filteredUsers.length / itemsPerPage) : Math.ceil(users.length / itemsPerPage);
+    const totalPages = searchKeyword !== '' ? Math.ceil(filteredMembers.length / itemsPerPage) : Math.ceil(members.length / itemsPerPage);
 
 
 
     // 모달 관련
-    const handleOpenUserInfoModal = (user) => {
-        setSelectedUser(user);
-        setOpenUserInfoModal(true);
+    const handleOpenMemberInfoModal = (member) => {
+        setSelectedMember(member);
+        setOpenMemberInfoModal(true);
     };
 
     // 모달 수정 후 모달 바깥 화면에 바로 적용
-    const handleUpdateUser = (updatedUser) => {
-        setUsers(prevUsers => prevUsers.map(user => (user.id === updatedUser.id ? updatedUser : user)));
+    const handleUpdateMember = (updatedMember) => {
+        setMembers(prevMembers => prevMembers.map(member => (member.id === updatedMember.id ? updatedMember : member)));
     };
     // 검색 한 상태에서 모달 수정 후 모달 바깥 화면에 바로 적용
-    const handleUpdateFilteredUsers = (updatedUser) => {
-        setFilteredUsers(prevFilteredUsers =>
-            prevFilteredUsers.map(user => (user.id === updatedUser.id ? updatedUser : user))
+    const handleUpdateFilteredMember = (updatedMember) => {
+        setFilteredMembers(prevFilteredMembers =>
+            prevFilteredMembers.map(member => (member.id === updatedMember.id ? updatedMember : member))
         );
     };
 
     // 유저 삭제
-    const handleDeleteUser = (deletedUserId) => {
-        setUsers(prevUsers => prevUsers.filter(user => user.id !== deletedUserId));
-        setFilteredUsers(prevFilteredUsers => prevFilteredUsers.filter(user => user.id !== deletedUserId));
+    const handleDeleteMember = (deletedMemberId) => {
+        setMembers(prevMembers => prevMembers.filter(member => member.id !== deletedMemberId));
+        setFilteredMembers(prevFilteredMembers => prevFilteredMembers.filter(member => member.id !== deletedMemberId));
 
         // 총 페이지 수 다시 계산
         const newTotalPages = searchKeyword !== '' ?
-            Math.ceil((filteredUsers.length - 1) / itemsPerPage) :
-            Math.ceil((users.length - 1) / itemsPerPage);
+            Math.ceil((filteredMembers.length - 1) / itemsPerPage) :
+            Math.ceil((members.length - 1) / itemsPerPage);
 
         // 현재 페이지가 총 페이지 수보다 크다면 페이지 수 감소
         if (page > newTotalPages) {
@@ -146,10 +146,10 @@ export default function UserList() {
                             </div>
                             <div className={adminMemberDetailStyle.userEditBtnTitle} >정보 조회 / 수정</div>
                         </div>
-                        {(searchKeyword !== '' ? filteredUsers : users)
+                        {(searchKeyword !== '' ? filteredMembers : members)
                             .slice(startIdx, endIdx)
-                            .map(user => (
-                                <MemberItemView key={user.id} user={user} handleOpen={handleOpenUserInfoModal} />
+                            .map(member => (
+                                <MemberItemView key={member.id} member={member} handleOpen={handleOpenMemberInfoModal} />
                             ))}
                     </div>
                     <div className={adminMemberDetailStyle.paginationContainer}>
@@ -163,12 +163,12 @@ export default function UserList() {
             </section >
             <Footer />
             <MemberManagementModal
-                open={openUserInfoModal}
-                onClose={() => setOpenUserInfoModal(false)}
-                user={selectedUser}
-                onUpdateUser={handleUpdateUser}
-                onUpdateFilteredUsers={handleUpdateFilteredUsers}
-                onDeleteUser={handleDeleteUser}
+                open={openMemberInfoModal}
+                onClose={() => setOpenMemberInfoModal(false)}
+                member={selectedMember}
+                onUpdateMember={handleUpdateMember}
+                onUpdateFilteredMember={handleUpdateFilteredMember}
+                onDeleteMember={handleDeleteMember}
             />
         </>
     );
