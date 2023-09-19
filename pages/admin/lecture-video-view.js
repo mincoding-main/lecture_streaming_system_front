@@ -5,29 +5,25 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import adminLectureManagementVideosStyle from '@/styles/admin/lecture-management-videos.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
-import AdminSideNavBar from '@/components/admin-side-navbar';
+import SideNavBar from '@/components/admin/side-navbar';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
 
-export default function LectureClassification() {
+export default function LectureVideoView() {
     const router = useRouter();
     const [lectures, setLectures] = useState([]);
     const [page, setPage] = useState(1);
     const itemsPerPage = 8;
-    const [selectedLecture, setSelectedLecture] = useState(null);
 
     useEffect(() => {
         const fetchLecture = async () => {
             try {
-                // router.query.id에서 쿼리 파라미터로 들어오는 id를 가져옵니다.
                 const id = router.query.id;
                 if (id) {
                     const response = await axios.get(`/api/lectures/${id}`);
-                    setLectures([response.data]); // 또는 다른 상태 변수를 사용
-
-
+                    setLectures([response.data]);
                 }
             } catch (error) {
                 console.error('Error fetching the lecture:', error);
@@ -35,27 +31,24 @@ export default function LectureClassification() {
         };
 
         fetchLecture();
-    }, [router.query.id]);  // router.query.id가 변경될 때마다 이 useEffect가 실행됩니다.
+    }, [router.query.id]);
 
 
 
     const handleOpenLectureInfoPage = (video) => {
-        setSelectedLecture(video);
-        router.push(`/admin/lecture-management-video-manager?id=${router.query.id}&videoId=${video.id}&mode=edit`);  // 수정 모드로 LectureClassificationManager 페이지로 이동
+        router.push(`/admin/lecture-video-management?id=${router.query.id}&videoId=${video.id}&mode=edit`);
     };
 
     const handleCreate = () => {
-        router.push(`/admin/lecture-management-video-manager?id=${router.query.id}&mode=add`); // 생성 모드로 LectureClassificationManager 페이지로 이동
+        router.push(`/admin/lecture-video-management?id=${router.query.id}&mode=add`);
     };
 
 
     const handleDeleteVideo = async (video) => {
         try {
-            // DELETE 요청을 보내서 비디오를 삭제합니다.
             const id = router.query.id;
             await axios.delete(`/api/admin/lectures/${id}/videos/${video.id}`);
 
-            // 삭제 후에 현재 비디오 목록을 업데이트합니다.
             const updatedLectures = lectures.map(lecture => {
                 if (lecture.id === Number(id)) {
                     lecture.videos = lecture.videos.filter(v => v.id !== video.id);
@@ -68,12 +61,10 @@ export default function LectureClassification() {
         }
     };
 
-    //page 업데이트
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
-    // page 계산
     const startIdx = (page - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;
     const totalPages = Math.ceil(lectures.length / itemsPerPage);
@@ -83,7 +74,7 @@ export default function LectureClassification() {
             <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
-                    <AdminSideNavBar />
+                    <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
                     <div className={adminLectureManagementVideosStyle.lectureCreateTitle}>
@@ -126,7 +117,6 @@ export default function LectureClassification() {
                     </div>
                 </div>
             </section >
-
             <Footer />
         </>
     );

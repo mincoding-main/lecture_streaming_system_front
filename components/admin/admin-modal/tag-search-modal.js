@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import AdminTagItemModal from '@/components/admin-modal/admin-tag-item-modal'
+import TagSearchItemViewModal from '@/components/admin/admin-modal/tag-search-item-view-modal'
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import AdminTagSearchStyle from '@/styles/admin/tag-search-modal.module.css'
@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function AdminTagSearchModal({ open, onClose, onTagSelected, existingTags }) {
+export default function TagSearchModal({ open, onClose, onTagSelected, existingTags }) {
     const [tags, setTags] = useState([]);
     const [filteredTags, setFilteredTags] = useState([]); // 필터링된 태그를 보관
     const [searchKeyword, setSearchKeyword] = useState(''); // 검색 키워드를 보관
@@ -132,7 +132,7 @@ export default function AdminTagSearchModal({ open, onClose, onTagSelected, exis
                     </div>
                     {(searchKeyword !== '' ? filteredTags : tags)
                         .slice(startIdx, endIdx).map(tag => (
-                            <AdminTagItemModal key={tag.id} tag={tag} handleOpen={handleOpen} existingTags={existingTags} />
+                            <TagSearchItemViewModal key={tag.id} tag={tag} handleOpen={handleOpen} existingTags={existingTags} />
                         ))}
                 </div>
 

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import AdminTagItem from '@/components/admin-tag-item'
-import AdminTagInfoModal from '@/components/admin-modal/tag-info-modal'
+import TagItemView from '@/components/admin/tag-item-view'
+import TagManagementModal from '@/components/admin/admin-modal/tag-management-modal'
 import axios from 'axios';
 import adminTagDetailStyle from '@/styles/admin/tag-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
-import AdminSideNavBar from '@/components/admin-side-navbar';
+import SideNavBar from '@/components/admin/side-navbar';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -34,25 +34,21 @@ export default function TagList() {
         fetchTags();
     }, []);
 
-    //page 업데이트
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
-    // 검색입력창 업데이트
     const handleSearchChange = (event) => {
         const keyword = event.target.value;
         setSearchKeyword(keyword);
         if (keyword) {
-            setPage(1); // 검색 시 페이지를 1페이지로 초기화
+            setPage(1);
             updateFilteredTags(keyword);
         } else {
-            // 검색어가 없을 때는 전체 사용자 목록을 보여줌
             setFilteredTags(tags);
         }
     };
 
-    // 검색 구현
     const updateFilteredTags = (keyword) => {
         const keywordLower = keyword.toLowerCase();
 
@@ -67,14 +63,11 @@ export default function TagList() {
         setFilteredTags(updatedFilteredTags);
     };
 
-    // page 계산
     const startIdx = (page - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;
     const totalPages = searchKeyword !== '' ? Math.ceil(filteredTags.length / itemsPerPage) : Math.ceil(tags.length / itemsPerPage);
 
 
-
-    // 모달 관련
     const handleOpenTagInfoModal = (tag) => {
         setSelectedTag(tag);
         setOpenTagInfoModal(true);
@@ -96,8 +89,6 @@ export default function TagList() {
     };
 
 
-
-    // 태그 삭제
     const handleDeleteTag = (deletedTagId) => {
         setTags(prevTags => prevTags.filter(tag => tag.id !== deletedTagId));
         setFilteredTags(prevFilteredTags => prevFilteredTags.filter(tag => tag.id !== deletedTagId));
@@ -124,7 +115,7 @@ export default function TagList() {
             <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
-                    <AdminSideNavBar />
+                    <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
                     <div className={adminTagDetailStyle.tagTagTitle}>
@@ -153,7 +144,7 @@ export default function TagList() {
                         {(searchKeyword !== '' ? filteredTags : tags)
                             .slice(startIdx, endIdx)
                             .map(tag => (
-                                <AdminTagItem key={tag.id} tag={tag} handleOpen={handleOpenTagInfoModal} />
+                                <TagItemView key={tag.id} tag={tag} handleOpen={handleOpenTagInfoModal} />
                             ))}
                     </div>
 
@@ -174,17 +165,14 @@ export default function TagList() {
 
                 </div>
             </section >
-
             <Footer />
-
-            {/* Modal */}
-            <AdminTagInfoModal
+            <TagManagementModal
                 open={openTagInfoModal}
                 onClose={() => setOpenTagInfoModal(false)}
                 tag={selectedTag}
                 onUpdateTag={handleUpdateTag}
                 onDeleteTag={handleDeleteTag}
-                mode={selectedTag ? 'edit' : 'create'} // 선택된 태그가 있으면 'edit', 없으면 'create'
+                mode={selectedTag ? 'edit' : 'create'}
                 onAddTag={handleCreateTag}
             />
         </>

@@ -5,7 +5,7 @@ import adminUserDetailStyle from '@/styles/admin/user-detail.module.css';
 
 
 
-export default function AdminUserItem({ user, handleOpen }) {
+export default function UserItemView({ user, handleOpen }) {
     const commonStyle = user.isDeleted === 1 ? adminUserDetailStyle.deleted : '';
     return (
         <div key={user.id} className={adminUserDetailStyle.userItem}>

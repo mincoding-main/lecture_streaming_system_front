@@ -5,7 +5,7 @@ import adminTagDetailStyle from '@/styles/admin/tag-detail.module.css';
 
 
 
-export default function AdminTagItem({ tag, handleOpen }) {
+export default function TagItemView({ tag, handleOpen }) {
     return (
         <div key={tag.id} className={adminTagDetailStyle.tagItem}>
             <div className={adminTagDetailStyle.tagInfo}>

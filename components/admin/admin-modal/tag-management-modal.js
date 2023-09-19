@@ -7,7 +7,7 @@ import axios from 'axios';
 import adminTagEditModalStyle from '@/styles/admin/tag-edit-modal.module.css'
 
 
-export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onDeleteTag, mode = 'edit', onAddTag }) {
+export default function TagManagementModal({ open, onClose, tag, onUpdateTag, onDeleteTag, mode = 'edit', onAddTag }) {
     const [updatedTag, setUpdatedTag] = useState({ ...tag });
     const [errorMessage, setErrorMessage] = useState('');
 

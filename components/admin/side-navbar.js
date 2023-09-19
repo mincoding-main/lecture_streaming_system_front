@@ -1,10 +1,9 @@
-// admin-side-navbar.js
 import React from 'react';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import adminCommonStyle from '@/styles/admin/common.module.css'
 
-export default function AdminSideNavBar() {
+export default function SideNavBar() {
     const router = useRouter();
 
     const handleUserListClick = () => {
@@ -12,11 +11,11 @@ export default function AdminSideNavBar() {
     };
 
     const handleLectureManagementClick = () => {
-        router.push('/admin/lecture-classification');
+        router.push('/admin/lecture-view');
     };
 
     const handleCategoryManagementClick = () => {
-        router.push('/admin/lecture-management');
+        router.push('/admin/lecture-select');
     };
 
 

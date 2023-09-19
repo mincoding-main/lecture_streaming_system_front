@@ -1,92 +1,179 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import SideNavBar from '@/components/admin/side-navbar';
+import TagSearchModal from '@/components/admin/admin-modal/tag-search-modal';
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import adminLectureClassificaitonStyle from '@/styles/admin/lecture-management.module.css';
+
 import adminCommonStyle from '@/styles/admin/common.module.css';
-import AdminSideNavBar from '@/components/admin-side-navbar';
-import Pagination from '@mui/material/Pagination';
-import Grid from '@mui/material/Grid';
+import adminLectureClassificaitonManagerStyle from '@/styles/admin/lecture-classification-manager.module.css';
+
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import Chip from '@mui/material/Chip';
+import CloseIcon from '@mui/icons-material/Close';
 
 
-export default function LectureClassification() {
+export default function LectureClassificationManager() {
     const router = useRouter();
-    const [lectures, setLectures] = useState([]);
-    const [page, setPage] = useState(1);
-    const itemsPerPage = 8;
+    const { mode } = router.query;
+    const [lectureTitle, setLectureTitle] = useState(mode === 'edit' ? '기존 강의명' : '');
+    const [lectureDescription, setLectureDescription] = useState(mode === 'edit' ? '기존 강의 소개' : '');
+    const [permissions, setPermissions] = useState('user');
+    const [tags, setTags] = useState([]);
+    const [tagSearchModalOpen, setTagSearchModalOpen] = useState(false);
+
+
 
     useEffect(() => {
-        const fetchLectures = async () => {
+        const fetchLectureAndVideo = async () => {
             try {
-                const response = await axios.get('/api/lectures');
-                setLectures(response.data);
+                const id = router.query.id;
+
+                if (mode === 'edit' && id) {
+                    const response = await axios.get(`/api/admin/lectures/${id}`);
+                    setLectureTitle(response.data.title);
+                    setLectureDescription(response.data.description);
+                    setTags(response.data.tags);
+                    setPermissions(response.data.permissions);
+                }
             } catch (error) {
-                console.error('Error fetching lectures:', error);
+                console.error('Error fetching the lecture:', error);
             }
         };
 
-        fetchLectures();
-    }, []);
+        if (mode === 'edit') {
+            fetchLectureAndVideo();
+        }
+    }, [router.query.id, mode]);
 
+    const handleSave = async () => {
+        try {
+            const payload = {
+                title: lectureTitle,
+                description: lectureDescription,
+                tags: tags,
+                permissions: permissions
+            };
+            let response;
+            if (mode === 'edit') {
+                const id = router.query.id;
+                response = await axios.put(`/api/admin/lectures/${id}`, payload);
+            } else {
+                response = await axios.post('/api/admin/lectures', payload);
+            }
 
-    const handleOpenLectureInfoPage = (lecture) => {
-        router.push(`/admin/lecture-management-videos?id=${lecture.id}`);
+            if (response.status === 200 || response.status === 201) {
+                router.back();
+            } else {
+                console.error('Failed to save the lecture');
+            }
+        } catch (error) {
+            console.error('Error saving the lecture:', error);
+        }
+    };
+
+    const handleCancel = () => {
+        router.back();
+    };
+
+    const addTag = (newTag) => {
+        if (Array.isArray(newTag)) {
+            setTags([...tags, ...newTag]);
+        } else {
+            setTags([...tags, newTag]);
+        }
+    };
+
+    const removeTag = (index) => {
+        const newTags = tags.filter((_, i) => i !== index);
+        setTags(newTags);
     };
 
 
-    //page 업데이트
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+    const showAddTagModal = () => {
+        setTagSearchModalOpen(true);
     };
 
-    // page 계산
-    const startIdx = (page - 1) * itemsPerPage;
-    const endIdx = startIdx + itemsPerPage;
-    const totalPages = Math.ceil(lectures.length / itemsPerPage);
+    const handleModalClose = () => {
+        setTagSearchModalOpen(false);
+    };
 
-
+    console.log(tags);
     return (
         <>
             <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
-                    <AdminSideNavBar />
+                    <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
-                    <div className={adminLectureClassificaitonStyle.lectureVideoTitle}>
-                        강의 비디오 관리
+                    <div className={adminLectureClassificaitonManagerStyle.lectureCreateTitle}>
+                        강의 관리
                     </div>
-                    <div className={adminLectureClassificaitonStyle.lectureVideoSubTitle}>
-                        카테고리 선택
-                    </div>
-                    <Grid container spacing={2} className={adminLectureClassificaitonStyle.lectureContainer}>
-                        {lectures.slice(startIdx, endIdx).map(lecture => (
-                            <Grid item xs={6} key={lecture.id} onClick={() => handleOpenLectureInfoPage(lecture)}>
-                                <div className={adminLectureClassificaitonStyle.lectureItem}>
-                                    <div className={adminLectureClassificaitonStyle.lectureInfo}>
-                                        {lecture.title}
-                                    </div>
+                    <div className={adminLectureClassificaitonManagerStyle.lectureInsideContainer}>
+
+                        <div className={adminLectureClassificaitonManagerStyle.lectureItemContainer}>
+                            <div className={adminLectureClassificaitonManagerStyle.lectureInsideTitle}>{mode === 'edit' ? '강의 수정' : '강의 생성'} </div>
+                            <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
+                            <TextField className={adminLectureClassificaitonManagerStyle.lectureTextField} label="강의 소개" value={lectureDescription} onChange={e => setLectureDescription(e.target.value)} />
+                            <div className={adminLectureClassificaitonManagerStyle.tagContainer}>
+                                <Button variant="outlined" color="primary" onClick={showAddTagModal}>
+                                    태그 추가
+                                </Button>
+                                <div className={adminLectureClassificaitonManagerStyle.selectedTagItems}>
+                                    {tags.map((tag, index) => (
+                                        <Chip className={adminLectureClassificaitonManagerStyle.selectedTagItem}
+                                            key={tag.id}
+                                            label={tag.name}
+                                            onDelete={() => removeTag(index)}
+                                            deleteIcon={<CloseIcon />}
+                                            variant="outlined"
+                                            onMouseEnter={(e) => e.target.style.color = 'darkerColorHere'}
+                                            onMouseLeave={(e) => e.target.style.color = 'normalColorHere'}
+                                        />
+                                    ))}
                                 </div>
-                            </Grid>
-                        ))}
-                    </Grid>
-                    <div className={adminLectureClassificaitonStyle.paginationContainer}>
-                        <Pagination
-                            count={totalPages}
-                            page={page}
-                            onChange={handleChangePage}
-                        />
+                            </div>
+                            <FormControl className={adminLectureClassificaitonManagerStyle.lectureFormControlContainer} component="fieldset" margin="normal">
+                                <FormLabel component="legend">유저 권한</FormLabel>
+                                <RadioGroup
+                                    name="permissions"
+                                    value={permissions}
+                                    onChange={(e) => setPermissions(e.target.value)}
+
+                                >
+                                    <FormControlLabel value="user" control={<Radio />} label="User" />
+                                    <FormControlLabel value="manager" control={<Radio />} label="Manager" />
+                                    <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+                                </RadioGroup>
+                            </FormControl>
+                            <div className={adminLectureClassificaitonManagerStyle.lectureBtnContainer}>
+                                <Button variant="outlined" color="error" onClick={handleCancel}>
+                                    취소
+                                </Button>
+
+                                <Button variant="outlined" color="primary" onClick={handleSave}>
+                                    {mode === 'edit' ? '수정' : '생성'}
+                                </Button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section >
-
             <Footer />
+            <TagSearchModal
+                open={tagSearchModalOpen}
+                onClose={handleModalClose}
+                onTagSelected={addTag}
+                existingTags={tags}
+            />
         </>
     );
 }
-
-
-
-
-

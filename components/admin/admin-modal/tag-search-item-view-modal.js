@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 
 
-export default function AdminTagItemModal({ tag, handleOpen, existingTags }) {
+export default function TagSearchItemViewModal({ tag, handleOpen, existingTags }) {
     const isAlreadyAdded = existingTags.some(existingTag => existingTag.id === tag.id);
     const tooltipTitle = isAlreadyAdded ? "이미 추가되었습니다" : "태그 추가";
     return (

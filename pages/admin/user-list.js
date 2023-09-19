@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import AdminUserItem from '@/components/admin-user-item'
-import AdminUserInfoModal from '@/components/admin-modal/user-info-modal'
+import UserItemView from '@/components/admin/user-item-view'
+import UserManagementModal from '@/components/admin/admin-modal/user-management-modal'
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import adminUserDetailStyle from '@/styles/admin/user-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
-import AdminSideNavBar from '@/components/admin-side-navbar';
+import SideNavBar from '@/components/admin/side-navbar';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 
-
-
 export default function UserList() {
-    const router = useRouter();
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const itemsPerPage = 7;
@@ -122,7 +117,7 @@ export default function UserList() {
             <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
-                    <AdminSideNavBar />
+                    <SideNavBar />
                 </div>
                 <div className={adminCommonStyle.mainContainer}>
                     <div className={adminUserDetailStyle.userUserTitle}>
@@ -154,7 +149,7 @@ export default function UserList() {
                         {(searchKeyword !== '' ? filteredUsers : users)
                             .slice(startIdx, endIdx)
                             .map(user => (
-                                <AdminUserItem key={user.id} user={user} handleOpen={handleOpenUserInfoModal} />
+                                <UserItemView key={user.id} user={user} handleOpen={handleOpenUserInfoModal} />
                             ))}
                     </div>
                     <div className={adminUserDetailStyle.paginationContainer}>
@@ -166,16 +161,13 @@ export default function UserList() {
                     </div>
                 </div>
             </section >
-
             <Footer />
-
-            {/* Modal */}
-            <AdminUserInfoModal
+            <UserManagementModal
                 open={openUserInfoModal}
                 onClose={() => setOpenUserInfoModal(false)}
                 user={selectedUser}
                 onUpdateUser={handleUpdateUser}
-                onUpdateFilteredUsers={handleUpdateFilteredUsers} // 수정된 정보 업데이트 함수 전달
+                onUpdateFilteredUsers={handleUpdateFilteredUsers}
                 onDeleteUser={handleDeleteUser}
             />
         </>
