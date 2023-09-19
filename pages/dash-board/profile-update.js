@@ -10,42 +10,40 @@ import { Box } from '@mui/system';
 
 export default function ProfileUpdate() {
     const router = useRouter();
-    const [user, setUser] = useState(null);
+    const [member, setMember] = useState(null);
     const [employeeId, setEmployeeId] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState(null);
 
-    const fetchUserAndLectureData = async () => {
+    const fetchMemberAndLectureData = async () => {
         try {
-            const user = JSON.parse(sessionStorage.getItem('user'));
-            const userId = user && user.id;
-            const userResponse = await axios.get(`/api/members/${userId}`);
-            const userData = userResponse.data;
-            setUser(userData);
-            setEmployeeId(userData.employeeId);
+            const member = JSON.parse(sessionStorage.getItem('member'));
+            const memberId = member && member.id;
+            const memberResponse = await axios.get(`/api/members/${memberId}`);
+            const memberData = memberResponse.data;
+            setMember(memberData);
+            setEmployeeId(memberData.employeeId);
         } catch (error) {
             console.error('Failed to fetch data:', error);
         }
     };
 
     useEffect(() => {
-        fetchUserAndLectureData();
+        fetchMemberAndLectureData();
     }, []);
 
     const handleUpdateProfile = () => {
-        // Confirm the update with the user
         const isConfirmed = window.confirm('프로필을 업데이트하시겠습니까?');
 
         if (isConfirmed) {
-            // Perform the profile update
             if (password !== confirmPassword) {
                 setMessage({ type: 'error', content: '비밀번호와 비밀번호 확인이 일치하지 않습니다.' });
                 return;
             }
 
             axios
-                .put(`/api/members/${user.id}`, { employeeId, password })
+                .put(`/api/members/${member.id}`, { employeeId, password })
                 .then((response) => {
                     setMessage({ type: 'success', content: '프로필이 업데이트되었습니다.' });
                 })
@@ -97,7 +95,7 @@ export default function ProfileUpdate() {
                     <div>
                         <TextField
                             label="Email"
-                            value={user?.email}
+                            value={member?.email}
                             disabled
                             fullWidth
                             sx={{ marginBottom: '1rem' }}
