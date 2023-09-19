@@ -68,7 +68,7 @@ export default function UserManagementModal({ open, onClose, user, onUpdateUser,
 
         if (confirmDelete) {
             try {
-                await axios.delete(`/api/admin/users/${updatedUser.id}`);
+                await axios.delete(`/api/admin/members/${updatedUser.id}`);
                 console.log('User deleted');
 
                 // 부모 컴포넌트에서 전달된 업데이트 함수를 사용하여 상태를 업데이트합니다.
@@ -105,7 +105,7 @@ export default function UserManagementModal({ open, onClose, user, onUpdateUser,
         try {
 
             // 1. 전체 유저 데이터를 가져옵니다.
-            const allUsers = await axios.get('/api/users');
+            const allUsers = await axios.get('/api/members');
             const userList = allUsers.data;
 
             // 2. 중복 검사
@@ -127,7 +127,7 @@ export default function UserManagementModal({ open, onClose, user, onUpdateUser,
                 payload = { ...rest, lectureId: sortedLectures };  // 정렬된 배열 사용
             }
 
-            const response = await axios.put(`/api/admin/users/${updatedUser.id}`, payload);
+            const response = await axios.put(`/api/admin/members/${updatedUser.id}`, payload);
             console.log('User updated:', response.data);
             onUpdateUser(updatedUser); // 수정된 사용자 정보 전달
             onUpdateFilteredUsers(updatedUser); // 수정된 사용자 정보 업데이트

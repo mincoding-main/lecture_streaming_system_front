@@ -61,7 +61,7 @@ export async function getServerSideProps() {
         const apiUrl = config.apiFrontpoint;
 
         // user API 호출
-        const userResponse = await axios.get(`${apiUrl}/api/users/1`); // 1은 특정 사용자의 id라고 가정
+        const userResponse = await axios.get(`${apiUrl}/api/members/1`); // 1은 특정 사용자의 id라고 가정
         const user = userResponse.data;
         // lecture API 호출
         const lectureResponse = await axios.get(`${apiUrl}/api/lectures`);

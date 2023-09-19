@@ -32,7 +32,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
 
     // 중복확인 버튼 클릭 시 호출되는 함수
     const handleDuplicateCheck = async () => {
-        const response = await axios.get('/api/users'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
+        const response = await axios.get('/api/members'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
         const userData = response.data;
 
         // Check if the entered email already exists in the users array

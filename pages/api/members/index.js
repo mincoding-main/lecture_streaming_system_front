@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 // JSON 파일의 경로
-const usersFilePath = path.join(process.cwd(), 'fake-data', 'users.json');
+const usersFilePath = path.join(process.cwd(), 'fake-data', 'members.json');
 
 export default function handler(req, res) {
     if (req.method === 'GET') {
@@ -26,7 +26,6 @@ export default function handler(req, res) {
                 employeeId,
                 isAdmin: true,
                 lectureID: [],
-                isDeleted: 0
             };
 
             // 새로운 사용자 정보를 기존 사용자 데이터에 추가

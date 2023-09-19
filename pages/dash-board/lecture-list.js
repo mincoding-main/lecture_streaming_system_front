@@ -28,7 +28,7 @@ export default function LectureList() {
         try {
             const user = JSON.parse(sessionStorage.getItem('user'));
             const userId = user && user.id;
-            const userResponse = await axios.get(`/api/users/${userId}`); // 1은 특정 사용자의 id라고 가정
+            const userResponse = await axios.get(`/api/members/${userId}`); // 1은 특정 사용자의 id라고 가정
             const userData = userResponse.data;
             setUser(userData);
 

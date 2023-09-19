@@ -20,7 +20,7 @@ export default function ProfileUpdate() {
         try {
             const user = JSON.parse(sessionStorage.getItem('user'));
             const userId = user && user.id;
-            const userResponse = await axios.get(`/api/users/${userId}`);
+            const userResponse = await axios.get(`/api/members/${userId}`);
             const userData = userResponse.data;
             setUser(userData);
             setEmployeeId(userData.employeeId);
@@ -45,7 +45,7 @@ export default function ProfileUpdate() {
             }
 
             axios
-                .put(`/api/users/${user.id}`, { employeeId, password })
+                .put(`/api/members/${user.id}`, { employeeId, password })
                 .then((response) => {
                     setMessage({ type: 'success', content: '프로필이 업데이트되었습니다.' });
                 })

@@ -49,7 +49,7 @@ export default function Header() {
 
     const handleLogin = async (modalEmail, modalPassword) => {
         try {
-            const response = await axios.get('/api/users'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
+            const response = await axios.get('/api/members'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
             const userData = response.data;
 
             // 서버에서 받아온 유저 데이터를 기반으로 로그인 처리
@@ -131,7 +131,7 @@ export default function Header() {
             };
 
             // 서버로 POST 요청을 보냄
-            const response = await axios.post('/api/users', newUser);
+            const response = await axios.post('/api/members', newUser);
 
             // 응답으로 받은 데이터 확인
             const addedUser = response.data;
@@ -161,7 +161,7 @@ export default function Header() {
 
     const handleFindPassword = async (email) => {
 
-        const response = await axios.get('/api/users'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
+        const response = await axios.get('/api/members'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
         const userData = response.data;
 
         const foundUser = userData.find((user) => user.email === email);

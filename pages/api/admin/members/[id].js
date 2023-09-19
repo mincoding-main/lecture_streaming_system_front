@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 // JSON 파일의 경로
-const usersFilePath = path.join(process.cwd(), 'fake-data', 'users.json');
+const usersFilePath = path.join(process.cwd(), 'fake-data', 'members.json');
 
 export default function handler(req, res) {
     if (req.method === 'GET') {
