@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import AdminTagItemModal from '@/components/admin-modal/admin-tag-item-modal'
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import AdminTagSearchStyle from '@/styles/admin-tag-search-modal.module.css'
+import AdminTagSearchStyle from '@/styles/admin/tag-search-modal.module.css'
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';

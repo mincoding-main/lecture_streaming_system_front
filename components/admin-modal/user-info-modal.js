@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
-import adminUserEditModalStyle from '@/styles/admin-user-edit-modal.module.css'
+import adminUserEditModalStyle from '@/styles/admin/user-edit-modal.module.css'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';

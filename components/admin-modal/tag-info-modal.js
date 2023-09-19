@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
-import adminTagEditModalStyle from '@/styles/admin-tag-edit-modal.module.css'
+import adminTagEditModalStyle from '@/styles/admin/tag-edit-modal.module.css'
 
 
 export default function AdminTagInfoModal({ open, onClose, tag, onUpdateTag, onDeleteTag, mode = 'edit', onAddTag }) {

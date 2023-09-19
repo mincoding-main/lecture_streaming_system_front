@@ -3,16 +3,12 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import adminLectureClassificaitonManagerStyle from '@/styles/admin-lecture-classification-manager.module.css';
-import adminCommonStyle from '@/styles/admin-common.module.css';
+import adminLectureClassificaitonManagerStyle from '@/styles/admin/lecture-classification-manager.module.css';
+import adminCommonStyle from '@/styles/admin/common.module.css';
 import AdminSideNavBar from '@/components/admin-side-navbar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+
 
 export default function LectureClassificationManager() {
     const router = useRouter();

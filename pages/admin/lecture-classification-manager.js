@@ -6,8 +6,8 @@ import AdminSideNavBar from '@/components/admin-side-navbar';
 import AdminTagSearchModal from '@/components/admin-modal/tag-search-modal';
 import axios from 'axios';
 
-import adminCommonStyle from '@/styles/admin-common.module.css';
-import adminLectureClassificaitonManagerStyle from '@/styles/admin-lecture-classification-manager.module.css';
+import adminCommonStyle from '@/styles/admin/common.module.css';
+import adminLectureClassificaitonManagerStyle from '@/styles/admin/lecture-classification-manager.module.css';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';

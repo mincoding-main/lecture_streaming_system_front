@@ -4,8 +4,8 @@ import Footer from '@/components/footer';
 import AdminTagItem from '@/components/admin-tag-item'
 import AdminTagInfoModal from '@/components/admin-modal/tag-info-modal'
 import axios from 'axios';
-import adminTagDetailStyle from '@/styles/admin-tag-detail.module.css';
-import adminCommonStyle from '@/styles/admin-common.module.css';
+import adminTagDetailStyle from '@/styles/admin/tag-detail.module.css';
+import adminCommonStyle from '@/styles/admin/common.module.css';
 import AdminSideNavBar from '@/components/admin-side-navbar';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';

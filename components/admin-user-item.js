@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import adminUserDetailStyle from '@/styles/admin-user-detail.module.css';
+import adminUserDetailStyle from '@/styles/admin/user-detail.module.css';
 
 
 

@@ -5,8 +5,8 @@ import AdminUserItem from '@/components/admin-user-item'
 import AdminUserInfoModal from '@/components/admin-modal/user-info-modal'
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import adminUserDetailStyle from '@/styles/admin-user-detail.module.css';
-import adminCommonStyle from '@/styles/admin-common.module.css';
+import adminUserDetailStyle from '@/styles/admin/user-detail.module.css';
+import adminCommonStyle from '@/styles/admin/common.module.css';
 import AdminSideNavBar from '@/components/admin-side-navbar';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';

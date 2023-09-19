@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import adminTagDetailModalStyle from '@/styles/admin-tag-detail-modal.module.css';
+import adminTagDetailModalStyle from '@/styles/admin/tag-detail-modal.module.css';
 import Tooltip from '@mui/material/Tooltip';
 
 
