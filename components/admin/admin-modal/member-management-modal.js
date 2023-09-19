@@ -17,7 +17,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 
 
-export default function UserManagementModal({ open, onClose, user, onUpdateUser, onUpdateFilteredUsers, onDeleteUser }) {
+export default function MemberManagementModal({ open, onClose, user, onUpdateUser, onUpdateFilteredUsers, onDeleteUser }) {
     const [updatedUser, setUpdatedUser] = useState({ ...user, password: '' });
     const [errorMessage, setErrorMessage] = useState('');
     const [lectures, setLectures] = useState([]);

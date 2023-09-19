@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import UserItemView from '@/components/admin/user-item-view'
-import UserManagementModal from '@/components/admin/admin-modal/user-management-modal'
+import MemberItemView from '@/components/admin/member-item-view'
+import MemberManagementModal from '@/components/admin/admin-modal/member-management-modal'
 import axios from 'axios';
 import adminMemberDetailStyle from '@/styles/admin/member-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
@@ -149,7 +149,7 @@ export default function UserList() {
                         {(searchKeyword !== '' ? filteredUsers : users)
                             .slice(startIdx, endIdx)
                             .map(user => (
-                                <UserItemView key={user.id} user={user} handleOpen={handleOpenUserInfoModal} />
+                                <MemberItemView key={user.id} user={user} handleOpen={handleOpenUserInfoModal} />
                             ))}
                     </div>
                     <div className={adminMemberDetailStyle.paginationContainer}>
@@ -162,7 +162,7 @@ export default function UserList() {
                 </div>
             </section >
             <Footer />
-            <UserManagementModal
+            <MemberManagementModal
                 open={openUserInfoModal}
                 onClose={() => setOpenUserInfoModal(false)}
                 user={selectedUser}

@@ -7,7 +7,7 @@ export default function SideNavBar() {
     const router = useRouter();
 
     const handleUserListClick = () => {
-        router.push('/admin/user-list');
+        router.push('/admin/member-list');
     };
 
     const handleLectureManagementClick = () => {
