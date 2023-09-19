@@ -1,4 +1,3 @@
-/* LectureStreaming.js */
 
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
@@ -7,8 +6,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
-import { Button, List, ListItem, ListItemText, Paper, Typography } from '@mui/material';
-import lectureStreamingStyle from '@/styles/lecture-streaming.module.css';
+import { Button, List, ListItem, ListItemText, Paper } from '@mui/material';
+import lectureStreamingStyle from '@/styles/main/lecture-streaming.module.css';
 
 
 export default function LectureStreaming() {

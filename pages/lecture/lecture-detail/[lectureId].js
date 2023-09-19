@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import lectureDetailStyle from '@/styles/lecture-detail.module.css';
+import lectureDetailStyle from '@/styles/main/lecture-detail.module.css';
 import VideoListItem from '@/components/lecture-video-item';
 
 

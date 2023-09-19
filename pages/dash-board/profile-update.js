@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import dashBoardStyle from '@/styles/dash-board.module.css';
+import dashBoardStyle from '@/styles/main/dash-board.module.css';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useRouter } from 'next/router';
