@@ -35,12 +35,12 @@ export default function LectureDetail() {
                     </div>
                     <div className={lectureDetailStyle.lectureIntroText}>
                         <h1>{lecture.title}</h1>
-                        <p>{lecture.description}</p>
+                        <p>{lecture.content}</p>
                     </div>
                 </div>
                 <div className={lectureDetailStyle.lectureCourseSection}>
                     <div className={lectureDetailStyle.lectureCourseTitleText}>교육과정안내</div>
-                    <div className={lectureDetailStyle.lectureCourseText} dangerouslySetInnerHTML={{ __html: lecture.courseDescription }} />
+                    <div className={lectureDetailStyle.lectureCourseText} dangerouslySetInnerHTML={{ __html: lecture.courseContent }} />
                 </div>
                 <div className={lectureDetailStyle.lectureVideoSection}>
                     <VideoListItem Videos={lecture.videos} LectureId={lecture.id} />

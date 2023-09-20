@@ -24,7 +24,7 @@ export default function LectureClassificationManager() {
     const router = useRouter();
     const { mode } = router.query;
     const [lectureTitle, setLectureTitle] = useState(mode === 'edit' ? '기존 강의명' : '');
-    const [lectureDescription, setLectureDescription] = useState(mode === 'edit' ? '기존 강의 소개' : '');
+    const [lectureContent, setLectureContent] = useState(mode === 'edit' ? '기존 강의 소개' : '');
     const [permissions, setPermissions] = useState('user');
     const [tags, setTags] = useState([]);
     const [tagSearchModalOpen, setTagSearchModalOpen] = useState(false);
@@ -39,7 +39,7 @@ export default function LectureClassificationManager() {
                 if (mode === 'edit' && id) {
                     const data = await fetchLecture(id);
                     setLectureTitle(data.title);
-                    setLectureDescription(data.description);
+                    setLectureContent(data.content);
                     setTags(data.tags);
                     setPermissions(data.permissions);
                 }
@@ -57,7 +57,7 @@ export default function LectureClassificationManager() {
         try {
             const payload = {
                 title: lectureTitle,
-                description: lectureDescription,
+                content: lectureContent,
                 tags: tags,
                 permissions: permissions
             };
@@ -121,7 +121,7 @@ export default function LectureClassificationManager() {
                         <div className={adminLectureManagementStyle.lectureItemContainer}>
                             <div className={adminLectureManagementStyle.lectureInsideTitle}>{mode === 'edit' ? '강의 수정' : '강의 생성'} </div>
                             <TextField className={adminLectureManagementStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
-                            <TextField className={adminLectureManagementStyle.lectureTextField} label="강의 소개" value={lectureDescription} onChange={e => setLectureDescription(e.target.value)} />
+                            <TextField className={adminLectureManagementStyle.lectureTextField} label="강의 소개" value={lectureContent} onChange={e => setLectureContent(e.target.value)} />
                             <div className={adminLectureManagementStyle.tagContainer}>
                                 <Button variant="outlined" color="primary" onClick={showAddTagModal}>
                                     태그 추가

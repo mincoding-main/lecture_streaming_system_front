@@ -38,7 +38,7 @@ export default function LectureListCard({ lectureData }) {
                             alt={lecture.title}
                             sx={{ width: '25%', marginBottom: '1rem', marginRight: '1rem' }}
                         />
-                        <ListItemText primary={lecture.title} secondary={lecture.description} />
+                        <ListItemText primary={lecture.title} secondary={lecture.content} />
                     </ListItemButton>
                 </ListItem>
             ))}

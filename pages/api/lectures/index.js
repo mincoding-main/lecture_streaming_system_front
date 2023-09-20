@@ -36,7 +36,7 @@ export default function handler(req, res) {
             id: newId,
             ...newLecture,
             imageUrl: "/test.png",
-            courseDescription: "#",
+            courseContent: "#",
             videos: [],
         };
 

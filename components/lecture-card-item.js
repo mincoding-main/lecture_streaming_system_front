@@ -27,7 +27,7 @@ export default function LectureListCard({ lectureData }) {
                                 {lecture.title} {/* 제목을 데이터베이스에서 가져온 값으로 설정 */}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {lecture.description} {/* 설명을 데이터베이스에서 가져온 값으로 설정 */}
+                                {lecture.content} {/* 설명을 데이터베이스에서 가져온 값으로 설정 */}
                             </Typography>
                         </CardContent>
                     </CardActionArea>

@@ -37,7 +37,7 @@ export default function LectureListCard({ Videos, LectureId }) {
                             alt={video.title}
                             sx={{ width: '25%', marginBottom: '1rem', marginRight: '1rem' }}
                         /> */}
-                        <ListItemText primary={video.title} secondary={video.description} />
+                        <ListItemText primary={video.title} secondary={video.content} />
                     </ListItemButton>
                 </ListItem>
             ))}
