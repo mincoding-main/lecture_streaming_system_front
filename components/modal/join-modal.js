@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { fetchAllMembers } from '@/utils/api';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
-import axios from 'axios';
 
 export default function JoinModal({ open, onClose, onJoin }) {
     const [email, setEmail] = useState('');
@@ -32,9 +32,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
 
     // 중복확인 버튼 클릭 시 호출되는 함수
     const handleDuplicateCheck = async () => {
-        const response = await axios.get('/api/members'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
-        const memberData = response.data;
-
+        const memberData = await fetchAllMembers(); // GET 요청을 보내서 유저 데이터를 받아옵니다.
         const isDuplicate = memberData.some((member) => member.email === email);
         if (isDuplicate) {
             setMessage({ type: 'error', content: '이미 존재하는 이메일입니다.' });

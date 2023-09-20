@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import TagItemView from '@/components/admin/tag-item-view'
 import TagManagementModal from '@/components/admin/admin-modal/tag-management-modal'
-import axios from 'axios';
+import { fetchAllTags } from '@/utils/api';
 import adminTagDetailStyle from '@/styles/admin/tag-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
@@ -24,8 +24,8 @@ export default function TagList() {
     useEffect(() => {
         const fetchTags = async () => {
             try {
-                const response = await axios.get('/api/tags');
-                setTags(response.data);
+                const data = await fetchAllTags();
+                setTags(data);
             } catch (error) {
                 console.error('Error fetching tags:', error);
             }

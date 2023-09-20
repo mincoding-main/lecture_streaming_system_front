@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { fetchAllMembers, fetchAllLectures, updateMember, deleteMember } from '@/utils/api';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
-import axios from 'axios';
 import adminMemberEditModalStyle from '@/styles/admin/member-edit-modal.module.css'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -13,8 +13,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
-
-
 
 
 export default function MemberManagementModal({ open, onClose, member, onUpdateMember, onUpdateFilteredMember, onDeleteMember }) {
@@ -32,8 +30,8 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
     // 전체 강의 가져오기
     useEffect(() => {
         const fetchLectures = async () => {
-            const response = await axios.get('/api/lectures');
-            setLectures(response.data);
+            const data = await fetchAllLectures();
+            setLectures(data);
             if (member && member.lectureId) {
                 setSelectedLectures(new Set(member.lectureId));
             } else {
@@ -68,7 +66,7 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
 
         if (confirmDelete) {
             try {
-                await axios.delete(`/api/members/${updatedMember.id}`);
+                await deleteMember(updatedMember.id);
                 onUpdateMember(prevMembers => prevMembers.filter(member => member.id !== updatedMember.id));
                 onUpdateFilteredMember(prevFilteredMembers => prevFilteredMembers.filter(member => member.id !== updatedMember.id));
                 onDeleteMember(member.id);
@@ -97,10 +95,8 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
     // 전체 데이터 업데이트
     const handleUpdateMember = async () => {
         try {
-
             // 1. 전체 유저 데이터를 가져옵니다.
-            const allMembers = await axios.get('/api/members');
-            const memberList = allMembers.data;
+            const memberList = await fetchAllMembers();
 
             // 2. 중복 검사
             const duplicateEmail = memberList.some(member => member.id !== updatedMember.id && member.email === updatedMember.email);
@@ -121,8 +117,7 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
                 payload = { ...rest, lectureId: sortedLectures };  // 정렬된 배열 사용
             }
 
-            const response = await axios.put(`/api/members/${updatedMember.id}`, payload);
-            console.log('Member updated:', response.data);
+            await updateMember(updatedMember.id, payload);
             onUpdateMember(updatedMember); // 수정된 사용자 정보 전달
             onUpdateFilteredMember(updatedMember); // 수정된 사용자 정보 업데이트
             handleClose(); // 모달 닫기

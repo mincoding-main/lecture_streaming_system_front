@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import { fetchAllLectures, deleteLecture } from '@/utils/api'
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import adminLectureViewStyle from '@/styles/admin/lecture-view.module.css';
@@ -20,8 +21,8 @@ export default function LectureView() {
     useEffect(() => {
         const fetchLectures = async () => {
             try {
-                const response = await axios.get('/api/lectures');
-                setLectures(response.data);
+                const data = await fetchAllLectures();
+                setLectures(data);
             } catch (error) {
                 console.error('Error fetching lectures:', error);
             }
@@ -41,7 +42,7 @@ export default function LectureView() {
 
     const handleDeleteLecture = async (lecture) => {
         try {
-            const response = await axios.delete(`/api/lectures/${lecture.id}`);
+            const response = await deleteLecture(lecture.id);
             if (response.status === 200) {
                 const updatedLectures = lectures.filter(l => l.id !== lecture.id);
                 setLectures(updatedLectures);

@@ -23,11 +23,14 @@ export default function handler(req, res) {
         }
     } else if (req.method === 'PUT') {
         const { id } = req.query;
-        const { employeeId, password, isAdmin, lectureId, isDeleted } = req.body;
+        const { email, employeeId, password, isAdmin, lectureId, isDeleted } = req.body;
         const memberData = JSON.parse(fs.readFileSync(membersFilePath, 'utf8'));
         const memberIndex = memberData.findIndex((member) => member.id === Number(id));
 
         if (memberIndex !== -1) {
+            if (email !== undefined && email !== null && email.trim() !== '') { // email 처리 추가
+                memberData[memberIndex].email = email;
+            }
             if (employeeId !== undefined && employeeId !== null) {
                 memberData[memberIndex].employeeId = employeeId;
             }
@@ -50,6 +53,20 @@ export default function handler(req, res) {
 
             fs.writeFileSync(membersFilePath, JSON.stringify(memberData, null, 4), 'utf8');
             res.status(200).json({ message: 'Member profile updated successfully' });
+        } else {
+            res.status(404).json({ message: 'Member not found' });
+        }
+    } else if (req.method === 'DELETE') {
+        const { id } = req.query;
+        const { permanent } = req.body;  // 물리적 삭제를 할지 여부
+        const memberData = JSON.parse(fs.readFileSync(membersFilePath, 'utf8'));
+        const memberIndex = memberData.findIndex((member) => member.id === Number(id));
+
+        if (memberIndex !== -1) {
+            memberData.splice(memberIndex, 1);
+            res.status(200).json({ message: 'Member permanently deleted' });
+
+            fs.writeFileSync(membersFilePath, JSON.stringify(memberData, null, 2), 'utf8');
         } else {
             res.status(404).json({ message: 'Member not found' });
         }

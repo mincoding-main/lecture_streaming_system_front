@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { fetchAllMembers, createMember } from '@/utils/api';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,8 +14,6 @@ import JoinModal from './modal/join-modal';
 import FindPasswordModal from './modal/find-password-modal';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import axios from 'axios';
-import { useRouter } from 'next/router';
 
 const settings = [
     { label: 'Dashboard', path: '/dash-board/lecture-list' },
@@ -49,8 +49,7 @@ export default function Header() {
 
     const handleLogin = async (modalEmail, modalPassword) => {
         try {
-            const response = await axios.get('/api/members'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
-            const memberData = response.data;
+            const memberData = await fetchAllMembers(); // GET 요청을 보내서 유저 데이터를 받아옵니다.
 
             // 서버에서 받아온 유저 데이터를 기반으로 로그인 처리
             const foundMember = memberData.find((member) => member.email === modalEmail && member.password === modalPassword);
@@ -129,7 +128,7 @@ export default function Header() {
                 isAdmin: true,
             };
 
-            const response = await axios.post('/api/members', newMember);
+            await createMember(newMember);
 
             // 성공적으로 사용자가 추가된 경우에 처리
             setLoggedIn(false);
@@ -156,8 +155,7 @@ export default function Header() {
 
     const handleFindPassword = async (email) => {
 
-        const response = await axios.get('/api/members'); // GET 요청을 보내서 유저 데이터를 받아옵니다.
-        const memberData = response.data;
+        const memberData = await fetchAllMembers(); // GET 요청을 보내서 유저 데이터를 받아옵니다.
 
         const foundMember = memberData.find((member) => member.email === email);
 

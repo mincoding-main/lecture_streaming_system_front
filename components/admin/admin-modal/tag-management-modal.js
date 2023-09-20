@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { createTag, fetchAllTags, updateTag, deleteTag } from '@/utils/api'
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
-import axios from 'axios';
 import adminTagEditModalStyle from '@/styles/admin/tag-edit-modal.module.css'
 
 
@@ -20,8 +20,7 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
     const handleCreateTag = async () => {
         try {
             // 1. 전체 태그 데이터를 가져옵니다.
-            const allTags = await axios.get('/api/tags');
-            const tagList = allTags.data;
+            const tagList = await fetchAllTags();
 
             // 2. 중복 검사
             const duplicateSubject = tagList.some(tag => tag.name === updatedTag.name);
@@ -32,8 +31,7 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
             }
 
             // 3. 태그 생성 로직
-            const response = await axios.post('/api/tags', updatedTag);
-            const newTag = response.data;
+            const newTag = await createTag(updatedTag);
 
             onAddTag(newTag);
             // 4. 상위 컴포넌트의 태그 목록 상태 업데이트
@@ -50,8 +48,7 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
         try {
 
             // 1. 전체 태그 데이터를 가져옵니다.
-            const allTags = await axios.get('/api/tags');
-            const tagList = allTags.data;
+            const tagList = await fetchAllTags();
 
             // 2. 중복 검사
             const duplicateSubject = tagList.some(tag => tag.id !== updatedTag.id && tag.name === updatedTag.name);
@@ -63,7 +60,7 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
 
             let payload = { ...updatedTag };  // 정렬된 배열 사용
 
-            const response = await axios.put(`/api/tags/${updatedTag.id}`, payload);
+            await updateTag(updatedTag.id, payload);
             onUpdateTag(updatedTag); // 수정된 사용자 정보 전달
             handleClose(); // 모달 닫기
         } catch (error) {
@@ -78,7 +75,7 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
 
         if (confirmDelete) {
             try {
-                await axios.delete(`/api/tags/${updatedTag.id}`);
+                await deleteTag(updatedTag.id);
 
                 // 부모 컴포넌트에서 전달된 업데이트 함수를 사용하여 상태를 업데이트합니다.
                 onUpdateTag(prevTags => prevTags.filter(tag => tag.id !== updatedTag.id));

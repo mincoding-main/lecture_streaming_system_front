@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import axios from 'axios';
+import { fetchLectureVideo, updateLectureVideo, createLectureVideo } from '@/utils/api'
 import { useRouter } from 'next/router';
 import adminLectureVideoManagementStyle from '@/styles/admin/lecture-video-management.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
@@ -22,9 +22,9 @@ export default function LectureVideoManagement() {
         const fetchLectureAndVideo = async () => {
             try {
                 if (mode === 'edit' && id && videoId) {
-                    const response = await axios.get(`/api/lectures/${id}/videos/${videoId}`);
-                    setLectureTitle(response.data.title);
-                    setLectureUrl(response.data.url);
+                    const data = await fetchLectureVideo(id, videoId);
+                    setLectureTitle(data.title);
+                    setLectureUrl(data.url);
                 }
             } catch (error) {
                 console.error('Error fetching the lecture:', error);
@@ -39,13 +39,12 @@ export default function LectureVideoManagement() {
     const handleSave = async () => {
         try {
             if (mode === 'edit') {
-                const response = await axios.patch(`/api/lectures/${id}/videos/${videoId}`, {
+                await updateLectureVideo(id, videoId, {
                     title: lectureTitle,
                     url: lectureUrl,
                 });
             } else {
-
-                const response = await axios.post(`/api/lectures/${id}/videos`, {
+                await createLectureVideo(id, {
                     title: lectureTitle,
                     url: lectureUrl,
                 });

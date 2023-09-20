@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import MemberItemView from '@/components/admin/member-item-view'
 import MemberManagementModal from '@/components/admin/admin-modal/member-management-modal'
-import axios from 'axios';
+import { fetchAllMembers } from '@/utils/api'
 import adminMemberDetailStyle from '@/styles/admin/member-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
@@ -24,8 +24,8 @@ export default function MemberList() {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await axios.get('/api/members');
-                setMembers(response.data);
+                const data = await fetchAllMembers();
+                setMembers(data);
             } catch (error) {
                 console.error('Error fetching Members:', error);
             }
@@ -138,10 +138,9 @@ export default function MemberList() {
                             <div className={adminMemberDetailStyle.memberInfo}>
                                 <Grid container spacing={2} >
                                     <Grid item xs={1} className={adminMemberDetailStyle.memberInfoTitle}>회원 ID</Grid>
-                                    <Grid item xs={3} className={adminMemberDetailStyle.memberInfoTitle}>Email</Grid>
-                                    <Grid item xs={2} className={adminMemberDetailStyle.memberInfoTitle}>사번</Grid>
-                                    <Grid item xs={3} className={adminMemberDetailStyle.memberInfoTitle}>유저 권한</Grid>
-                                    <Grid item xs={3} className={adminMemberDetailStyle.memberInfoTitle}>강의 종류</Grid>
+                                    <Grid item xs={4} className={adminMemberDetailStyle.memberInfoTitle}>Email</Grid>
+                                    <Grid item xs={3} className={adminMemberDetailStyle.memberInfoTitle}>사번</Grid>
+                                    <Grid item xs={4} className={adminMemberDetailStyle.memberInfoTitle}>유저 권한</Grid>
                                 </Grid>
                             </div>
                             <div className={adminMemberDetailStyle.memberEditBtnTitle} >정보 조회 / 수정</div>

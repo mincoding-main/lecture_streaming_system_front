@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import axios from 'axios';
+import { fetchLecture, deleteLectureVideo } from '@/utils/api'
 import { useRouter } from 'next/router';
 import adminLectureVideoViewStyle from '@/styles/admin/lecture-video-view.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
@@ -18,19 +18,19 @@ export default function LectureVideoView() {
     const itemsPerPage = 8;
 
     useEffect(() => {
-        const fetchLecture = async () => {
+        const fetchOneLecture = async () => {
             try {
                 const id = router.query.id;
                 if (id) {
-                    const response = await axios.get(`/api/lectures/${id}`);
-                    setLectures([response.data]);
+                    const data = await fetchLecture(id);
+                    setLectures([data]);
                 }
             } catch (error) {
                 console.error('Error fetching the lecture:', error);
             }
         };
 
-        fetchLecture();
+        fetchOneLecture();
     }, [router.query.id]);
 
 
@@ -47,7 +47,7 @@ export default function LectureVideoView() {
     const handleDeleteVideo = async (video) => {
         try {
             const id = router.query.id;
-            await axios.delete(`/api/lectures/${id}/videos/${video.id}`);
+            await deleteLectureVideo(id, video.id);
 
             const updatedLectures = lectures.map(lecture => {
                 if (lecture.id === Number(id)) {

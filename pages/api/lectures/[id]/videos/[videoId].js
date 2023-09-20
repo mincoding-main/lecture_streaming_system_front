@@ -19,7 +19,7 @@ export default function handler(req, res) {
         } else {
             res.status(404).json({ message: 'Lecture not found' });
         }
-    } else if (req.method === 'PATCH') {
+    } else if (req.method === 'PUT') {
         // Updating an existing video
         const updateData = req.body;
         const lecture = lectures.find(lecture => lecture.id === Number(id));

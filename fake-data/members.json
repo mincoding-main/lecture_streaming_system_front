@@ -3,7 +3,7 @@
         "id": 1,
         "email": "111",
         "password": "123",
-        "employeeId": "124123",
+        "employeeId": "12412311",
         "isAdmin": true,
         "lectureId": [
             2,
@@ -39,7 +39,7 @@
     },
     {
         "id": 4,
-        "email": "444",
+        "email": "44411",
         "password": "444",
         "employeeId": "aaa444",
         "isAdmin": false,
@@ -148,31 +148,6 @@
         "isAdmin": false,
         "lectureId": [
             1
-        ],
-        "isDeleted": 0
-    },
-    {
-        "id": 14,
-        "email": "141414",
-        "password": "141414",
-        "employeeId": "affgg1414",
-        "isAdmin": false,
-        "lectureId": [
-            3
-        ],
-        "isDeleted": 0
-    },
-    {
-        "id": 15,
-        "email": "151515",
-        "password": "151515",
-        "employeeId": "afgt151515",
-        "isAdmin": false,
-        "lectureId": [
-            1,
-            2,
-            3,
-            4
         ],
         "isDeleted": 0
     }

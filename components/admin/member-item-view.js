@@ -12,10 +12,9 @@ export default function MemberItemView({ member, handleOpen }) {
             <div className={adminMemberDetailStyle.memberInfo}>
                 <Grid container spacing={2}>
                     <Grid item xs={1} className={commonStyle}>{member.id}</Grid>
-                    <Grid item xs={3} className={commonStyle}>{member.email}</Grid>
-                    <Grid item xs={2} className={commonStyle}>{member.employeeId}</Grid>
-                    <Grid item xs={3} className={commonStyle}>{member.isAdmin ? '관리자' : '사용자'}</Grid>
-                    <Grid item xs={3} className={commonStyle}>{member.lectureId.join(', ')}</Grid>
+                    <Grid item xs={4} className={commonStyle}>{member.email}</Grid>
+                    <Grid item xs={3} className={commonStyle}>{member.employeeId}</Grid>
+                    <Grid item xs={4} className={commonStyle}>{member.isAdmin ? '관리자' : '사용자'}</Grid>
                 </Grid>
             </div>
             <div className={adminMemberDetailStyle.memberEditBtn}>

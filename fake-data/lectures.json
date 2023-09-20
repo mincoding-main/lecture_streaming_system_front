@@ -8,7 +8,7 @@
         "videos": [
             {
                 "id": 1,
-                "title": "강의 설명 1 / 비디오 제목 11111",
+                "title": "강의 설명 1 / 비디오 제목 111",
                 "url": "/video_url_1.mp4"
             },
             {
@@ -134,42 +134,5 @@
                 "url": "/video_url_2.mp4"
             }
         ]
-    },
-    {
-        "id": 8,
-        "title": "ㅅㄷㄴㅅ",
-        "description": "ㅅㄷㄴㅅㅅ",
-        "imageUrl": "/test.png",
-        "courseDescription": "#",
-        "videos": [
-            {
-                "id": 1,
-                "title": "ㅅㄷㄴㅅ",
-                "url": "ㅅㄷㄴㅅ"
-            }
-        ]
-    },
-    {
-        "id": 9,
-        "title": "test11",
-        "description": "test",
-        "tags": [
-            {
-                "id": 2,
-                "name": "bbb"
-            },
-            {
-                "id": 4,
-                "name": "ddd"
-            },
-            {
-                "id": 1,
-                "name": "avv"
-            }
-        ],
-        "permissions": "user",
-        "imageUrl": "/test.png",
-        "courseDescription": "#",
-        "videos": []
     }
 ]

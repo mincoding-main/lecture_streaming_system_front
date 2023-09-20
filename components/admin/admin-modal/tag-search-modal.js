@@ -3,12 +3,13 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TagSearchItemViewModal from '@/components/admin/admin-modal/tag-search-item-view-modal'
 import TextField from '@mui/material/TextField';
-import axios from 'axios';
+import { fetchAllTags } from '@/utils/api'
 import AdminTagSearchStyle from '@/styles/admin/tag-search-modal.module.css'
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import CloseIcon from '@mui/icons-material/Close';
+
 
 export default function TagSearchModal({ open, onClose, onTagSelected, existingTags }) {
     const [tags, setTags] = useState([]);
@@ -21,10 +22,10 @@ export default function TagSearchModal({ open, onClose, onTagSelected, existingT
     // 1. 모든 태그를 가져옴
     useEffect(() => {
         const fetchTags = async () => {
-            const response = await axios.get('/api/tags');
-            setTags(response.data);
-            setTags(response.data);
-            setFilteredTags(response.data);
+            const data = await fetchAllTags();
+            setTags(data);
+            setTags(data);
+            setFilteredTags(data);
         };
         fetchTags();
     }, []);

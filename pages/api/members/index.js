@@ -24,7 +24,7 @@ export default function handler(req, res) {
                 email,
                 password,
                 employeeId,
-                isAdmin: true,
+                isAdmin: false,
                 lectureID: [],
                 isDeleted: 0
             };
@@ -44,5 +44,7 @@ export default function handler(req, res) {
             // 에러가 발생한 경우 에러 메시지를 클라이언트로 전송
             res.status(500).json({ message: 'Failed to add new member' });
         }
+    } else {
+        res.status(405).json({ message: 'Method not allowed' });
     }
 }

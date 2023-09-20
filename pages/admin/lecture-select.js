@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import axios from 'axios';
+import { fetchAllLectures } from '@/utils/api'
 import { useRouter } from 'next/router';
 import adminLectureSelectStyle from '@/styles/admin/lecture-select.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
@@ -19,8 +19,8 @@ export default function LectureSelect() {
     useEffect(() => {
         const fetchLectures = async () => {
             try {
-                const response = await axios.get('/api/lectures');
-                setLectures(response.data);
+                const data = await fetchAllLectures();
+                setLectures(data);
             } catch (error) {
                 console.error('Error fetching lectures:', error);
             }

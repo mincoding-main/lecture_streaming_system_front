@@ -4,7 +4,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import SideNavBar from '@/components/admin/side-navbar';
 import TagSearchModal from '@/components/admin/admin-modal/tag-search-modal';
-import axios from 'axios';
+import { createLecture, fetchLecture, updateLecture } from '@/utils/api'
 
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import adminLectureManagementStyle from '@/styles/admin/lecture-management.module.css';
@@ -37,11 +37,11 @@ export default function LectureClassificationManager() {
                 const id = router.query.id;
 
                 if (mode === 'edit' && id) {
-                    const response = await axios.get(`/api/lectures/${id}`);
-                    setLectureTitle(response.data.title);
-                    setLectureDescription(response.data.description);
-                    setTags(response.data.tags);
-                    setPermissions(response.data.permissions);
+                    const data = await fetchLecture(id);
+                    setLectureTitle(data.title);
+                    setLectureDescription(data.description);
+                    setTags(data.tags);
+                    setPermissions(data.permissions);
                 }
             } catch (error) {
                 console.error('Error fetching the lecture:', error);
@@ -64,9 +64,9 @@ export default function LectureClassificationManager() {
             let response;
             if (mode === 'edit') {
                 const id = router.query.id;
-                response = await axios.put(`/api/lectures/${id}`, payload);
+                response = await updateLecture(id, payload);
             } else {
-                response = await axios.post('/api/lectures', payload);
+                response = await createLecture(payload);
             }
 
             if (response.status === 200 || response.status === 201) {
@@ -105,7 +105,6 @@ export default function LectureClassificationManager() {
         setTagSearchModalOpen(false);
     };
 
-    console.log(tags);
     return (
         <>
             <Header />

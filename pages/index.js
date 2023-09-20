@@ -1,11 +1,28 @@
+import React, { useEffect, useState } from 'react';
 import utilStyles from '../styles/utils.module.css';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import LectureListCard from '@/components/lecture-card-item';
-import axios from 'axios';
-import config from '../config';
+import { fetchAllLectures } from '@/utils/api'
 
-export default function Home({ lectureData }) {
+
+
+export default function Home() {
+  const [lectureData, setLectureData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchAllLectures();
+        setLectureData(data);
+      } catch (error) {
+        console.error('Failed to fetch lecture data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <Header />
@@ -26,25 +43,4 @@ export default function Home({ lectureData }) {
       <Footer />
     </>
   );
-}
-
-export async function getServerSideProps() {
-  try {
-    // API 엔드포인트 호출
-    const apiUrl = config.apiFrontpoint;
-    const response = await axios.get(`${apiUrl}/api/lectures`);
-    const lectureData = response.data;
-    return {
-      props: {
-        lectureData,
-      },
-    };
-  } catch (error) {
-    console.error('Failed to fetch lecture data:', error);
-    return {
-      props: {
-        lectureData: [], // Return an empty array in case of error
-      },
-    };
-  }
 }

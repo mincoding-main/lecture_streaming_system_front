@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import dashBoardStyle from '@/styles/main/dash-board.module.css';
 import Button from '@mui/material/Button';
-import axios from 'axios';
+import { fetchMember, updateMember } from '@/utils/api'
 import { useRouter } from 'next/router';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/system';
@@ -20,8 +20,7 @@ export default function ProfileUpdate() {
         try {
             const member = JSON.parse(sessionStorage.getItem('member'));
             const memberId = member && member.id;
-            const memberResponse = await axios.get(`/api/members/${memberId}`);
-            const memberData = memberResponse.data;
+            const memberData = await fetchMember(memberId);
             setMember(memberData);
             setEmployeeId(memberData.employeeId);
         } catch (error) {
@@ -33,7 +32,7 @@ export default function ProfileUpdate() {
         fetchMemberAndLectureData();
     }, []);
 
-    const handleUpdateProfile = () => {
+    const handleUpdateProfile = async () => {
         const isConfirmed = window.confirm('프로필을 업데이트하시겠습니까?');
 
         if (isConfirmed) {
@@ -42,14 +41,13 @@ export default function ProfileUpdate() {
                 return;
             }
 
-            axios
-                .put(`/api/members/${member.id}`, { employeeId, password })
-                .then((response) => {
-                    setMessage({ type: 'success', content: '프로필이 업데이트되었습니다.' });
-                })
-                .catch((error) => {
-                    setMessage({ type: 'error', content: '프로필 업데이트에 실패했습니다.' });
-                });
+            const result = await updateMember(member.id, { employeeId, password });
+
+            if (result.success) {
+                setMessage({ type: 'success', content: result.message });
+            } else {
+                setMessage({ type: 'error', content: result.message });
+            }
         }
     };
 

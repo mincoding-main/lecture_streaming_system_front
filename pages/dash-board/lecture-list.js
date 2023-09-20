@@ -4,7 +4,7 @@ import Footer from '@/components/footer';
 import dashBoardStyle from '@/styles/main/dash-board.module.css';
 import LectureListItem from '@/components/lecture-list-item';
 import Button from '@mui/material/Button';
-import axios from 'axios';
+import { fetchAllLectures } from '@/utils/api'
 import { useRouter } from 'next/router';
 
 export default function LectureList() {
@@ -21,19 +21,24 @@ export default function LectureList() {
 
     const fetchMemberAndLectureData = async () => {
         try {
+            // 현재 멤버 정보를 가져옴
             const member = JSON.parse(sessionStorage.getItem('member'));
-            const lectureResponse = await axios.get('/api/lectures', {
-                params: {
-                    lectureIds: member.lectureId ? member.lectureId : [],
-                },
-            });
-            const lectureData = lectureResponse.data;
-            setLectureData(lectureData);
+
+            // 모든 강의를 불러옴
+            const allLectureData = await fetchAllLectures();
+
+            // 멤버가 가지고 있는 강의 아이디와 일치하는 강의만 필터링
+            const filteredLectureData = allLectureData.filter(lecture =>
+                member.lectureId && member.lectureId.includes(lecture.id)
+            );
+
+            // 필터링된 강의 데이터를 state에 설정
+            setLectureData(filteredLectureData);
 
         } catch (error) {
             console.error('Failed to fetch data:', error);
         }
-    };
+    }
 
     useEffect(() => {
         fetchMemberAndLectureData();
