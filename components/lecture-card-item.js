@@ -19,7 +19,7 @@ export default function LectureListCard({ lectureData }) {
                         <CardMedia
                             component="img"
                             height="140"
-                            image={lecture.imageUrl} // 이미지 URL을 데이터베이스에서 가져온 값으로 설정
+                            image={lecture.img} // 이미지 URL을 데이터베이스에서 가져온 값으로 설정
                             alt={lecture.title}
                         />
                         <CardContent>

@@ -31,7 +31,7 @@ export default function LectureDetail() {
             <section className={lectureDetailStyle.lectureIntroSection}>
                 <div className={lectureDetailStyle.lectureIntroContent}>
                     <div className={lectureDetailStyle.lectureIntroImage}>
-                        <img src={lecture.imageUrl} alt={lecture.title} />
+                        <img src={lecture.img} alt={lecture.title} />
                     </div>
                     <div className={lectureDetailStyle.lectureIntroText}>
                         <h1>{lecture.title}</h1>

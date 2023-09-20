@@ -34,7 +34,7 @@ export default function LectureListCard({ lectureData }) {
                         <CardMedia
                             component="img"
                             height="140"
-                            image={lecture.imageUrl}
+                            image={lecture.img}
                             alt={lecture.title}
                             sx={{ width: '25%', marginBottom: '1rem', marginRight: '1rem' }}
                         />

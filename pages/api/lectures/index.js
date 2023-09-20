@@ -35,7 +35,7 @@ export default function handler(req, res) {
         const fullNewLecture = {
             id: newId,
             ...newLecture,
-            imageUrl: "/test.png",
+            img: "/test.png",
             courseContent: "#",
             videos: [],
         };

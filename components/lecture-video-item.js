@@ -30,13 +30,6 @@ export default function LectureListCard({ Videos, LectureId }) {
                         onClick={() => router.push(`/lecture/lecture-streaming/${LectureId}/${video.id}`)}
                         sx={{ width: '100%', borderRadius: '0.5rem' }}
                     >
-                        {/* <CardMedia
-                            component="img"
-                            height="140"
-                            image={video.imageUrl}
-                            alt={video.title}
-                            sx={{ width: '25%', marginBottom: '1rem', marginRight: '1rem' }}
-                        /> */}
                         <ListItemText primary={video.title} secondary={video.content} />
                     </ListItemButton>
                 </ListItem>
