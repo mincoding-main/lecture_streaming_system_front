@@ -193,7 +193,7 @@ export const deleteLecture = async (id) => {
  */
 export const createLectureVideo = async (lectureId, data) => {
     try {
-        const response = await api.post(`/api/lectures/${lectureId}/videos`, data);
+        const response = await api.post(`/api/lectures/${lectureId}/lecture_item`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while creating the video:", error);
@@ -211,7 +211,7 @@ export const createLectureVideo = async (lectureId, data) => {
  */
 export const fetchLectureVideo = async (lectureId, videoId) => {
     try {
-        const response = await api.get(`/api/lectures/${lectureId}/videos/${videoId}`);
+        const response = await api.get(`/api/lectures/${lectureId}/lecture_item/${videoId}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching the video:", error);
@@ -228,7 +228,7 @@ export const fetchLectureVideo = async (lectureId, videoId) => {
  */
 export const fetchAllLectureVideos = async (lectureId) => {
     try {
-        const response = await api.get(`/api/lectures/${lectureId}/videos`);
+        const response = await api.get(`/api/lectures/${lectureId}/lecture_item`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching lecture videos:", error);
@@ -247,7 +247,7 @@ export const fetchAllLectureVideos = async (lectureId) => {
  */
 export const updateLectureVideo = async (lectureId, videoId, data) => {
     try {
-        const response = await api.patch(`/api/lectures/${lectureId}/videos/${videoId}`, data);
+        const response = await api.patch(`/api/lectures/${lectureId}/lecture_item/${videoId}`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while updating the video:", error);
@@ -265,7 +265,7 @@ export const updateLectureVideo = async (lectureId, videoId, data) => {
  */
 export const deleteLectureVideo = async (lectureId, videoId) => {
     try {
-        const response = await api.delete(`/api/lectures/${lectureId}/videos/${videoId}`);
+        const response = await api.delete(`/api/lectures/${lectureId}/lecture_item/${videoId}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while deleting the video:", error);

@@ -8,7 +8,7 @@ export default function handler(req, res) {
 
     if (req.method === 'POST') {
         const newVideo = req.body;
-        const lecture = lectures.find(lecture => lecture.id === Number(req.query.id));
+        const lecture = lectures.find(lecture => lecture.id === Number(req.query.lectureId));
 
         if (lecture) {
             const maxVideoId = Math.max(...lecture.videos.map(video => video.id), 0);

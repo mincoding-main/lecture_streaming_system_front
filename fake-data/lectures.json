@@ -8,13 +8,18 @@
         "videos": [
             {
                 "id": 1,
-                "title": "강의 설명 1 / 비디오 제목 111",
+                "title": "강의 설명 1 / 비디오 제목 111111",
                 "url": "/video_url_1.mp4"
             },
             {
                 "id": 2,
                 "title": "강의 설명 1 / 비디오 제목 2222",
                 "url": "/video_url_444.mp4"
+            },
+            {
+                "id": 3,
+                "title": "123123",
+                "url": "123123"
             }
         ],
         "permissions": "user",

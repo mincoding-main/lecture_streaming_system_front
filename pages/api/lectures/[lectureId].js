@@ -10,10 +10,10 @@ export default function handler(req, res) {
 
     if (req.method === 'GET') {
         // 동적 라우팅에서 전달된 강의 id 값을 가져옴
-        const { id } = req.query;
+        const { lectureId } = req.query;
 
         // 해당 id를 가진 강의 정보를 찾음
-        const lecture = lectureData.find(lecture => lecture.id === Number(id));
+        const lecture = lectureData.find(lecture => lecture.id === Number(lectureId));
 
         if (lecture) {
             // 해당 강의 정보를 클라이언트로 전송
@@ -23,9 +23,9 @@ export default function handler(req, res) {
             res.status(404).json({ message: 'Lecture not found' });
         }
     } else if (req.method === 'DELETE') {
-        const { id } = req.query;
+        const { lectureId } = req.query;
 
-        const lectureIndex = lectureData.findIndex(lecture => lecture.id === Number(id));
+        const lectureIndex = lectureData.findIndex(lecture => lecture.id === Number(lectureId));
 
         if (lectureIndex > -1) {
             // 강의를 삭제
@@ -38,10 +38,10 @@ export default function handler(req, res) {
             res.status(404).json({ message: 'Lecture not found' });
         }
     } else if (req.method === 'PATCH') {
-        const { id } = req.query;
+        const { lectureId } = req.query;
         const updatedLecture = req.body;
 
-        const lectureIndex = lectureData.findIndex(lecture => lecture.id === Number(id));
+        const lectureIndex = lectureData.findIndex(lecture => lecture.id === Number(lectureId));
 
         if (lectureIndex === -1) {
             // 강의 정보가 없으면 에러 메시지를 클라이언트로 전송
