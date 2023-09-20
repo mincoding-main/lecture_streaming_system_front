@@ -68,7 +68,7 @@ export const fetchAllMembers = async () => {
  */
 export const updateMember = async (id, data) => {
     try {
-        const response = await api.put(`/api/members/${id}`, data);
+        const response = await api.patch(`/api/members/${id}`, data);
         return { success: true, message: '프로필이 업데이트되었습니다.' };
     } catch (error) {
         console.error("An error occurred while updating the member:", error);
@@ -155,8 +155,8 @@ export const fetchAllLectures = async () => {
  */
 export const updateLecture = async (id, data) => {
     try {
-        const response = await api.put(`/api/lectures/${id}`, data);
-        return response.data;
+        const response = await api.patch(`/api/lectures/${id}`, data);
+        return response;
     } catch (error) {
         console.error("An error occurred while updating the lecture:", error);
         throw error;
@@ -247,7 +247,7 @@ export const fetchAllLectureVideos = async (lectureId) => {
  */
 export const updateLectureVideo = async (lectureId, videoId, data) => {
     try {
-        const response = await api.put(`/api/lectures/${lectureId}/videos/${videoId}`, data);
+        const response = await api.patch(`/api/lectures/${lectureId}/videos/${videoId}`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while updating the video:", error);
@@ -337,7 +337,7 @@ export const fetchAllTags = async () => {
  */
 export const updateTag = async (id, data) => {
     try {
-        const response = await api.put(`/api/tags/${id}`, data);
+        const response = await api.patch(`/api/tags/${id}`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while updating the tag:", error);

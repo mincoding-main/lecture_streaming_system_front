@@ -21,7 +21,7 @@ export default function handler(req, res) {
             // 사용자 정보가 없으면 에러 메시지를 클라이언트로 전송
             res.status(404).json({ message: 'member not found' });
         }
-    } else if (req.method === 'PUT') {
+    } else if (req.method === 'PATCH') {
         const { id } = req.query;
         const { email, employeeId, password, isAdmin, lectureId, isDeleted } = req.body;
         const memberData = JSON.parse(fs.readFileSync(membersFilePath, 'utf8'));

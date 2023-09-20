@@ -37,7 +37,7 @@ export default function handler(req, res) {
         } else {
             res.status(404).json({ message: 'Lecture not found' });
         }
-    } else if (req.method === 'PUT') {
+    } else if (req.method === 'PATCH') {
         const { id } = req.query;
         const updatedLecture = req.body;
 
