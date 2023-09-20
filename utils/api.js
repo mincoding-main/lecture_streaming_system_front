@@ -1,11 +1,15 @@
 import axios from 'axios';
+import config from '@/config';
 
+const api = axios.create({
+    baseURL: config.apiBackPoint
+});
 // Members
 
 // Create
 export const createMember = async (data) => {
     try {
-        const response = await axios.post(`/api/members`, data);
+        const response = await api.post(`/api/members`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while creating the member:", error);
@@ -16,7 +20,7 @@ export const createMember = async (data) => {
 // Read (single)
 export const fetchMember = async (id) => {
     try {
-        const response = await axios.get(`/api/members/${id}`);
+        const response = await api.get(`/api/members/${id}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching the member:", error);
@@ -27,7 +31,7 @@ export const fetchMember = async (id) => {
 // Read (all)
 export const fetchAllMembers = async () => {
     try {
-        const response = await axios.get(`/api/members`);
+        const response = await api.get(`/api/members`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching members:", error);
@@ -38,7 +42,7 @@ export const fetchAllMembers = async () => {
 // Update
 export const updateMember = async (id, data) => {
     try {
-        const response = await axios.put(`/api/members/${id}`, data);
+        const response = await api.put(`/api/members/${id}`, data);
         return { success: true, message: '프로필이 업데이트되었습니다.' };
     } catch (error) {
         console.error("An error occurred while updating the member:", error);
@@ -49,7 +53,7 @@ export const updateMember = async (id, data) => {
 // Delete
 export const deleteMember = async (id) => {
     try {
-        const response = await axios.delete(`/api/members/${id}`);
+        const response = await api.delete(`/api/members/${id}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while deleting the member:", error);
@@ -62,7 +66,7 @@ export const deleteMember = async (id) => {
 // Create
 export const createLecture = async (data) => {
     try {
-        const response = await axios.post(`/api/lectures`, data);
+        const response = await api.post(`/api/lectures`, data);
         return response;
     } catch (error) {
         console.error("An error occurred while creating the lecture:", error);
@@ -73,7 +77,7 @@ export const createLecture = async (data) => {
 // Read (single)
 export const fetchLecture = async (id) => {
     try {
-        const response = await axios.get(`/api/lectures/${id}`);
+        const response = await api.get(`/api/lectures/${id}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching the lecture:", error);
@@ -84,7 +88,7 @@ export const fetchLecture = async (id) => {
 // Read (all)
 export const fetchAllLectures = async () => {
     try {
-        const response = await axios.get(`/api/lectures`);
+        const response = await api.get(`/api/lectures`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching lectures:", error);
@@ -95,7 +99,7 @@ export const fetchAllLectures = async () => {
 // Update
 export const updateLecture = async (id, data) => {
     try {
-        const response = await axios.put(`/api/lectures/${id}`, data);
+        const response = await api.put(`/api/lectures/${id}`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while updating the lecture:", error);
@@ -106,7 +110,7 @@ export const updateLecture = async (id, data) => {
 // Delete
 export const deleteLecture = async (id) => {
     try {
-        const response = await axios.delete(`/api/lectures/${id}`);
+        const response = await api.delete(`/api/lectures/${id}`);
         return response;
     } catch (error) {
         console.error("An error occurred while deleting the lecture:", error);
@@ -120,7 +124,7 @@ export const deleteLecture = async (id) => {
 // Create
 export const createLectureVideo = async (lectureId, data) => {
     try {
-        const response = await axios.post(`/api/lectures/${lectureId}/videos`, data);
+        const response = await api.post(`/api/lectures/${lectureId}/videos`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while creating the video:", error);
@@ -131,7 +135,7 @@ export const createLectureVideo = async (lectureId, data) => {
 // Read (single)
 export const fetchLectureVideo = async (lectureId, videoId) => {
     try {
-        const response = await axios.get(`/api/lectures/${lectureId}/videos/${videoId}`);
+        const response = await api.get(`/api/lectures/${lectureId}/videos/${videoId}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching the video:", error);
@@ -142,7 +146,7 @@ export const fetchLectureVideo = async (lectureId, videoId) => {
 // Read (all)
 export const fetchAllLectureVideos = async (lectureId) => {
     try {
-        const response = await axios.get(`/api/lectures/${lectureId}/videos`);
+        const response = await api.get(`/api/lectures/${lectureId}/videos`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching lecture videos:", error);
@@ -153,7 +157,7 @@ export const fetchAllLectureVideos = async (lectureId) => {
 // Update
 export const updateLectureVideo = async (lectureId, videoId, data) => {
     try {
-        const response = await axios.put(`/api/lectures/${lectureId}/videos/${videoId}`, data);
+        const response = await api.put(`/api/lectures/${lectureId}/videos/${videoId}`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while updating the video:", error);
@@ -164,7 +168,7 @@ export const updateLectureVideo = async (lectureId, videoId, data) => {
 // Delete
 export const deleteLectureVideo = async (lectureId, videoId) => {
     try {
-        const response = await axios.delete(`/api/lectures/${lectureId}/videos/${videoId}`);
+        const response = await api.delete(`/api/lectures/${lectureId}/videos/${videoId}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while deleting the video:", error);
@@ -179,7 +183,7 @@ export const deleteLectureVideo = async (lectureId, videoId) => {
 // Create
 export const createTag = async (data) => {
     try {
-        const response = await axios.post(`/api/tags`, data);
+        const response = await api.post(`/api/tags`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while creating the tag:", error);
@@ -190,7 +194,7 @@ export const createTag = async (data) => {
 // Read (single)
 export const fetchTag = async (id) => {
     try {
-        const response = await axios.get(`/api/tags/${id}`);
+        const response = await api.get(`/api/tags/${id}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching the tag:", error);
@@ -201,7 +205,7 @@ export const fetchTag = async (id) => {
 // Read (all)
 export const fetchAllTags = async () => {
     try {
-        const response = await axios.get(`/api/tags`);
+        const response = await api.get(`/api/tags`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching all tags:", error);
@@ -212,7 +216,7 @@ export const fetchAllTags = async () => {
 // Update
 export const updateTag = async (id, data) => {
     try {
-        const response = await axios.put(`/api/tags/${id}`, data);
+        const response = await api.put(`/api/tags/${id}`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while updating the tag:", error);
@@ -223,7 +227,7 @@ export const updateTag = async (id, data) => {
 // Delete
 export const deleteTag = async (id) => {
     try {
-        const response = await axios.delete(`/api/tags/${id}`);
+        const response = await api.delete(`/api/tags/${id}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while deleting the tag:", error);
