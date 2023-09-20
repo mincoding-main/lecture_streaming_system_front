@@ -24,7 +24,7 @@ export default function handler(req, res) {
                 email,
                 password,
                 employeeNumber,
-                isAdmin: false,
+                role: false,
                 lectureID: [],
                 isDeleted: 0
             };

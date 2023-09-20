@@ -23,7 +23,7 @@ export default function handler(req, res) {
         }
     } else if (req.method === 'PATCH') {
         const { id } = req.query;
-        const { email, employeeNumber, password, isAdmin, lectureId, isDeleted } = req.body;
+        const { email, employeeNumber, password, role, lectureId, isDeleted } = req.body;
         const memberData = JSON.parse(fs.readFileSync(membersFilePath, 'utf8'));
         const memberIndex = memberData.findIndex((member) => member.id === Number(id));
 
@@ -35,8 +35,8 @@ export default function handler(req, res) {
                 memberData[memberIndex].employeeNumber = employeeNumber;
             }
 
-            if (isAdmin !== undefined && isAdmin !== null) {
-                memberData[memberIndex].isAdmin = isAdmin;
+            if (role !== undefined && role !== null) {
+                memberData[memberIndex].role = role;
             }
 
             if (isDeleted !== undefined && isDeleted !== null) {

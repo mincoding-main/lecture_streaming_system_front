@@ -57,10 +57,10 @@ export default function MemberList() {
         const keywordLower = keyword.toLowerCase();
 
         const updatedFilteredMembers = members.filter(member => {
-            const fields = ['email', 'employeeNumber', 'isAdmin', 'id', 'lectureId'];
+            const fields = ['email', 'employeeNumber', 'role', 'id', 'lectureId'];
             return fields.some(field => {
-                if (field === 'isAdmin') {
-                    const adminText = member.isAdmin ? '관리자' : '사용자';
+                if (field === 'role') {
+                    const adminText = member.role ? '관리자' : '사용자';
                     return adminText.toLowerCase().includes(keywordLower);
                 } else {
                     const fieldValue = member[field]?.toString().toLowerCase();

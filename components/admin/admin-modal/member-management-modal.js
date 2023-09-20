@@ -166,8 +166,8 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
                 <FormControl component="fieldset" margin="normal" fullWidth>
                     <FormLabel component="legend">유저 권한</FormLabel>
                     <RadioGroup
-                        name="isAdmin"
-                        value={String(updatedMember.isAdmin)} // 불리언을 문자열로 변환
+                        name="role"
+                        value={String(updatedMember.role)} // 불리언을 문자열로 변환
                         onChange={handleRadioChange}
                         row
                     >

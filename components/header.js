@@ -57,7 +57,7 @@ export default function Header() {
             if (foundMember) {
                 sessionStorage.setItem('member', JSON.stringify(foundMember));
                 setLoggedIn(true);
-                if (foundMember.isAdmin) setIsAdmin(true);
+                if (foundMember.role) setIsAdmin(true);
                 handleCloseModal();
                 handleCloseMemberMenu();
                 setOpenLoginModal(false);
@@ -93,7 +93,7 @@ export default function Header() {
         // 예를 들어, 로컬 스토리지나 쿠키에서 로그인 상태를 가져올 수 있습니다.
         const member = JSON.parse(sessionStorage.getItem('member'));
         setLoggedIn(!!member); // 유저 정보가 있으면 로그인 상태로 설정
-        if (member && member.isAdmin) {
+        if (member && member.role) {
             setIsAdmin(true); // 만약 사용자가 admin인 경우에 isAdmin 상태를 true로 설정
         }
     };
@@ -125,7 +125,7 @@ export default function Header() {
                 email: joinEmail,
                 password: joinPassword,
                 employeeNumber,
-                isAdmin: true,
+                role: true,
             };
 
             await createMember(newMember);

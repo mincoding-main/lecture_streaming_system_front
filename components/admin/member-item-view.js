@@ -14,7 +14,7 @@ export default function MemberItemView({ member, handleOpen }) {
                     <Grid item xs={1} className={commonStyle}>{member.id}</Grid>
                     <Grid item xs={4} className={commonStyle}>{member.email}</Grid>
                     <Grid item xs={3} className={commonStyle}>{member.employeeNumber}</Grid>
-                    <Grid item xs={4} className={commonStyle}>{member.isAdmin ? '관리자' : '사용자'}</Grid>
+                    <Grid item xs={4} className={commonStyle}>{member.role ? '관리자' : '사용자'}</Grid>
                 </Grid>
             </div>
             <div className={adminMemberDetailStyle.memberEditBtn}>
