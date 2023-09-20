@@ -11,7 +11,7 @@ import { Box } from '@mui/system';
 export default function ProfileUpdate() {
     const router = useRouter();
     const [member, setMember] = useState(null);
-    const [employeeId, setEmployeeId] = useState('');
+    const [employeeNumber, setEmployeeNumber] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState(null);
@@ -22,7 +22,7 @@ export default function ProfileUpdate() {
             const memberId = member && member.id;
             const memberData = await fetchMember(memberId);
             setMember(memberData);
-            setEmployeeId(memberData.employeeId);
+            setEmployeeNumber(memberData.employeeNumber);
         } catch (error) {
             console.error('Failed to fetch data:', error);
         }
@@ -41,7 +41,7 @@ export default function ProfileUpdate() {
                 return;
             }
 
-            const result = await updateMember(member.id, { employeeId, password });
+            const result = await updateMember(member.id, { employeeNumber, password });
 
             if (result.success) {
                 setMessage({ type: 'success', content: result.message });
@@ -123,8 +123,8 @@ export default function ProfileUpdate() {
                     <div>
                         <TextField
                             label="Employee ID (사번)"
-                            value={employeeId}
-                            onChange={(e) => setEmployeeId(e.target.value)}
+                            value={employeeNumber}
+                            onChange={(e) => setEmployeeNumber(e.target.value)}
                             fullWidth
                             sx={{ marginBottom: '1rem' }}
                         />

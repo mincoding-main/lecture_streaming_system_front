@@ -14,7 +14,7 @@ export default function handler(req, res) {
     } else if (req.method === 'POST') {
         try {
             // POST 요청의 경우 새로운 사용자 데이터를 받아옴
-            const { email, password, employeeId } = req.body;
+            const { email, password, employeeNumber } = req.body;
             // 기존 사용자 데이터를 불러와서 파싱
             const memberData = JSON.parse(fs.readFileSync(membersFilePath, 'utf8'));
 
@@ -23,7 +23,7 @@ export default function handler(req, res) {
                 id: memberData.length + 1,
                 email,
                 password,
-                employeeId,
+                employeeNumber,
                 isAdmin: false,
                 lectureID: [],
                 isDeleted: 0

@@ -100,9 +100,9 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
 
             // 2. 중복 검사
             const duplicateEmail = memberList.some(member => member.id !== updatedMember.id && member.email === updatedMember.email);
-            const duplicateEmployeeId = memberList.some(member => member.id !== updatedMember.id && member.employeeId === updatedMember.employeeId);
+            const duplicateEmployeeNumber = memberList.some(member => member.id !== updatedMember.id && member.employeeNumber === updatedMember.employeeNumber);
 
-            if (duplicateEmail || duplicateEmployeeId) {
+            if (duplicateEmail || duplicateEmployeeNumber) {
                 setErrorMessage('중복된 이메일 또는 사번입니다.');
                 return; // 중복이 있으므로 업데이트를 중단합니다.
             }
@@ -147,8 +147,8 @@ export default function MemberManagementModal({ open, onClose, member, onUpdateM
                 />
                 <TextField
                     label="사번"
-                    name="employeeId"
-                    value={updatedMember.employeeId || ''}
+                    name="employeeNumber"
+                    value={updatedMember.employeeNumber || ''}
                     onChange={handleInputChange}
                     variant="outlined"
                     fullWidth

@@ -13,7 +13,7 @@ export default function MemberItemView({ member, handleOpen }) {
                 <Grid container spacing={2}>
                     <Grid item xs={1} className={commonStyle}>{member.id}</Grid>
                     <Grid item xs={4} className={commonStyle}>{member.email}</Grid>
-                    <Grid item xs={3} className={commonStyle}>{member.employeeId}</Grid>
+                    <Grid item xs={3} className={commonStyle}>{member.employeeNumber}</Grid>
                     <Grid item xs={4} className={commonStyle}>{member.isAdmin ? '관리자' : '사용자'}</Grid>
                 </Grid>
             </div>

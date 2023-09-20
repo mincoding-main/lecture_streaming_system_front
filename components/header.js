@@ -119,12 +119,12 @@ export default function Header() {
 
 
 
-    const handleJoin = async (joinEmail, joinPassword, employeeId) => {
+    const handleJoin = async (joinEmail, joinPassword, employeeNumber) => {
         try {
             const newMember = {
                 email: joinEmail,
                 password: joinPassword,
-                employeeId,
+                employeeNumber,
                 isAdmin: true,
             };
 

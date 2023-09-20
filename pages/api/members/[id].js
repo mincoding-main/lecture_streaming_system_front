@@ -23,7 +23,7 @@ export default function handler(req, res) {
         }
     } else if (req.method === 'PATCH') {
         const { id } = req.query;
-        const { email, employeeId, password, isAdmin, lectureId, isDeleted } = req.body;
+        const { email, employeeNumber, password, isAdmin, lectureId, isDeleted } = req.body;
         const memberData = JSON.parse(fs.readFileSync(membersFilePath, 'utf8'));
         const memberIndex = memberData.findIndex((member) => member.id === Number(id));
 
@@ -31,8 +31,8 @@ export default function handler(req, res) {
             if (email !== undefined && email !== null && email.trim() !== '') { // email 처리 추가
                 memberData[memberIndex].email = email;
             }
-            if (employeeId !== undefined && employeeId !== null) {
-                memberData[memberIndex].employeeId = employeeId;
+            if (employeeNumber !== undefined && employeeNumber !== null) {
+                memberData[memberIndex].employeeNumber = employeeNumber;
             }
 
             if (isAdmin !== undefined && isAdmin !== null) {

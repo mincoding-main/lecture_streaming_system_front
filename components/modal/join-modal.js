@@ -10,7 +10,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [employeeId, setEmployeeId] = useState('');
+    const [employeeNumber, setEmployeeNumber] = useState('');
     const [message, setMessage] = useState(null);
     const [isDuplicateChecked, setIsDuplicateChecked] = useState(false);
 
@@ -25,7 +25,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        setEmployeeId('');
+        setEmployeeNumber('');
         setMessage(null);
         setIsDuplicateChecked(false);
     }, [open]);
@@ -69,7 +69,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
             return;
         }
 
-        if (employeeId === '') { // 사번을 입력하지 않으면 에러 처리
+        if (employeeNumber === '') { // 사번을 입력하지 않으면 에러 처리
             setMessage({ type: 'error', content: '사번을 입력해주세요.' });
             return;
         }
@@ -77,7 +77,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
         setMessage(null); // Clear the message when there are no errors
 
         // Call the function to handle join logic in the header
-        onJoin(email, password, employeeId);
+        onJoin(email, password, employeeNumber);
     };
 
     return (
@@ -122,8 +122,8 @@ export default function JoinModal({ open, onClose, onJoin }) {
                 <TextField
                     label="Employee ID (사번)"
                     type="text"
-                    value={employeeId}
-                    onChange={(e) => setEmployeeId(e.target.value)}
+                    value={employeeNumber}
+                    onChange={(e) => setEmployeeNumber(e.target.value)}
                     variant="outlined"
                     fullWidth
                     sx={{ marginBottom: '1rem', borderColor: message?.type === 'error' && message?.content?.includes('사번') ? 'red' : undefined, height: '55px' }}
