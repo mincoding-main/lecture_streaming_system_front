@@ -191,10 +191,6 @@ export default function Header() {
                             </MenuItem>
                         )}
                         <Menu
-                            sx={{
-                                position: 'absolute',
-                                right: '1200px'
-                            }}
                             id="menu-appbar"
                             anchorEl={anchorElMember}
                             anchorOrigin={{
