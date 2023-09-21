@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import lectureDetailStyle from '@/styles/main/lecture-detail.module.css';
@@ -27,7 +25,6 @@ export default function LectureDetail() {
 
     return (
         <>
-            <Header />
             <section className={lectureDetailStyle.lectureIntroSection}>
                 <div className={lectureDetailStyle.lectureIntroContent}>
                     <div className={lectureDetailStyle.lectureIntroImage}>
@@ -46,9 +43,6 @@ export default function LectureDetail() {
                     <VideoListItem Videos={lecture.videos} LectureId={lecture.id} />
                 </div>
             </section>
-            {/* 강의 상세 정보 렌더링 */}
-
-            <Footer />
         </>
     );
 }

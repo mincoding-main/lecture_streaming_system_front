@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import SideNavBar from '@/components/admin/side-navbar';
 import TagSearchModal from '@/components/admin/admin-modal/tag-search-modal';
 import { createLecture, fetchLecture, updateLecture } from '@/utils/api'
@@ -107,7 +105,6 @@ export default function LectureClassificationManager() {
 
     return (
         <>
-            <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
                     <SideNavBar />
@@ -166,7 +163,6 @@ export default function LectureClassificationManager() {
                     </div>
                 </div>
             </section >
-            <Footer />
             <TagSearchModal
                 open={tagSearchModalOpen}
                 onClose={handleModalClose}

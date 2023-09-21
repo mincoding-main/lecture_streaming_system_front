@@ -1,7 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -43,7 +41,6 @@ export default function LectureStreaming() {
 
     return (
         <>
-            <Header />
             <section className={lectureStreamingStyle.streamingIntroSection}>
                 <div className={lectureStreamingStyle.streamingContainer}>
                     <div className={lectureStreamingStyle.streamingVideoContainer}>
@@ -109,7 +106,6 @@ export default function LectureStreaming() {
                     </div>
                 </div>
             </section>
-            <Footer />
         </>
     );
 }

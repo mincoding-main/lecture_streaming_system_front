@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import dashBoardStyle from '@/styles/main/dash-board.module.css';
 import Button from '@mui/material/Button';
 import { fetchMember, updateMember } from '@/utils/api'
@@ -53,7 +51,6 @@ export default function ProfileUpdate() {
 
     return (
         <>
-            <Header />
             <section className={dashBoardStyle.dashBoardTop}>
                 <div className={dashBoardStyle.dashBoardBtnBar}>
                     <Button
@@ -141,7 +138,6 @@ export default function ProfileUpdate() {
                     </div>
                 </Box>
             </section>
-            <Footer />
         </>
     );
 }

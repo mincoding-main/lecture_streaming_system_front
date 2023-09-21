@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Container from '@mui/material/Container';
 import Image from 'next/image';
 import footerStyles from '../styles/main/footer.module.css';
 

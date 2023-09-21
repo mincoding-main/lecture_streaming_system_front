@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import { fetchLecture, deleteLectureVideo } from '@/utils/api'
 import { useRouter } from 'next/router';
 import adminLectureVideoViewStyle from '@/styles/admin/lecture-video-view.module.css';
@@ -71,7 +69,6 @@ export default function LectureVideoView() {
 
     return (
         <>
-            <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
                     <SideNavBar />
@@ -117,7 +114,6 @@ export default function LectureVideoView() {
                     </div>
                 </div>
             </section >
-            <Footer />
         </>
     );
 }

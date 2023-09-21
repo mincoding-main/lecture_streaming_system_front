@@ -42,3 +42,17 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mainContent {
+  flex-grow: 1;
+}
+
+.footer {
+  flex-grow: 0;
+}

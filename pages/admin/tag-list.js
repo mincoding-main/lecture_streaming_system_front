@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import TagItemView from '@/components/admin/tag-item-view'
 import TagManagementModal from '@/components/admin/admin-modal/tag-management-modal'
 import { fetchAllTags } from '@/utils/api';
@@ -113,7 +111,6 @@ export default function TagList() {
 
     return (
         <>
-            <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
                     <SideNavBar />
@@ -166,7 +163,6 @@ export default function TagList() {
 
                 </div>
             </section >
-            <Footer />
             <TagManagementModal
                 open={openTagInfoModal}
                 onClose={() => setOpenTagInfoModal(false)}

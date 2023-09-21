@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import mainStyles from '../styles/main/main.module.css';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import LectureListCard from '@/components/lecture-card-item';
 import { fetchAllLectures } from '@/utils/api'
 
@@ -25,7 +23,6 @@ export default function Home() {
 
   return (
     <div className={mainStyles.viewContainer}>
-      <Header />
       <section className={mainStyles.introSection}>
         <div className={mainStyles.introTextDiv}>
           <p className={mainStyles.introTextBig}><b>세 가지</b>를 꼭 지켜주세요.</p>
@@ -40,7 +37,6 @@ export default function Home() {
           <LectureListCard lectureData={lectureData} />
         </div>
       </section>
-      <Footer />
     </div>
   );
 }

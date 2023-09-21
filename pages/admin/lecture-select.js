@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import { fetchAllLectures } from '@/utils/api'
 import { useRouter } from 'next/router';
 import adminLectureSelectStyle from '@/styles/admin/lecture-select.module.css';
@@ -46,7 +44,6 @@ export default function LectureSelect() {
 
     return (
         <>
-            <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
                     <SideNavBar />
@@ -78,8 +75,6 @@ export default function LectureSelect() {
                     </div>
                 </div>
             </section >
-
-            <Footer />
         </>
     );
 }

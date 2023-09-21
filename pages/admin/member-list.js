@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import MemberItemView from '@/components/admin/member-item-view'
 import MemberManagementModal from '@/components/admin/admin-modal/member-management-modal'
 import { fetchAllMembers } from '@/utils/api'
@@ -114,7 +112,6 @@ export default function MemberList() {
 
     return (
         <>
-            <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
                     <SideNavBar />
@@ -160,7 +157,6 @@ export default function MemberList() {
                     </div>
                 </div>
             </section >
-            <Footer />
             <MemberManagementModal
                 open={openMemberInfoModal}
                 onClose={() => setOpenMemberInfoModal(false)}

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import dashBoardStyle from '@/styles/main/dash-board.module.css';
 import LectureListItem from '@/components/lecture-list-item';
 import Button from '@mui/material/Button';
@@ -46,7 +44,6 @@ export default function LectureList() {
 
     return (
         <>
-            <Header />
             <section className={dashBoardStyle.dashBoardTop}>
                 <div className={dashBoardStyle.dashBoardBtnBar}>
                     <Button
@@ -74,7 +71,6 @@ export default function LectureList() {
                     </div>
                 </>
             </section>
-            <Footer />
         </>
     );
 }

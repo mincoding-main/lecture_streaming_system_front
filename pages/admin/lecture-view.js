@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import { fetchAllLectures, deleteLecture } from '@/utils/api'
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import adminLectureViewStyle from '@/styles/admin/lecture-view.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
@@ -65,7 +62,6 @@ export default function LectureView() {
 
     return (
         <>
-            <Header />
             <section className={adminCommonStyle.backGroundSection}>
                 <div className={adminCommonStyle.sideNavContainer}>
                     <SideNavBar />
@@ -109,7 +105,6 @@ export default function LectureView() {
                     </div>
                 </div>
             </section >
-            <Footer />
         </>
     );
 }
