@@ -1,3 +1,8 @@
+.viewContainer {
+    min-width: 55rem;
+    zoom: 0.75 !important;
+}
+
 .introSection {
     background-image: url('/main.jpg');
     background-size: cover;
@@ -5,8 +10,8 @@
     background-position: center center;
     width: 100%;
     /* 부모 컨테이너에 맞게 가로 폭을 100%로 설정 */
-    height: 600px;
-    /* 이미지의 세로 크기에 맞추기 위해 height를 auto로 설정 */
+    height: 37.5rem
+        /* 이미지의 세로 크기에 맞추기 위해 height를 auto로 설정 */
 }
 
 .introTextDiv {
@@ -24,19 +29,40 @@
 }
 
 .sectionTitle {
+    font-size: 1.7rem;
     margin-top: 0;
     background-color: #1976d2;
     color: #fff;
     text-align: center;
+    padding: 0.5rem;
 }
 
 .cardSection {
     margin: 2rem auto;
-    max-width: 1160px;
+    max-width: 72.5rem;
 }
 
 .cardList {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+}
+
+.cardItem {
+    width: 250px;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+.CardMedia {
+    height: 8.75rem
+}
+
+.cardLectureTitle {
+    font-size: 1.5rem;
+}
+
+.cardLectureContent {
+    font-size: 1.0rem;
+    color: darkgray;
 }

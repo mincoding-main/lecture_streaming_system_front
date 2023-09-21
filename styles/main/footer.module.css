@@ -1,0 +1,58 @@
+.tContainer {
+    max-width: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1976d2;
+    padding: 0.5rem;
+}
+
+.linkText {
+    color: #fff;
+    font-size: 1rem;
+    margin-left: 0.6rem;
+}
+
+.linkText>* {
+    color: #fff;
+}
+
+.bContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #1976d2;
+}
+
+.bInnerContainer {
+    padding: 1rem;
+    padding-top: 0;
+}
+
+.bInnerContainer>ul {
+    list-style: none;
+    padding: 0;
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+.mailAndCallText {
+    padding: 1rem;
+}
+
+.mailAndCallText>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+.mailAndCallText>div>p {
+    margin: 0 0.5rem;
+}
+
+.mailAndCallText>div>p>a {
+    color: #fff;
+}

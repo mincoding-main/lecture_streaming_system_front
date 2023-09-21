@@ -38,6 +38,7 @@ export const loginMember = async (credentials) => {
         const response = await axios.post(`http://168.126.185.94:8080/api/members/login`, credentials, {
             withCredentials: true
         });
+        console.log(response)
         return { success: true, token: response.data.token, message: '로그인 성공' };
     } catch (error) {
         console.error("An error occurred while logging in:", error);

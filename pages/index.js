@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <div className={mainStyles.viewContainer}>
       <Header />
       <section className={mainStyles.introSection}>
         <div className={mainStyles.introTextDiv}>
@@ -34,13 +34,13 @@ export default function Home() {
           <p className={mainStyles.introText}>세엣, 질문은 적극적이고 구체적으로</p>
         </div>
       </section>
-      <h2 className={mainStyles.sectionTitle}>대표 강의 목록</h2>
+      <div className={mainStyles.sectionTitle}>강의 목록</div>
       <section className={mainStyles.cardSection}>
         <div className={mainStyles.cardList}>
           <LectureListCard lectureData={lectureData} />
         </div>
       </section>
       <Footer />
-    </>
+    </div>
   );
 }

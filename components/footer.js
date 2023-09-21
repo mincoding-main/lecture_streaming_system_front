@@ -1,44 +1,33 @@
 import React from 'react';
 import Link from 'next/link';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import Image from 'next/image';
+import footerStyles from '../styles/main/footer.module.css';
 
 export default function Footer() {
     return (
         <footer>
-            <Container
-                maxWidth={null}
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    py: 2,
-                    backgroundColor: '#1976d2',
-                    minWidth: '1760px'
-                }}
-            >
+            <Container className={footerStyles.tContainer}>
                 <Link href="/">
                     <Image src="/logo_w.svg" alt="LOGO" width={100} height={24} href="/" />
                 </Link>
-                <span style={{ color: '#fff', fontSize: '18px', marginLeft: '10px' }}>
-                    <Link href="#" style={{ color: '#fff' }}>
+                <span className={footerStyles.linkText} >
+                    <Link href="#" >
                         개인정보처리방침
                     </Link>
                     &nbsp;|&nbsp;
-                    <Link href="#" style={{ color: '#fff' }}>
+                    <Link href="#">
                         이용약관
                     </Link>
                     &nbsp;|&nbsp;
-                    <Link href="#" style={{ color: '#fff' }}>
+                    <Link href="#">
                         환불규정
                     </Link>
                 </span>
-
             </Container>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff', backgroundColor: '#1976d2', minWidth: '1760px' }}>
-                <div style={{ padding: '16px', paddingTop: '0' }}>
-                    <ul style={{ listStyle: 'none', padding: 0, color: '#fff', fontSize: '14px' }}>
+            <div className={footerStyles.bContainer}>
+                <div className={footerStyles.bInnerContainer} >
+                    <ul>
                         <li>
                             <span>주식회사 민코딩</span>&nbsp;&nbsp;&nbsp;
                             <span>대표자: 장지효</span>&nbsp;&nbsp;&nbsp;
@@ -57,21 +46,19 @@ export default function Footer() {
                         </li>
                     </ul>
                 </div>
-                <div style={{ padding: '16px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff', fontSize: '14px' }}>
-                        <p style={{ margin: '0 8px' }}>
+                <div className={footerStyles.mailAndCallText}>
+                    <div>
+                        <p>
                             <b>CALL</b>
-                            <a style={{ color: '#fff' }} href="#"> 010.9547.2485</a>
+                            <a href="#"> 010.9547.2485</a>
                         </p>
-                        <p style={{ margin: '0 8px' }}>
+                        <p>
                             <b>MAIL</b>
-                            <a style={{ color: '#fff' }} href="#"> admin@mincoding.co.kr</a>
+                            <a href="#"> admin@mincoding.co.kr</a>
                         </p>
                     </div>
                 </div>
-
             </div>
-
         </footer >
     );
 }

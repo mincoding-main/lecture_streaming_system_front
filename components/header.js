@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { fetchAllMembers, createMember, loginMember } from '@/utils/api';
+import headerStyles from '../styles/main/header.module.css';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -172,15 +173,15 @@ export default function Header() {
 
     return (
         <>
-            <AppBar position="static" style={{ minWidth: '1760px' }}>
+            <AppBar position="static" className={headerStyles.headerStyles}>
                 <Toolbar disableGutters >
-                    <Box sx={{ marginLeft: '20px' }}>
+                    <Box className={headerStyles.rightToolbarBox}>
                         <Link href="/">
                             <Image src="/logo_w.svg" alt="LOGO" width={100} height={32} href="/" />
                         </Link>
                     </Box>
 
-                    <Box sx={{ marginRight: '20px', marginLeft: 'auto' }}>
+                    <Box className={headerStyles.leftToolbarBox} >
                         {loggedIn ? (
                             <MenuItem onClick={handleOpenMemberMenu}>
                                 <Typography textAlign="center">My Info</Typography>
@@ -191,7 +192,7 @@ export default function Header() {
                             </MenuItem>
                         )}
                         <Menu
-                            sx={{ mt: '45px' }}
+                            sx={{ mt: '1.8rem' }}
                             id="menu-appbar"
                             anchorEl={anchorElMember}
                             anchorOrigin={{
@@ -228,26 +229,27 @@ export default function Header() {
                         </Menu>
                     </Box>
                 </Toolbar>
-            </AppBar>
+            </AppBar >
 
             {/* alert */}
-            <Snackbar
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            <Snackbar Snackbar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }
+                }
                 open={showLoginMessage}
                 autoHideDuration={5000}
                 onClose={() => setShowLoginMessage(false)}
-                style={{ position: 'fixed', top: 50, left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}
+                className={headerStyles.snackBar}
             >
                 <Alert severity="success" variant="filled" onClose={() => setShowLoginMessage(false)}>
                     로그인에 성공하였습니다.
                 </Alert>
-            </Snackbar>
+            </Snackbar >
             <Snackbar
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 open={showLogoutMessage}
                 autoHideDuration={5000}
                 onClose={() => setShowLogoutMessage(false)}
-                style={{ position: 'fixed', top: 50, left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}
+                className={headerStyles.snackBar}
             >
                 <Alert severity="info" variant="filled" onClose={() => setShowLogoutMessage(false)}>
                     정상적으로 로그아웃 되었습니다.
@@ -258,7 +260,7 @@ export default function Header() {
                 open={showJoinMessage}
                 autoHideDuration={5000}
                 onClose={() => setShowJoinMessage(false)}
-                style={{ position: 'fixed', top: 50, left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}
+                className={headerStyles.snackBar}
             >
                 <Alert severity="success" variant="filled" onClose={() => setShowJoinMessage(false)}>
                     회원가입에 성공하였습니다. 로그인이 가능합니다.
@@ -269,7 +271,7 @@ export default function Header() {
                 open={showPasswordRecoverySuccess}
                 autoHideDuration={5000}
                 onClose={() => setShowPasswordRecoverySuccess(false)}
-                style={{ position: 'fixed', top: 50, left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}
+                className={headerStyles.snackBar}
             >
                 <Alert severity="info" variant="filled" onClose={() => setShowPasswordRecoverySuccess(false)}>
                     작성하신 이메일로 임시 비밀번호를 전송하였습니다. 메일을 확인 부탁드립니다.
