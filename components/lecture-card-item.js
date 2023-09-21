@@ -4,11 +4,11 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import utilStyles from '../styles/utils.module.css';
+import mainStyles from '../styles/main.module.css';
 
 export default function LectureListCard({ lectureData }) {
     return (
-        <div className={utilStyles.cardList}>
+        <div className={mainStyles.cardList}>
             {lectureData.map((lecture) => (
                 <Card key={lecture.id} sx={{ width: 250, marginLeft: '2rem', marginBottom: '2rem' }}>
                     <CardActionArea
