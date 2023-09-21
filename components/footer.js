@@ -7,7 +7,7 @@ import footerStyles from '../styles/main/footer.module.css';
 export default function Footer() {
     return (
         <footer>
-            <Container className={footerStyles.tContainer}>
+            <div className={footerStyles.tContainer}>
                 <Link href="/">
                     <Image src="/logo_w.svg" alt="LOGO" width={100} height={24} href="/" />
                 </Link>
@@ -24,7 +24,7 @@ export default function Footer() {
                         환불규정
                     </Link>
                 </span>
-            </Container>
+            </div>
             <div className={footerStyles.bContainer}>
                 <div className={footerStyles.bInnerContainer} >
                     <ul>

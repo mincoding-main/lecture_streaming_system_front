@@ -1,10 +1,10 @@
 .tContainer {
-    max-width: none;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #1976d2;
     padding: 0.5rem;
+    padding-bottom: 0;
 }
 
 .linkText {
@@ -26,8 +26,7 @@
 }
 
 .bInnerContainer {
-    padding: 1rem;
-    padding-top: 0;
+    padding: 0.5rem;
 }
 
 .bInnerContainer>ul {
