@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
@@ -10,26 +11,24 @@ export default function LectureListCard({ lectureData }) {
         <div className={mainStyles.cardList}>
             {lectureData.map((lecture) => (
                 <Card key={lecture.id} className={mainStyles.cardItem}>
-                    <CardActionArea
-                        component="a"
-                        href={`/lecture/lecture-detail/${lecture.id}`}
-                        rel="noopener noreferrer" // 보안을 위해 추가 
-                    >
-                        <CardMedia
-                            component="img"
-                            image={lecture.img}
-                            alt={lecture.title}
-                            className={mainStyles.CardMedia}
-                        />
-                        <CardContent>
-                            <Typography gutterBottom className={mainStyles.cardLectureTitle}>
-                                {lecture.title}
-                            </Typography>
-                            <Typography className={mainStyles.cardLectureContent}>
-                                {lecture.content}
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
+                    <Link href={`/lecture/lecture-detail/${lecture.id}`} passHref>
+                        <CardActionArea rel="noopener noreferrer">
+                            <CardMedia
+                                component="img"
+                                image={lecture.img}
+                                alt={lecture.title}
+                                className={mainStyles.CardMedia}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom className={mainStyles.cardLectureTitle}>
+                                    {lecture.title}
+                                </Typography>
+                                <Typography className={mainStyles.cardLectureContent}>
+                                    {lecture.content}
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Link>
                 </Card>
             ))}
         </div>

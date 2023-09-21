@@ -232,7 +232,7 @@ export default function Header() {
             </AppBar >
 
             {/* alert */}
-            <Snackbar Snackbar
+            <Snackbar
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }
                 }
                 open={showLoginMessage}
