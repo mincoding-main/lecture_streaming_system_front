@@ -4,7 +4,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import mainStyles from '../styles/main.module.css';
+import mainStyles from '../styles/main/main.module.css';
 
 export default function LectureListCard({ lectureData }) {
     return (

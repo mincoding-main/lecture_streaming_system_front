@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import mainStyles from '../styles/main.module.css';
+import mainStyles from '../styles/main/main.module.css';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import LectureListCard from '@/components/lecture-card-item';
