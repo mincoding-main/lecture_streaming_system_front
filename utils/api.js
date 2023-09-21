@@ -286,7 +286,8 @@ export const deleteLectureVideo = async (lectureId, videoId) => {
  */
 export const createTag = async (data) => {
     try {
-        const response = await api.post(`/api/tags`, data);
+        //const response = await api.post(`/api/tags`, data);
+        const response = await axios.post(`http://168.126.185.94:8080/api/tags`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while creating the tag:", error);
@@ -303,7 +304,8 @@ export const createTag = async (data) => {
  */
 export const fetchTag = async (id) => {
     try {
-        const response = await api.get(`/api/tags/${id}`);
+        //const response = await api.get(`/api/tags/${id}`);
+        const response = await axios.get(`http://168.126.185.94:8080/api/tags/${id}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching the tag:", error);
@@ -319,7 +321,8 @@ export const fetchTag = async (id) => {
  */
 export const fetchAllTags = async () => {
     try {
-        const response = await api.get(`/api/tags`);
+        //const response = await api.get(`/api/tags`);
+        const response = await axios.get(`http://168.126.185.94:8080/api/tags`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching all tags:", error);
@@ -337,7 +340,8 @@ export const fetchAllTags = async () => {
  */
 export const updateTag = async (id, data) => {
     try {
-        const response = await api.patch(`/api/tags/${id}`, data);
+        //const response = await api.patch(`/api/tags/${id}`, data);
+        const response = await axios.patch(`http://168.126.185.94:8080/api/tags/${id}`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while updating the tag:", error);
@@ -354,7 +358,8 @@ export const updateTag = async (id, data) => {
  */
 export const deleteTag = async (id) => {
     try {
-        const response = await api.delete(`/api/tags/${id}`);
+        //const response = await api.delete(`/api/tags/${id}`);
+        const response = await axios.delete(`http://168.126.185.94:8080/api/tags/${id}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while deleting the tag:", error);

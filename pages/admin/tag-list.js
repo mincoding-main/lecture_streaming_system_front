@@ -25,7 +25,8 @@ export default function TagList() {
         const fetchTags = async () => {
             try {
                 const data = await fetchAllTags();
-                setTags(data);
+                const sortedData = [...data].sort((a, b) => a.id - b.id);
+                setTags(sortedData);
             } catch (error) {
                 console.error('Error fetching tags:', error);
             }

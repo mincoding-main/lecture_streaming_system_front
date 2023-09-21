@@ -31,7 +31,7 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
             }
 
             // 3. 태그 생성 로직
-            const newTag = await createTag(updatedTag);
+            const newTag = await createTag(updatedTag.name);
 
             onAddTag(newTag);
             // 4. 상위 컴포넌트의 태그 목록 상태 업데이트
@@ -58,7 +58,7 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
                 return; // 중복이 있으므로 업데이트를 중단합니다.
             }
 
-            let payload = { ...updatedTag };  // 정렬된 배열 사용
+            let payload = updatedTag.name;  // 정렬된 배열 사용
 
             await updateTag(updatedTag.id, payload);
             onUpdateTag(updatedTag); // 수정된 사용자 정보 전달
