@@ -180,7 +180,6 @@ export default function Header() {
                             <Image src="/logo_w.svg" alt="LOGO" width={100} height={32} href="/" />
                         </Link>
                     </Box>
-
                     <Box className={headerStyles.leftToolbarBox} >
                         {loggedIn ? (
                             <MenuItem onClick={handleOpenMemberMenu}>
@@ -192,17 +191,20 @@ export default function Header() {
                             </MenuItem>
                         )}
                         <Menu
-                            sx={{ mt: '1.8rem' }}
+                            sx={{
+                                position: 'absolute',
+                                right: '1200px'
+                            }}
                             id="menu-appbar"
                             anchorEl={anchorElMember}
                             anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
+                                vertical: 'bottom',
+                                horizontal: 'center',
                             }}
                             keepMounted
                             transformOrigin={{
                                 vertical: 'top',
-                                horizontal: 'right',
+                                horizontal: 'center',
                             }}
                             open={Boolean(anchorElMember)}
                             onClose={handleCloseMemberMenu}
