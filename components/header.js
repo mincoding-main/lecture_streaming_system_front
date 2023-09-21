@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { fetchAllMembers, createMember } from '@/utils/api';
+import { fetchAllMembers, createMember, loginMember } from '@/utils/api';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -49,15 +49,13 @@ export default function Header() {
 
     const handleLogin = async (modalEmail, modalPassword) => {
         try {
-            const memberData = await fetchAllMembers(); // GET 요청을 보내서 유저 데이터를 받아옵니다.
+            const credentials = { email: modalEmail, password: modalPassword };
+            const response = await loginMember(credentials); // 사용하려는 loginMember 함수
 
-            // 서버에서 받아온 유저 데이터를 기반으로 로그인 처리
-            const foundMember = memberData.find((member) => member.email === modalEmail && member.password === modalPassword);
-
-            if (foundMember) {
-                sessionStorage.setItem('member', JSON.stringify(foundMember));
+            if (response.success) {
+                // sessionStorage.setItem('member', JSON.stringify(response.token));
                 setLoggedIn(true);
-                if (foundMember.role) setIsAdmin(true);
+                if (response.token && response.token.role) setIsAdmin(true); // role 정보가 토큰에 포함되어 있다면 이렇게 할 수 있습니다.
                 handleCloseModal();
                 handleCloseMemberMenu();
                 setOpenLoginModal(false);
@@ -74,7 +72,7 @@ export default function Header() {
     };
 
     const handleLogout = () => {
-        sessionStorage.removeItem('member');
+        //sessionStorage.removeItem('member');
         setLoggedIn(false);
         setIsAdmin(false);
         handleCloseMemberMenu();
@@ -91,7 +89,8 @@ export default function Header() {
     const checkLoggedIn = () => {
         // 로그인 상태를 확인하는 로직
         // 예를 들어, 로컬 스토리지나 쿠키에서 로그인 상태를 가져올 수 있습니다.
-        const member = JSON.parse(sessionStorage.getItem('member'));
+        const member = null;
+        //const member = JSON.parse(sessionStorage.getItem('member'));
         setLoggedIn(!!member); // 유저 정보가 있으면 로그인 상태로 설정
         if (member && member.role) {
             setIsAdmin(true); // 만약 사용자가 admin인 경우에 isAdmin 상태를 true로 설정
