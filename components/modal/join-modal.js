@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAllMembers } from '@/utils/api';
-import joinModalStyle from '@/styles/main/join-modal.module.css'
+import mainModalStyle from '@/styles/main/main-modal.module.css'
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -69,11 +69,11 @@ export default function JoinModal({ open, onClose, onJoin }) {
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div className={joinModalStyle.modal}>
-                <div className={joinModalStyle.title}>
+            <div className={mainModalStyle.modal}>
+                <div className={mainModalStyle.title}>
                     회원 가입
                 </div>
-                <div className={joinModalStyle.emailContainer}>
+                <div className={mainModalStyle.emailContainer}>
                     <TextField
                         label="Email"
                         type="email"
@@ -83,7 +83,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
                         fullWidth
                         sx={{ borderColor: message?.type === 'error' && message?.content?.includes('이메일') ? 'red' : undefined, flex: 1 }}
                     />
-                    <Button variant="outlined" onClick={handleDuplicateCheck} className={joinModalStyle.emailBtn}>
+                    <Button variant="outlined" onClick={handleDuplicateCheck} className={mainModalStyle.emailBtn}>
                         중복 확인
                     </Button>
                 </div>
@@ -106,15 +106,15 @@ export default function JoinModal({ open, onClose, onJoin }) {
                     sx={{ marginBottom: '1rem', borderColor: message?.type === 'error' && message?.content?.includes('비밀번호 확인') ? 'red' : undefined, height: '55px' }}
                 />
                 {message && (
-                    <Alert severity={message.type} className={joinModalStyle.alert}>
+                    <Alert severity={message.type} className={mainModalStyle.alert}>
                         {message.content}
                     </Alert>
                 )}
-                <div className={joinModalStyle.bottomBtnContainer}>
-                    <Button variant="outlined" onClick={handleJoin} className={joinModalStyle.bottomBtn}>
+                <div className={mainModalStyle.bottomBtnContainer}>
+                    <Button variant="outlined" onClick={handleJoin} className={mainModalStyle.bottomBtn}>
                         회원 가입
                     </Button>
-                    <Button variant="outlined" color='error' onClick={onClose} className={joinModalStyle.bottomBtn}>
+                    <Button variant="outlined" color='error' onClick={onClose} className={mainModalStyle.bottomBtn}>
                         취소
                     </Button>
                 </div>

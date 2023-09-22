@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import mainModalStyle from '@/styles/main/main-modal.module.css'
 import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
@@ -25,10 +25,10 @@ export default function FindPasswordModal({ open, onClose, onPasswordRecovery, e
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div style={{ position: 'absolute', top: '50%', left: '50%', width: '600px', height: 'auto', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px' }}>
-                <Typography variant="h5" component="div" sx={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <div className={mainModalStyle.modal}>
+                <div className={mainModalStyle.title}>
                     비밀번호 찾기
-                </Typography>
+                </div>
                 <TextField
                     label="Email"
                     type="email"
@@ -39,20 +39,20 @@ export default function FindPasswordModal({ open, onClose, onPasswordRecovery, e
                     sx={{ marginBottom: '1rem', borderColor: message?.type === 'error' && message?.content?.includes('이메일') ? 'red' : undefined }}
                 />
                 {error && (
-                    <Alert severity="error" sx={{ width: '560px', marginBottom: '1rem' }}>
+                    <Alert severity="error" className={mainModalStyle.alert}>
                         {error}
                     </Alert>
                 )}
                 {message && (
-                    <Alert severity={message.type} sx={{ width: '560px', marginBottom: '1rem' }}>
+                    <Alert severity={message.type} className={mainModalStyle.alert}>
                         {message.content}
                     </Alert>
                 )}
-                <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
-                    <Button variant="outlined" onClick={handleFindPassword} sx={{ width: '30%', marginTop: '1rem' }}>
+                <div className={mainModalStyle.bottomBtnContainer}>
+                    <Button variant="outlined" onClick={handleFindPassword} className={mainModalStyle.bottomBtn}>
                         비밀번호 찾기
                     </Button>
-                    <Button variant="outlined" color="error" onClick={onClose} sx={{ width: '30%', marginTop: '1rem' }}>
+                    <Button variant="outlined" color="error" onClick={onClose} className={mainModalStyle.bottomBtn}>
                         취소
                     </Button>
                 </div>
