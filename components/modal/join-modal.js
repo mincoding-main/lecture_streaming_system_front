@@ -10,7 +10,6 @@ export default function JoinModal({ open, onClose, onJoin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [employeeNumber, setEmployeeNumber] = useState('');
     const [message, setMessage] = useState(null);
     const [isDuplicateChecked, setIsDuplicateChecked] = useState(false);
 
@@ -19,12 +18,10 @@ export default function JoinModal({ open, onClose, onJoin }) {
         setMessage(null);
     }, [email]);
 
-
     useEffect(() => {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        setEmployeeNumber('');
         setMessage(null);
         setIsDuplicateChecked(false);
     }, [open]);
@@ -67,7 +64,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
         }
 
         setMessage(null);
-        onJoin(email, password, employeeNumber);
+        onJoin(email, password);
     };
 
     return (
