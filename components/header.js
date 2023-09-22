@@ -51,12 +51,14 @@ export default function Header() {
     const handleLogin = async (modalEmail, modalPassword) => {
         try {
             const credentials = { email: modalEmail, password: modalPassword };
-            const response = await loginMember(credentials); // 사용하려는 loginMember 함수
-
+            const response = await loginMember(credentials);
             if (response.success) {
-                // sessionStorage.setItem('member', JSON.stringify(response.token));
+                localStorage.setItem('loggedIn', true); // 임시 사용 
+                localStorage.setItem('role', response.payload.role);  // 임시 사용 
                 setLoggedIn(true);
-                if (response.token && response.token.role) setIsAdmin(true); // role 정보가 토큰에 포함되어 있다면 이렇게 할 수 있습니다.
+
+                if (response.payload.role === 'ADMIN') setIsAdmin(true);
+
                 handleCloseModal();
                 handleCloseMemberMenu();
                 setOpenLoginModal(false);
@@ -73,7 +75,9 @@ export default function Header() {
     };
 
     const handleLogout = () => {
-        //sessionStorage.removeItem('member');
+        localStorage.removeItem('loggedIn'); // 임시 사용
+        localStorage.removeItem('role'); // 임시 사용
+
         setLoggedIn(false);
         setIsAdmin(false);
         handleCloseMemberMenu();
@@ -88,14 +92,11 @@ export default function Header() {
 
     // 로그인 여부를 체크하는 함수
     const checkLoggedIn = () => {
-        // 로그인 상태를 확인하는 로직
-        // 예를 들어, 로컬 스토리지나 쿠키에서 로그인 상태를 가져올 수 있습니다.
-        const member = null;
-        //const member = JSON.parse(sessionStorage.getItem('member'));
-        setLoggedIn(!!member); // 유저 정보가 있으면 로그인 상태로 설정
-        if (member && member.role) {
-            setIsAdmin(true); // 만약 사용자가 admin인 경우에 isAdmin 상태를 true로 설정
-        }
+        const loggedIn = JSON.parse(localStorage.getItem('loggedIn') || 'false');
+        const role = localStorage.getItem('role');
+
+        setLoggedIn(loggedIn);
+        if (role === 'ADMIN') setIsAdmin(true);
     };
 
     const handleOpenModal = () => {
@@ -210,18 +211,13 @@ export default function Header() {
                                     </Link>
                                 </MenuItem>
                             ))}
-                            <MenuItem>
-                                <Link href="/admin/member-list" passHref>
-                                    <Typography textAlign="center">Admin Page</Typography>
-                                </Link>
-                            </MenuItem>
-                            {/* {isAdmin ? (
+                            {isAdmin ? (
                                 <MenuItem>
                                     <Link href="/admin/member-list" passHref>
                                         <Typography textAlign="center">Admin Page</Typography>
                                     </Link>
                                 </MenuItem>
-                            ) : null} */}
+                            ) : null}
                             {loggedIn && (
                                 <MenuItem onClick={handleLogout}>
                                     <Typography textAlign="center">Logout</Typography>

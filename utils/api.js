@@ -1,5 +1,7 @@
 import axios from 'axios';
 import config from '@/config';
+import jwt from 'jsonwebtoken';
+
 
 const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QG5hdmVyLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NTM0ODE3MCwiZXhwIjoxNjk2NTU3NzcwfQ.6-q3w07mx0ACKAvYXWTkFP4d_RUjKoJqOkn7BjBslGU';
 
@@ -9,6 +11,17 @@ const api = axios.create({
 
 api.defaults.headers.common['Authorization'] = TOKEN;
 
+
+export const decodeToken = (token) => {
+    try {
+        // Bearer 키워드를 제거하고 토큰 디코드
+        const actualToken = token.split(' ')[1];
+        return jwt.decode(actualToken); // 디코드된 페이로드 반환
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return null; // 디코딩 실패 시 null 반환
+    }
+};
 
 // Members
 
@@ -42,8 +55,10 @@ export const loginMember = async (credentials) => {
         const response = await api.post('api/members/login', credentials, {
             withCredentials: true
         });
-        console.log(response)
-        return { success: true, token: response.data.token, message: '로그인 성공' };
+        const token = response.headers.authorization;
+        const decoded = decodeToken(token); // 토큰 디코드
+        console.log(decoded); // 디코드된 페이로드 출력
+        return { success: true, payload: decoded, message: '로그인 성공' };
     } catch (error) {
         console.error("An error occurred while logging in:", error);
         return { success: false, message: '로그인 실패' };
