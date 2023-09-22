@@ -119,13 +119,11 @@ export default function Header() {
 
 
 
-    const handleJoin = async (joinEmail, joinPassword, employeeNumber) => {
+    const handleJoin = async (joinEmail, joinPassword) => {
         try {
             const newMember = {
                 email: joinEmail,
                 password: joinPassword,
-                employeeNumber,
-                role: true,
             };
 
             await createMember(newMember);

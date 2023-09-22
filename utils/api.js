@@ -21,7 +21,7 @@ api.defaults.headers.common['Authorization'] = TOKEN;
  */
 export const createMember = async (data) => {
     try {
-        const response = await axios.post(`/api/members`, data);
+        const response = await api.post(`/api/members`, data);
         return response.data;
     } catch (error) {
         console.error("An error occurred while creating the member:", error);
@@ -39,7 +39,7 @@ export const createMember = async (data) => {
  */
 export const loginMember = async (credentials) => {
     try {
-        const response = await axios.post(`http://168.126.185.94:8080/api/members/login`, credentials, {
+        const response = await api.post('api/members/login', credentials, {
             withCredentials: true
         });
         console.log(response)
