@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAllMembers } from '@/utils/api';
+import joinModalStyle from '@/styles/main/join-modal.module.css'
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -82,11 +83,11 @@ export default function JoinModal({ open, onClose, onJoin }) {
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div style={{ position: 'absolute', top: '50%', left: '50%', width: '600px', height: 'auto', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px' }}>
-                <Typography variant="h5" component="div" sx={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <div className={joinModalStyle.modal}>
+                <div className={joinModalStyle.title}>
                     회원 가입
-                </Typography>
-                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+                </div>
+                <div className={joinModalStyle.emailContainer}>
                     <TextField
                         label="Email"
                         type="email"
@@ -97,7 +98,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
                         sx={{ borderColor: message?.type === 'error' && message?.content?.includes('이메일') ? 'red' : undefined, flex: 1 }}
                     />
                     {/* 추가된 중복 확인 버튼 */}
-                    <Button variant="outlined" onClick={handleDuplicateCheck} sx={{ marginLeft: '1rem', height: '55px' }}>
+                    <Button variant="outlined" onClick={handleDuplicateCheck} className={joinModalStyle.emailBtn}>
                         중복 확인
                     </Button>
                 </div>
@@ -119,7 +120,7 @@ export default function JoinModal({ open, onClose, onJoin }) {
                     fullWidth
                     sx={{ marginBottom: '1rem', borderColor: message?.type === 'error' && message?.content?.includes('비밀번호 확인') ? 'red' : undefined, height: '55px' }}
                 />
-                <TextField
+                {/* <TextField
                     label="Employee ID (사번)"
                     type="text"
                     value={employeeNumber}
@@ -127,18 +128,18 @@ export default function JoinModal({ open, onClose, onJoin }) {
                     variant="outlined"
                     fullWidth
                     sx={{ marginBottom: '1rem', borderColor: message?.type === 'error' && message?.content?.includes('사번') ? 'red' : undefined, height: '55px' }}
-                />
+                /> */}
                 {/* 중복된 이메일 여부에 따른 정보 또는 에러 메시지 */}
                 {message && (
-                    <Alert severity={message.type} sx={{ marginBottom: '1.3rem', textAlign: 'center' }}>
+                    <Alert severity={message.type} className={joinModalStyle.alert}>
                         {message.content}
                     </Alert>
                 )}
-                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                    <Button variant="outlined" onClick={handleJoin} sx={{ width: '30%', marginTop: '1rem' }}>
+                <div className={joinModalStyle.bottomBtnContainer}>
+                    <Button variant="outlined" onClick={handleJoin} className={joinModalStyle.bottomBtn}>
                         회원 가입
                     </Button>
-                    <Button variant="outlined" color='error' onClick={onClose} sx={{ width: '30%', marginTop: '1rem' }}>
+                    <Button variant="outlined" color='error' onClick={onClose} className={joinModalStyle.bottomBtn}>
                         취소
                     </Button>
                 </div>
