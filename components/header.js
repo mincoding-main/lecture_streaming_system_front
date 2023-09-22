@@ -212,13 +212,18 @@ export default function Header() {
                                     </Link>
                                 </MenuItem>
                             ))}
-                            {isAdmin ? (
+                            <MenuItem>
+                                <Link href="/admin/member-list" passHref>
+                                    <Typography textAlign="center">Admin Page</Typography>
+                                </Link>
+                            </MenuItem>
+                            {/* {isAdmin ? (
                                 <MenuItem>
                                     <Link href="/admin/member-list" passHref>
                                         <Typography textAlign="center">Admin Page</Typography>
                                     </Link>
                                 </MenuItem>
-                            ) : null}
+                            ) : null} */}
                             {loggedIn && (
                                 <MenuItem onClick={handleLogout}>
                                     <Typography textAlign="center">Logout</Typography>

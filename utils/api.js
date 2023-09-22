@@ -1,22 +1,14 @@
 import axios from 'axios';
 import config from '@/config';
-import { getToken } from '@/utils/auth';
 
+const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QG5hdmVyLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NTM0ODE3MCwiZXhwIjoxNjk2NTU3NzcwfQ.6-q3w07mx0ACKAvYXWTkFP4d_RUjKoJqOkn7BjBslGU';
 
 const api = axios.create({
     baseURL: config.apiBackPoint
 });
 
+api.defaults.headers.common['Authorization'] = TOKEN;
 
-api.interceptors.request.use(config => {
-    const token = getToken();
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-}, error => {
-    return Promise.reject(error);
-});
 
 // Members
 
@@ -355,8 +347,6 @@ export const fetchTag = async (id) => {
  */
 export const fetchAllTags = async () => {
     try {
-        console.log('hello')
-        console.log(api.defaults.baseURL);
         const response = await api.get(`/api/tags`);
         //const response = await axios.get(`http://168.126.185.94:8080/api/tags`);
         return response.data;

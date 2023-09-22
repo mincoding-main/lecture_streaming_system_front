@@ -7,15 +7,17 @@ import Alert from '@mui/material/Alert';
 import adminTagEditModalStyle from '@/styles/admin/tag-edit-modal.module.css'
 
 
-export default function TagManagementModal({ open, onClose, tag, onUpdateTag, onDeleteTag, mode = 'edit', onAddTag }) {
+export default function TagManagementModal({ open, onClose, tag, onUpdateTag, mode = 'edit' }) {
     const [updatedTag, setUpdatedTag] = useState({ ...tag });
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        // mode가 'create'인 경우 초기값을 빈 객체로 설정합니다.
-        setUpdatedTag(mode === 'edit' ? { ...tag } : {});
-    }, [tag, mode]);
-
+        if (open) { // 모달이 열린 경우
+            setUpdatedTag(mode === 'edit' ? { ...tag } : {});
+        } else { // 모달이 닫힌 경우
+            setUpdatedTag({}); // 상태를 초기화합니다.
+        }
+    }, [open, tag, mode]);
 
     const handleCreateTag = async () => {
         try {
@@ -29,13 +31,13 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
                 setErrorMessage('중복된 태그입니다.');
                 return; // 중복이 있으므로 생성을 중단합니다.
             }
+            let payload = { name: updatedTag.name };
 
             // 3. 태그 생성 로직
-            const newTag = await createTag(updatedTag.name);
+            await createTag(payload);
+            const newTags = await fetchAllTags();
+            onUpdateTag(newTags);
 
-            onAddTag(newTag);
-            // 4. 상위 컴포넌트의 태그 목록 상태 업데이트
-            // onUpdateTag(prevTags => [...prevTags, newTag]);
             handleClose();
         } catch (error) {
             console.error('Error creating tag:', error);
@@ -58,10 +60,11 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
                 return; // 중복이 있으므로 업데이트를 중단합니다.
             }
 
-            let payload = updatedTag.name;  // 정렬된 배열 사용
+            let payload = { name: updatedTag.name };
 
             await updateTag(updatedTag.id, payload);
-            onUpdateTag(updatedTag); // 수정된 사용자 정보 전달
+            const newTags = await fetchAllTags();
+            onUpdateTag(newTags); // 수정된 사용자 정보 전달
             handleClose(); // 모달 닫기
         } catch (error) {
             console.error('Error updating tag:', error);
@@ -76,13 +79,8 @@ export default function TagManagementModal({ open, onClose, tag, onUpdateTag, on
         if (confirmDelete) {
             try {
                 await deleteTag(updatedTag.id);
-
-                // 부모 컴포넌트에서 전달된 업데이트 함수를 사용하여 상태를 업데이트합니다.
-                onUpdateTag(prevTags => prevTags.filter(tag => tag.id !== updatedTag.id));
-                onUpdateTag(prevFilteredTags => prevFilteredTags.filter(tag => tag.id !== updatedTag.id));
-
-
-                onDeleteTag(tag.id);
+                const newTags = await fetchAllTags();
+                onUpdateTag(newTags);
                 // 모달 닫기
                 onClose();
             } catch (error) {

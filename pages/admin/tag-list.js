@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TagItemView from '@/components/admin/tag-item-view'
 import TagManagementModal from '@/components/admin/admin-modal/tag-management-modal'
 import { fetchAllTags } from '@/utils/api';
+import { calculateStartAndEndIndex, calculateTotalPages, calculateFilteredTags } from '@/utils/pagination-utils';
 import adminTagDetailStyle from '@/styles/admin/tag-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
@@ -72,25 +73,16 @@ export default function TagList() {
         setOpenTagInfoModal(true);
     };
 
-    const handleCreateTag = (newTag) => {
-        setTags(prevTags => [...prevTags, newTag]);
-    };
+    const handleUpdateTag = (newTags) => {
+        const sortedTags = [...newTags].sort((a, b) => a.id - b.id);
+        setTags(sortedTags);
 
-    const handleUpdateTag = (updatedTag) => {
-        // 기존 태그만 업데이트
-        setTags(prevTags => {
-            return prevTags.map(tag => (tag.id === updatedTag.id ? updatedTag : tag));
-        });
-
-        setFilteredTags(prevFilteredTags => {
-            return prevFilteredTags.map(tag => (tag.id === updatedTag.id ? updatedTag : tag));
-        });
-    };
-
-
-    const handleDeleteTag = (deletedTagId) => {
-        setTags(prevTags => prevTags.filter(tag => tag.id !== deletedTagId));
-        setFilteredTags(prevFilteredTags => prevFilteredTags.filter(tag => tag.id !== deletedTagId));
+        if (searchKeyword) {
+            const newFilteredTags = sortedTags.filter(tag => tag.name.includes(searchKeyword));
+            setFilteredTags(newFilteredTags);
+        } else {
+            setFilteredTags(sortedTags);
+        }
 
         // 총 페이지 수 다시 계산
         const newTotalPages = searchKeyword !== '' ?
@@ -102,6 +94,7 @@ export default function TagList() {
             setPage(newTotalPages); // 현재 페이지를 총 페이지 수로 설정
         }
     };
+
 
     // 모드 선택
     const handleOpenCreateTagModal = () => {
@@ -168,9 +161,7 @@ export default function TagList() {
                 onClose={() => setOpenTagInfoModal(false)}
                 tag={selectedTag}
                 onUpdateTag={handleUpdateTag}
-                onDeleteTag={handleDeleteTag}
                 mode={selectedTag ? 'edit' : 'create'}
-                onAddTag={handleCreateTag}
             />
         </>
     );
