@@ -12,7 +12,6 @@ import lectureListDetailStyle from '@/styles/main/lecture-list-detail.module.css
 export default function LectureListCard({ lectureData }) {
     const router = useRouter();
     const baseURL = config.imageBaseURL
-    console.log(lectureData)
     return (
         <List className={lectureListDetailStyle.listContainer}>
             {lectureData && lectureData.length > 0 ? (

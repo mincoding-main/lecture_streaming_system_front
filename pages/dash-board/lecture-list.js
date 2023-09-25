@@ -27,10 +27,7 @@ export default function LectureList() {
             // 현재 멤버 정보를 가져옴
             const id = localStorage.getItem('id');
             const memberData = await fetchLecturesByMemberId(id);
-            console.log(memberData)
-            // 모든 강의를 불러옴
 
-            // 필터링된 강의 데이터를 state에 설정
             setLectureData(memberData.memberLectureList);
 
         } catch (error) {
