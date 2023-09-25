@@ -54,7 +54,8 @@ export default function Header() {
             const response = await loginMember(credentials);
             if (response.success) {
                 localStorage.setItem('loggedIn', true); // 임시 사용 
-                localStorage.setItem('role', response.payload.role);  // 임시 사용 
+                localStorage.setItem('role', response.payload.role);  // 임시 사용
+                localStorage.setItem('id', response.payload.id); // 임시 사용
                 setLoggedIn(true);
 
                 if (response.payload.role === 'ADMIN') setIsAdmin(true);
@@ -77,7 +78,7 @@ export default function Header() {
     const handleLogout = () => {
         localStorage.removeItem('loggedIn'); // 임시 사용
         localStorage.removeItem('role'); // 임시 사용
-
+        localStorage.removeItem('id');
         setLoggedIn(false);
         setIsAdmin(false);
         handleCloseMemberMenu();

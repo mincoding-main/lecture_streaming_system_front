@@ -19,9 +19,8 @@ export default function ProfileUpdate() {
 
     const fetchMemberAndLectureData = async () => {
         try {
-            const member = JSON.parse(sessionStorage.getItem('member'));
-            const memberId = member && member.id;
-            const memberData = await fetchMember(memberId);
+            const id = localStorage.getItem('id');
+            const memberData = await fetchMember(id);
             setMember(memberData);
             setEmployeeNumber(memberData.employeeNumber);
         } catch (error) {
@@ -37,6 +36,15 @@ export default function ProfileUpdate() {
         const isConfirmed = window.confirm('프로필을 업데이트하시겠습니까?');
 
         if (isConfirmed) {
+            if (!password.trim()) {
+                setMessage({ type: 'error', content: '비밀번호를 입력해주세요.' });
+                return;
+            }
+            if (!confirmPassword.trim()) {
+                setMessage({ type: 'error', content: '비밀번호 확인을 입력해주세요.' });
+                return;
+            }
+
             if (password !== confirmPassword) {
                 setMessage({ type: 'error', content: '비밀번호와 비밀번호 확인이 일치하지 않습니다.' });
                 return;
@@ -93,7 +101,7 @@ export default function ProfileUpdate() {
                     <div>
                         <TextField
                             label="Email"
-                            value={member?.email}
+                            value={member ? member.email : ''}
                             disabled
                             fullWidth
                             sx={{ marginBottom: '1rem' }}
