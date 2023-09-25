@@ -212,7 +212,7 @@ export default function Header() {
                                 </MenuItem>
                             ))}
                             {isAdmin ? (
-                                <MenuItem>
+                                <MenuItem onClick={handleCloseMemberMenu}>
                                     <Link href="/admin/member-list" passHref>
                                         <Typography textAlign="center">Admin Page</Typography>
                                     </Link>
