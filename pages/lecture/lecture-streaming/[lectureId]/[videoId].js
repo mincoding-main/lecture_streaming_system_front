@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useAuthCheck } from '@/utils/auth-check'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 import { Button, List, ListItem, ListItemText, Paper } from '@mui/material';
@@ -16,6 +17,8 @@ export default function LectureStreaming() {
     const [editMode, setEditMode] = useState(false);
     const [editedContent, setEditedContent] = useState(""); // 초기값 설정
     const [isAdmin, setIsAdmin] = useState(false); // 사용자의 권한 여부를 나타내는 상태 변수
+
+    useAuthCheck(true, true, true);
 
     useEffect(() => {
         if (lectureId) {

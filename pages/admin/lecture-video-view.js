@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLecture, deleteLectureVideo } from '@/utils/api'
 import { useRouter } from 'next/router';
+import { useAuthCheck } from '@/utils/auth-check'
 import adminLectureVideoViewStyle from '@/styles/admin/lecture-video-view.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
@@ -14,6 +15,8 @@ export default function LectureVideoView() {
     const [lectures, setLectures] = useState([]);
     const [page, setPage] = useState(1);
     const itemsPerPage = 8;
+
+    useAuthCheck(true, true, false);
 
     useEffect(() => {
         const fetchOneLecture = async () => {

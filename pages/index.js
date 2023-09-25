@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import mainStyles from '../styles/main/main.module.css';
 import LectureListCard from '@/components/lecture-card-item';
 import { fetchAllLectures } from '@/utils/api'
-
+import { useAuthCheck } from '@/utils/auth-check'
 
 
 export default function Home() {
   const [lectureData, setLectureData] = useState([]);
+
+  useAuthCheck(false, false, false);
 
   useEffect(() => {
     const fetchData = async () => {

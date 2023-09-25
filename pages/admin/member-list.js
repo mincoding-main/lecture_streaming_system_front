@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MemberItemView from '@/components/admin/member-item-view'
 import MemberManagementModal from '@/components/admin/admin-modal/member-management-modal'
 import { fetchAllMembers } from '@/utils/api'
+import { useAuthCheck } from '@/utils/auth-check'
 import adminMemberDetailStyle from '@/styles/admin/member-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
@@ -18,6 +19,8 @@ export default function MemberList() {
     const [filteredMembers, setFilteredMembers] = useState([]);
     const [openMemberInfoModal, setOpenMemberInfoModal] = useState(false);
     const [selectedMember, setSelectedMember] = useState(null);
+
+    useAuthCheck(true, true, false);
 
     useEffect(() => {
         const fetchMembers = async () => {

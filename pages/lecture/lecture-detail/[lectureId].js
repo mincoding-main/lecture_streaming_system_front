@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuthCheck } from '@/utils/auth-check'
 import { useRouter } from 'next/router';
 import lectureDetailStyle from '@/styles/main/lecture-detail.module.css';
 import VideoListItem from '@/components/lecture-video-item';
@@ -9,6 +10,8 @@ export default function LectureDetail() {
     const router = useRouter();
     const { lectureId } = router.query;
     const [lecture, setLecture] = useState(null);
+
+    useAuthCheck(false, false, false);
 
     useEffect(() => {
         if (lectureId) {

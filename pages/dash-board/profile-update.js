@@ -5,6 +5,7 @@ import { fetchMember, updateMember } from '@/utils/api'
 import { useRouter } from 'next/router';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/system';
+import { useAuthCheck } from '@/utils/auth-check'
 
 export default function ProfileUpdate() {
     const router = useRouter();
@@ -13,6 +14,8 @@ export default function ProfileUpdate() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState(null);
+
+    useAuthCheck(true, false, false);
 
     const fetchMemberAndLectureData = async () => {
         try {

@@ -4,10 +4,15 @@ import LectureListItem from '@/components/lecture-list-item';
 import Button from '@mui/material/Button';
 import { fetchAllLectures } from '@/utils/api'
 import { useRouter } from 'next/router';
+import { useAuthCheck } from '@/utils/auth-check'
 
 export default function LectureList() {
     const router = useRouter();
     const [lectureData, setLectureData] = useState([]);
+
+
+    useAuthCheck(true, false, false);
+
 
     const handleTabClick = (tabName) => {
         if (tabName === 'updateProfile') {

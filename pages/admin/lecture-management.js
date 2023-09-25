@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import SideNavBar from '@/components/admin/side-navbar';
 import TagSearchModal from '@/components/admin/admin-modal/tag-search-modal';
 import { createLecture, fetchLecture, updateLecture } from '@/utils/api'
+import { useAuthCheck } from '@/utils/auth-check'
 
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import adminLectureManagementStyle from '@/styles/admin/lecture-management.module.css';
@@ -27,7 +28,7 @@ export default function LectureClassificationManager() {
     const [tags, setTags] = useState([]);
     const [tagSearchModalOpen, setTagSearchModalOpen] = useState(false);
 
-
+    useAuthCheck(true, true, false);
 
     useEffect(() => {
         const fetchLectureAndVideo = async () => {

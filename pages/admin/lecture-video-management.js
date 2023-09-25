@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLectureVideo, updateLectureVideo, createLectureVideo } from '@/utils/api'
 import { useRouter } from 'next/router';
+import { useAuthCheck } from '@/utils/auth-check'
 import adminLectureVideoManagementStyle from '@/styles/admin/lecture-video-management.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
@@ -11,10 +12,10 @@ import TextField from '@mui/material/TextField';
 export default function LectureVideoManagement() {
     const router = useRouter();
     const { mode, id, videoId } = router.query;
-
-
     const [lectureTitle, setLectureTitle] = useState(mode === 'edit' ? '기존 강의명' : '');
     const [lectureUrl, setLectureUrl] = useState(mode === 'edit' ? '강의 링크' : '');
+
+    useAuthCheck(true, true, false);
 
     useEffect(() => {
         const fetchLectureAndVideo = async () => {

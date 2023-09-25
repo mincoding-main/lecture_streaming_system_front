@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TagItemView from '@/components/admin/tag-item-view'
 import TagManagementModal from '@/components/admin/admin-modal/tag-management-modal'
 import { fetchAllTags } from '@/utils/api';
-import { calculateStartAndEndIndex, calculateTotalPages, calculateFilteredTags } from '@/utils/pagination-utils';
+import { useAuthCheck } from '@/utils/auth-check'
 import adminTagDetailStyle from '@/styles/admin/tag-detail.module.css';
 import adminCommonStyle from '@/styles/admin/common.module.css';
 import SideNavBar from '@/components/admin/side-navbar';
@@ -19,6 +19,8 @@ export default function TagList() {
     const [filteredTags, setFilteredTags] = useState([]);
     const [openTagInfoModal, setOpenTagInfoModal] = useState(false);
     const [selectedTag, setSelectedTag] = useState(null);
+
+    useAuthCheck(true, true, false);
 
     useEffect(() => {
         const fetchTags = async () => {
