@@ -99,6 +99,25 @@ export const fetchAllMembers = async () => {
     }
 };
 
+
+/**
+ * 멤버 ID가 보유하고 있는 강의를 조회합니다.
+ *
+ * @param {string} id - 조회할 강의의 ID.
+ * @returns {Promise<Object>} - 강의의 데이터.
+ * @throws {Error} 조회 중에 에러가 발생하면 예외를 던집니다.
+ */
+export const fetchLecturesByMemberId = async (id) => {
+    try {
+        const response = await api.get(`/api/members/${id}/lectures`);
+        return response.data;
+    } catch (error) {
+        console.error("An error occurred while fetching the lecture:", error);
+        throw error;
+    }
+};
+
+
 /**
  * 멤버 정보를 업데이트합니다.
  *
@@ -162,7 +181,7 @@ export const createLecture = async (data) => {
  */
 export const fetchLecture = async (id) => {
     try {
-        const response = await axios.get(`/api/lectures/${id}`);
+        const response = await api.get(`/api/lectures/${id}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching the lecture:", error);
@@ -178,7 +197,7 @@ export const fetchLecture = async (id) => {
  */
 export const fetchAllLectures = async () => {
     try {
-        const response = await axios.get(`/api/lectures`);
+        const response = await api.get(`/api/lectures`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching lectures:", error);
@@ -196,7 +215,7 @@ export const fetchAllLectures = async () => {
  */
 export const updateLecture = async (id, data) => {
     try {
-        const response = await axios.patch(`/api/lectures/${id}`, data);
+        const response = await api.patch(`/api/lectures/${id}`, data);
         return response;
     } catch (error) {
         console.error("An error occurred while updating the lecture:", error);
@@ -213,7 +232,7 @@ export const updateLecture = async (id, data) => {
  */
 export const deleteLecture = async (id) => {
     try {
-        const response = await axios.delete(`/api/lectures/${id}`);
+        const response = await api.delete(`/api/lectures/${id}`);
         return response;
     } catch (error) {
         console.error("An error occurred while deleting the lecture:", error);

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import config from '@/config';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
@@ -7,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import mainStyles from '../styles/main/main.module.css';
 
 export default function LectureListCard({ lectureData }) {
+    const baseURL = config.imageBaseURL
     return (
         <div className={mainStyles.cardList}>
             {lectureData.map((lecture) => (
@@ -15,7 +17,7 @@ export default function LectureListCard({ lectureData }) {
                         <CardActionArea rel="noopener noreferrer">
                             <CardMedia
                                 component="img"
-                                image={lecture.img}
+                                image={`${baseURL}/${lecture.img.image_name}`}
                                 alt={lecture.title}
                                 className={mainStyles.CardMedia}
                             />
