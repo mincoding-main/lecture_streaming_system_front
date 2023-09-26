@@ -33,7 +33,7 @@
 
 .lectureTextField {
     width: 80%;
-
+    margin-top: 1rem;
 }
 
 
@@ -58,4 +58,27 @@
     width: 30%;
     font-size: 0.8rem;
     margin-bottom: 2rem;
+}
+
+.imageUploadContainer {
+    width: 80%;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    display: none;
+}
+
+.imagePreview {
+    margin-top: 20px;
+    max-width: 40%;
+    max-height: 12rem;
+}
+
+.noImageText,
+.noTagText {
+    color: #757575;
+    font-size: 0.8rem;
 }

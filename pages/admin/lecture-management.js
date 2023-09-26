@@ -21,6 +21,8 @@ export default function LectureClassificationManager() {
     const [lectureContent, setLectureContent] = useState(mode === 'edit' ? '기존 강의 소개' : '');
     const [tags, setTags] = useState([]);
     const [tagSearchModalOpen, setTagSearchModalOpen] = useState(false);
+    const [image, setImage] = useState(null); // 업로드할 이미지 파일
+    const [imagePreviewUrl, setImagePreviewUrl] = useState(''); // 이미지 미리보기 URL
 
     useAuthCheck(true, true, false);
 
@@ -97,6 +99,21 @@ export default function LectureClassificationManager() {
         setTagSearchModalOpen(false);
     };
 
+
+    const handleImageChange = (e) => {
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () => {
+            setImage(file);
+            setImagePreviewUrl(reader.result);
+        }
+
+        reader.readAsDataURL(file);
+    }
+
     return (
         <>
             <section className={adminCommonStyle.backGroundSection}>
@@ -113,22 +130,51 @@ export default function LectureClassificationManager() {
                             <div className={adminLectureManagementStyle.lectureInsideTitle}>{mode === 'edit' ? '강의 수정' : '강의 생성'} </div>
                             <TextField className={adminLectureManagementStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
                             <TextField className={adminLectureManagementStyle.lectureTextField} label="강의 소개" value={lectureContent} onChange={e => setLectureContent(e.target.value)} />
+
+                            <div className={adminLectureManagementStyle.imageUploadContainer}>
+                                <input
+                                    accept="image/*"
+                                    className={adminLectureManagementStyle.input}
+                                    id="contained-button-file"
+                                    multiple
+                                    type="file"
+                                    onChange={handleImageChange}
+                                />
+                                <label htmlFor="contained-button-file">
+                                    <Button variant="outlined" component="span" color="primary">
+                                        이미지 업로드
+                                    </Button>
+                                </label>
+                                {imagePreviewUrl ? (
+                                    <img src={imagePreviewUrl} className={adminLectureManagementStyle.imagePreview} alt="Image Preview" />
+                                ) : (
+                                    <div className={adminLectureManagementStyle.noImageText}>
+                                        선택된 이미지가 없습니다
+                                    </div>
+                                )}
+                            </div>
                             <div className={adminLectureManagementStyle.tagContainer}>
                                 <Button variant="outlined" color="primary" onClick={showAddTagModal}>
                                     태그 추가
                                 </Button>
                                 <div className={adminLectureManagementStyle.selectedTagItems}>
-                                    {tags.map((tag, index) => (
-                                        <Chip className={adminLectureManagementStyle.selectedTagItem}
-                                            key={tag.tag.id}
-                                            label={tag.tag.name}
-                                            onDelete={() => removeTag(index)}
-                                            deleteIcon={<CloseIcon />}
-                                            variant="outlined"
-                                            onMouseEnter={(e) => e.target.style.color = 'darkerColorHere'}
-                                            onMouseLeave={(e) => e.target.style.color = 'normalColorHere'}
-                                        />
-                                    ))}
+                                    {tags.length > 0 ? (
+                                        tags.map((tag, index) => (
+                                            <Chip className={adminLectureManagementStyle.selectedTagItem}
+                                                key={tag.tag.id}
+                                                label={tag.tag.name}
+                                                onDelete={() => removeTag(index)}
+                                                deleteIcon={<CloseIcon />}
+                                                variant="outlined"
+                                                onMouseEnter={(e) => e.target.style.color = 'darkerColorHere'}
+                                                onMouseLeave={(e) => e.target.style.color = 'normalColorHere'}
+                                            />
+                                        ))
+                                    ) : (
+                                        <div className={adminLectureManagementStyle.noTagText}>
+                                            선택된 태그가 없습니다
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className={adminLectureManagementStyle.lectureBtnContainer}>
