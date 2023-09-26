@@ -22,7 +22,8 @@ export default function LectureView() {
         const fetchLectures = async () => {
             try {
                 const data = await fetchAllLectures();
-                setLectures(data);
+                const sortedLectures = Array.from(data).sort((a, b) => a.id - b.id);
+                setLectures(sortedLectures);
             } catch (error) {
                 console.error('Error fetching lectures:', error);
             }
