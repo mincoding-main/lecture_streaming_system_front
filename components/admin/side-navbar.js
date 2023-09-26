@@ -26,7 +26,7 @@ export default function SideNavBar() {
     return (
         <div className={adminCommonStyle.sideContainer}>
             <div className={adminCommonStyle.sideMemberContainer}>
-                <div className={adminCommonStyle.sidMemberTitle}>
+                <div className={adminCommonStyle.sideMemberTitle}>
                     회원관리
                 </div>
                 <div className={adminCommonStyle.sideMemberBtn}>
