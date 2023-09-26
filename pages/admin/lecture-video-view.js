@@ -14,16 +14,19 @@ export default function LectureVideoView() {
     const router = useRouter();
     const [lectures, setLectures] = useState([]);
     const [page, setPage] = useState(1);
+    const [lectureId, setLectureId] = useState('');
     const itemsPerPage = 8;
 
     useAuthCheck(true, true, false);
 
+
+
     useEffect(() => {
         const fetchOneLecture = async () => {
             try {
-                const id = router.query.id;
-                if (id) {
-                    const lectureData = await fetchLecture(id);
+                setLectureId(router.query.id);
+                if (lectureId) {
+                    const lectureData = await fetchLecture(lectureId);
                     const videoAllItems = lectureData.lectureItemList;
                     const sortedLectures = Array.from(videoAllItems).sort((a, b) => a.id - b.id);
                     setLectures(sortedLectures);
@@ -34,26 +37,25 @@ export default function LectureVideoView() {
         };
 
         fetchOneLecture();
-    }, [router.query.id]);
+    }, [lectureId]);
 
 
 
     const handleOpenLectureInfoPage = (video) => {
-        router.push(`/admin/lecture-video-management?id=${router.query.id}&videoId=${video.id}&mode=edit`);
+        router.push(`/admin/lecture-video-management?id=${lectureId}&videoId=${video.id}&mode=edit`);
     };
 
     const handleCreate = () => {
-        router.push(`/admin/lecture-video-management?id=${router.query.id}&mode=add`);
+        router.push(`/admin/lecture-video-management?id=${lectureId}&mode=add`);
     };
 
 
     const handleDeleteVideo = async (video) => {
         try {
-            const id = router.query.id;
-            await deleteLectureVideo(id, video.id);
+            await deleteLectureVideo(lectureId, video.id);
 
             const updatedLectures = lectures.map(lecture => {
-                if (lecture.id === Number(id)) {
+                if (lecture.id === Number(lectureId)) {
                     lecture.videos = lecture.videos.filter(v => v.id !== video.id);
                 }
                 return lecture;
