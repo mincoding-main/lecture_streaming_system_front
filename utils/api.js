@@ -57,7 +57,6 @@ export const loginMember = async (credentials) => {
         });
         const token = response.headers.authorization;
         const decoded = decodeToken(token); // 토큰 디코드
-        console.log(decoded); // 디코드된 페이로드 출력
         return { success: true, payload: decoded, message: '로그인 성공' };
     } catch (error) {
         console.error("An error occurred while logging in:", error);

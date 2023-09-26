@@ -6,7 +6,6 @@ const lecturesFilePath = path.join(process.cwd(), 'fake-data', 'lectures.json');
 export default function handler(req, res) {
     const lectures = JSON.parse(fs.readFileSync(lecturesFilePath, 'utf8'));
     const { lectureId, lectureItemId } = req.query;
-    console.log(req.query)
     if (req.method === 'GET') {
         const lecture = lectures.find(lecture => lecture.id === Number(lectureId));
         if (lecture) {
