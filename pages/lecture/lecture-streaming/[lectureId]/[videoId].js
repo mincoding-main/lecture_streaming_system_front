@@ -1,46 +1,66 @@
-
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchLectureVideo, fetchLecture } from '@/utils/api'
 import { useRouter } from 'next/router';
 import { useAuthCheck } from '@/utils/auth-check'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 import { Button, List, ListItem, ListItemText, Paper } from '@mui/material';
 import lectureStreamingStyle from '@/styles/main/lecture-streaming.module.css';
+// ckEditor 부분
+// import { CKEditor } from '@ckeditor/ckeditor5-react';
+// import ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 
 
 export default function LectureStreaming() {
     const router = useRouter();
     const { lectureId } = router.query;
     const { videoId } = router.query;
-    const [lecture, setLecture] = useState(null);
-    const [editMode, setEditMode] = useState(false);
-    const [editedContent, setEditedContent] = useState(""); // 초기값 설정
-    const [isAdmin, setIsAdmin] = useState(false); // 사용자의 권한 여부를 나타내는 상태 변수
+    const [tagetVideoItem, setTagetVideoItem] = useState(null);
+    const [tagetVideoAllItems, setTagetVideoAllItems] = useState([]);
+
+    // ckEditor 부분
+    // const [editMode, setEditMode] = useState(false);
+    // const [isAdmin, setIsAdmin] = useState(false); // 사용자의 권한 여부를 나타내는 상태 변수
 
     useAuthCheck(true, true, true);
 
     useEffect(() => {
         if (lectureId) {
-            axios.get(`/api/lectures/${lectureId}`).then((response) => {
-                setLecture(response.data);
-                setEditedContent(response.data.videos[videoId - 1].url);
-            });
+            fetchLectureAllVideoData(lectureId)
+            fetchLectureVideoData(lectureId, videoId);
         }
     }, [lectureId, videoId]);
 
-    const toggleEditMode = () => {
-        setEditMode(!editMode);
-    };
+    const fetchLectureVideoData = async (lectureId, videoId) => {
+        try {
+            const videoItem = await fetchLectureVideo(lectureId, videoId);
+            setTagetVideoItem(videoItem);
 
-    const handleSave = () => {
-        // 수정된 내용을 저장하는 로직을 여기에 추가
-        setEditMode(false); // 편집 모드 종료
-    };
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+        }
+    }
 
-    if (!lecture) {
+    const fetchLectureAllVideoData = async (lectureId) => {
+        try {
+            const lecture = await fetchLecture(lectureId);
+            setTagetVideoAllItems(lecture.lectureItemList);
+
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+        }
+    }
+
+    if (!tagetVideoItem) {
         return <div>Loading...</div>;
     }
+
+    // ckEditor 부분
+    // const toggleEditMode = () => {
+    //     setEditMode(!editMode);
+    // };
+
+    // const handleSave = () => {
+    //     setEditMode(false);
+    // };
 
     return (
         <>
@@ -48,9 +68,20 @@ export default function LectureStreaming() {
                 <div className={lectureStreamingStyle.streamingContainer}>
                     <div className={lectureStreamingStyle.streamingVideoContainer}>
                         <div className={lectureStreamingStyle.videoTitleText}>
-                            {lecture.videos[videoId - 1].title}
+                            {tagetVideoItem.title}
                         </div>
-                        {editMode ? (
+                        <div className={lectureStreamingStyle.streamingVideo}>
+                            <iframe
+                                src={tagetVideoItem.video.src + "&autoplay=1"}
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                allowFullScreen
+                                allow="autoplay"
+                            />
+                        </div>
+                        {/*ckEditor 부분 나중에 필요하면 추가*/}
+                        {/* {editMode ? (
                             <div className={lectureStreamingStyle.streamingVideo}>
                                 <CKEditor
                                     style={{ height: '300px' }}
@@ -86,22 +117,21 @@ export default function LectureStreaming() {
                                     </Button>
                                 )}
                             </div>
-                        )}
+                        )} */}
                     </div>
                     <div className={lectureStreamingStyle.listContainer}>
                         <Paper elevation={3} className={lectureStreamingStyle.listPaper}>
                             <List>
-                                {lecture.videos.map((video, index) => (
+                                {tagetVideoAllItems.map(video => (
                                     <ListItem
                                         key={video.id}
                                         button
                                         onClick={() => {
-                                            // 해당 강의로 이동하는 경로 생성
-                                            const videoPath = `/lecture/lecture-streaming/${lectureId}/${index + 1}`;
-                                            router.push(videoPath); // 해당 경로로 이동
+                                            const videoPath = `/lecture/lecture-streaming/${lectureId}/${video.id}`;
+                                            router.push(videoPath);
                                         }}
                                     >
-                                        <ListItemText primary={`강의 ${index + 1}`} secondary={video.title} />
+                                        <ListItemText primary={video.title} secondary={video.content} />
                                     </ListItem>
                                 ))}
                             </List>

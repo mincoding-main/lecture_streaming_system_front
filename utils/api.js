@@ -295,7 +295,7 @@ export const createLectureVideo = async (lectureId, data) => {
  */
 export const fetchLectureVideo = async (lectureId, videoId) => {
     try {
-        const response = await axios.get(`/api/lectures/${lectureId}/lecture_item/${videoId}`);
+        const response = await api.get(`/api/lectures/${lectureId}/lecture_item/${videoId}`);
         return response.data;
     } catch (error) {
         console.error("An error occurred while fetching the video:", error);
@@ -303,22 +303,7 @@ export const fetchLectureVideo = async (lectureId, videoId) => {
     }
 };
 
-/**
- * 하나의 강의에 포함된 모든 비디오를 조회합니다.
- *
- * @param {string} lectureId - 강의 ID.
- * @returns {Promise<Array<Object>>} 모든 비디오의 배열.
- * @throws {Error} 조회 중에 에러가 발생하면 예외를 던집니다.
- */
-export const fetchAllLectureVideos = async (lectureId) => {
-    try {
-        const response = await axios.get(`/api/lectures/${lectureId}/lecture_item`);
-        return response.data;
-    } catch (error) {
-        console.error("An error occurred while fetching lecture videos:", error);
-        throw error;
-    }
-};
+
 
 /**
  * 강의 비디오 정보를 업데이트합니다.
