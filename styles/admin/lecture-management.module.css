@@ -1,5 +1,5 @@
 .lectureCreateTitle {
-    height: 5%;
+    height: 3%;
     font-size: 1.8rem;
     font-weight: bold;
     display: flex;
@@ -8,7 +8,7 @@
 
 .lectureInsideContainer {
     width: 80%;
-    height: 85%;
+    height: 90%;
     margin: 0 auto;
     margin-top: 2rem;
     background-color: #f7f7f7;
@@ -28,7 +28,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-
+    overflow: auto;
 }
 
 .lectureTextField {
@@ -48,7 +48,7 @@
 
 .lectureBtnContainer {
     width: 80%;
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: space-around;
 }
@@ -57,12 +57,12 @@
 .lectureBtnContainer>button {
     width: 30%;
     font-size: 0.8rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .imageUploadContainer {
     width: 80%;
-    margin: 20px 0;
+    margin: 0.5rem 0;
     display: flex;
     flex-direction: column;
 }
@@ -72,7 +72,7 @@
 }
 
 .imagePreview {
-    margin-top: 20px;
+    margin-top: 0.5rem;
     max-width: 40%;
     max-height: 12rem;
 }

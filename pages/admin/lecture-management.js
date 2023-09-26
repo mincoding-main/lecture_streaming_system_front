@@ -17,8 +17,9 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function LectureClassificationManager() {
     const router = useRouter();
     const { mode } = router.query;
-    const [lectureTitle, setLectureTitle] = useState(mode === 'edit' ? '기존 강의명' : '');
-    const [lectureContent, setLectureContent] = useState(mode === 'edit' ? '기존 강의 소개' : '');
+    const [lectureTitle, setLectureTitle] = useState('');
+    const [lectureContent, setLectureContent] = useState('');
+    const [lectureNotice, setLectureNotice] = useState('');
     const [tags, setTags] = useState([]);
     const [tagSearchModalOpen, setTagSearchModalOpen] = useState(false);
     const [image, setImage] = useState(null); // 업로드할 이미지 파일
@@ -36,6 +37,7 @@ export default function LectureClassificationManager() {
                     console.log(data.tagLectureList);
                     setLectureTitle(data.title);
                     setLectureContent(data.content);
+                    setLectureNotice(data.notice)
                     setTags(data.tagLectureList);;
                 }
             } catch (error) {
@@ -129,7 +131,8 @@ export default function LectureClassificationManager() {
                         <div className={adminLectureManagementStyle.lectureItemContainer}>
                             <div className={adminLectureManagementStyle.lectureInsideTitle}>{mode === 'edit' ? '강의 수정' : '강의 생성'} </div>
                             <TextField className={adminLectureManagementStyle.lectureTextField} label="강의명" value={lectureTitle} onChange={e => setLectureTitle(e.target.value)} />
-                            <TextField className={adminLectureManagementStyle.lectureTextField} label="강의 소개" value={lectureContent} onChange={e => setLectureContent(e.target.value)} />
+                            <TextField className={adminLectureManagementStyle.lectureTextField} label="강의소개" value={lectureContent} onChange={e => setLectureContent(e.target.value)} />
+                            <TextField className={adminLectureManagementStyle.lectureTextField} label="교육과정안내" value={lectureNotice} onChange={e => setLectureNotice(e.target.value)} />
 
                             <div className={adminLectureManagementStyle.imageUploadContainer}>
                                 <input
