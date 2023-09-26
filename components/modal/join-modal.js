@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllMembers } from '@/utils/api';
+import { duplicateEmailCheck } from '@/utils/api';
 import mainModalStyle from '@/styles/main/main-modal.module.css'
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -27,8 +27,8 @@ export default function JoinModal({ open, onClose, onJoin }) {
     }, [open]);
 
     const handleDuplicateCheck = async () => {
-        const memberData = await fetchAllMembers();
-        const isDuplicate = memberData.some((member) => member.email === email);
+        const postData = { email: email }
+        const isDuplicate = await duplicateEmailCheck(postData);
         if (isDuplicate) {
             setMessage({ type: 'error', content: '이미 존재하는 이메일입니다.' });
         } else {

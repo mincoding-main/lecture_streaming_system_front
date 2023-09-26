@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { fetchAllMembers, createMember, loginMember } from '@/utils/api';
+import { duplicateEmailCheck, createMember, loginMember } from '@/utils/api';
 import headerStyles from '../styles/main/header.module.css';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
@@ -154,12 +154,10 @@ export default function Header() {
 
 
     const handleFindPassword = async (email) => {
+        const postData = { email: email }
+        const isDuplicate = await duplicateEmailCheck(postData);
 
-        const memberData = await fetchAllMembers(); // GET 요청을 보내서 유저 데이터를 받아옵니다.
-
-        const foundMember = memberData.find((member) => member.email === email);
-
-        if (foundMember) {
+        if (isDuplicate) {
             setOpenFindPasswordModal(false);
             setShowPasswordRecoverySuccess(true);
             setTimeout(() => {

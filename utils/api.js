@@ -153,6 +153,30 @@ export const deleteMember = async (id) => {
     }
 };
 
+
+/**
+ * 이메일 중복 확인 메소드입니다.
+ *
+ * 이 메소드는 주어진 이메일 주소가 시스템 내에 이미 존재하는지 확인합니다.
+ * 이메일이 중복되지 않으면, 이메일을 사용할 수 있음을 확인하는 데이터를 반환합니다.
+ * 이메일이 중복되면, 에러를 던집니다.
+ *
+ * @param {string} email - 중복 확인을 위한 이메일 주소.
+ * @returns {Promise<Object>} - 이메일 중복 확인 결과 데이터를 포함하는 프로미스 객체.
+ * @throws {Error} - 이메일 중복 확인 도중 에러가 발생하면 예외를 던집니다.
+ */
+export const duplicateEmailCheck = async (email) => {
+    try {
+        const response = await api.post(`/api/members/email-check`, email);
+        return response.data.data;
+    } catch (error) {
+        console.error("An error occurred while search the email:", error);
+        throw error;
+    }
+};
+
+
+
 // Lectures
 
 /**
