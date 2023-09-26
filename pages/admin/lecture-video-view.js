@@ -26,7 +26,6 @@ export default function LectureVideoView() {
                     const lectureData = await fetchLecture(id);
                     const videoAllItems = lectureData.lectureItemList;
                     const sortedLectures = Array.from(videoAllItems).sort((a, b) => a.id - b.id);
-                    console.log(sortedLectures)
                     setLectures(sortedLectures);
                 }
             } catch (error) {

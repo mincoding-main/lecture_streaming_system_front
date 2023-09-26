@@ -12,8 +12,8 @@ import TextField from '@mui/material/TextField';
 export default function LectureVideoManagement() {
     const router = useRouter();
     const { mode, id, videoId } = router.query;
-    const [lectureTitle, setLectureTitle] = useState(mode === 'edit' ? '기존 강의명' : '');
-    const [lectureUrl, setLectureUrl] = useState(mode === 'edit' ? '강의 링크' : '');
+    const [lectureTitle, setLectureTitle] = useState('');
+    const [lectureUrl, setLectureUrl] = useState('');
 
     useAuthCheck(true, true, false);
 
@@ -23,7 +23,7 @@ export default function LectureVideoManagement() {
                 if (mode === 'edit' && id && videoId) {
                     const data = await fetchLectureVideo(id, videoId);
                     setLectureTitle(data.title);
-                    setLectureUrl(data.url);
+                    setLectureUrl(data.video.src);
                 }
             } catch (error) {
                 console.error('Error fetching the lecture:', error);
@@ -33,7 +33,10 @@ export default function LectureVideoManagement() {
         if (mode === 'edit') {
             fetchLectureAndVideo();
         }
-    }, [router.query.id, router.query.videoId, mode]);
+    }, [id, videoId, mode]);
+
+
+
 
     const handleSave = async () => {
         try {
