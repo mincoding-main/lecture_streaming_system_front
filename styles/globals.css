@@ -50,6 +50,7 @@ img {
 
 .mainContent {
   flex-grow: 1;
+  min-height: 45.5rem;
 }
 
 .footer {
