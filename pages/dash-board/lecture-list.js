@@ -24,11 +24,11 @@ export default function LectureList() {
 
     const fetchMemberAndLectureData = async () => {
         try {
-            // 현재 멤버 정보를 가져옴
             const id = localStorage.getItem('id');
             const memberData = await fetchLecturesByMemberId(id);
-
-            setLectureData(memberData.memberLectureList);
+            const lectureList = memberData.memberLectureList
+            const sortedLectures = Array.from(lectureList).sort((a, b) => a.lecture.id - b.lecture.id);
+            setLectureData(sortedLectures);
 
         } catch (error) {
             console.error('Failed to fetch data:', error);

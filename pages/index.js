@@ -14,7 +14,8 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const data = await fetchAllLectures();
-        setLectureData(data);
+        const sortedLectures = Array.from(data).sort((a, b) => a.id - b.id);
+        setLectureData(sortedLectures);
       } catch (error) {
         console.error('Failed to fetch lecture data:', error);
       }
