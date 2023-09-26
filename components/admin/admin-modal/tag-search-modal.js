@@ -23,9 +23,9 @@ export default function TagSearchModal({ open, onClose, onTagSelected, existingT
     useEffect(() => {
         const fetchTags = async () => {
             const data = await fetchAllTags();
-            setTags(data);
-            setTags(data);
-            setFilteredTags(data);
+            const sortedTags = Array.from(data).sort((a, b) => a.id - b.id);
+            setTags(sortedTags);
+            setFilteredTags(sortedTags);
         };
         fetchTags();
     }, []);
