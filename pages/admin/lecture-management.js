@@ -10,11 +10,6 @@ import adminLectureManagementStyle from '@/styles/admin/lecture-management.modul
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import Chip from '@mui/material/Chip';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -24,7 +19,6 @@ export default function LectureClassificationManager() {
     const { mode } = router.query;
     const [lectureTitle, setLectureTitle] = useState(mode === 'edit' ? '기존 강의명' : '');
     const [lectureContent, setLectureContent] = useState(mode === 'edit' ? '기존 강의 소개' : '');
-    const [permissions, setPermissions] = useState('user');
     const [tags, setTags] = useState([]);
     const [tagSearchModalOpen, setTagSearchModalOpen] = useState(false);
 
@@ -37,10 +31,10 @@ export default function LectureClassificationManager() {
 
                 if (mode === 'edit' && id) {
                     const data = await fetchLecture(id);
+                    console.log(data.tagLectureList);
                     setLectureTitle(data.title);
                     setLectureContent(data.content);
-                    setTags(data.tags);
-                    setPermissions(data.permissions);
+                    setTags(data.tagLectureList);;
                 }
             } catch (error) {
                 console.error('Error fetching the lecture:', error);
@@ -58,7 +52,6 @@ export default function LectureClassificationManager() {
                 title: lectureTitle,
                 content: lectureContent,
                 tags: tags,
-                permissions: permissions
             };
             let response;
             if (mode === 'edit') {
@@ -127,8 +120,8 @@ export default function LectureClassificationManager() {
                                 <div className={adminLectureManagementStyle.selectedTagItems}>
                                     {tags.map((tag, index) => (
                                         <Chip className={adminLectureManagementStyle.selectedTagItem}
-                                            key={tag.id}
-                                            label={tag.name}
+                                            key={tag.tag.id}
+                                            label={tag.tag.name}
                                             onDelete={() => removeTag(index)}
                                             deleteIcon={<CloseIcon />}
                                             variant="outlined"
@@ -138,19 +131,6 @@ export default function LectureClassificationManager() {
                                     ))}
                                 </div>
                             </div>
-                            <FormControl className={adminLectureManagementStyle.lectureFormControlContainer} component="fieldset" margin="normal">
-                                <FormLabel component="legend">유저 권한</FormLabel>
-                                <RadioGroup
-                                    name="permissions"
-                                    value={permissions}
-                                    onChange={(e) => setPermissions(e.target.value)}
-
-                                >
-                                    <FormControlLabel value="user" control={<Radio />} label="User" />
-                                    <FormControlLabel value="manager" control={<Radio />} label="Manager" />
-                                    <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-                                </RadioGroup>
-                            </FormControl>
                             <div className={adminLectureManagementStyle.lectureBtnContainer}>
                                 <Button variant="outlined" color="error" onClick={handleCancel}>
                                     취소
