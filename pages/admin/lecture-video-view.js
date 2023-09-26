@@ -8,7 +8,7 @@ import SideNavBar from '@/components/admin/side-navbar';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-
+import Typography from '@mui/material/Typography';
 
 export default function LectureVideoView() {
     const router = useRouter();
@@ -23,8 +23,11 @@ export default function LectureVideoView() {
             try {
                 const id = router.query.id;
                 if (id) {
-                    const data = await fetchLecture(id);
-                    setLectures([data]);
+                    const lectureData = await fetchLecture(id);
+                    const videoAllItems = lectureData.lectureItemList;
+                    const sortedLectures = Array.from(videoAllItems).sort((a, b) => a.id - b.id);
+                    console.log(sortedLectures)
+                    setLectures(sortedLectures);
                 }
             } catch (error) {
                 console.error('Error fetching the lecture:', error);
@@ -88,25 +91,30 @@ export default function LectureVideoView() {
                         </div>
                     </div>
                     <div className={adminLectureVideoViewStyle.lectureContainer}>
-                        {lectures.slice(startIdx, endIdx).map(lecture => (
-                            lecture.videos.map(video => (
-                                <div key={video.id} className={adminLectureVideoViewStyle.lectureItem}>
-                                    <div className={adminLectureVideoViewStyle.lectureInfo}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12}>{video.title}</Grid>
-                                        </Grid>
+                        {
+                            lectures && lectures.length > 0 ?
+                                lectures.slice(startIdx, endIdx).map(lecture => (
+                                    <div key={lecture.id} className={adminLectureVideoViewStyle.lectureItem}>
+                                        <div className={adminLectureVideoViewStyle.lectureInfo}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12}>{lecture.title}</Grid>
+                                            </Grid>
+                                        </div>
+                                        <div className={adminLectureVideoViewStyle.lectureEditBtn}>
+                                            <Button variant="contained" onClick={() => handleOpenLectureInfoPage(lecture)}>
+                                                수정
+                                            </Button>
+                                            <Button variant="contained" color='error' onClick={() => handleDeleteVideo(lecture)}>
+                                                삭제
+                                            </Button>
+                                        </div>
                                     </div>
-                                    <div className={adminLectureVideoViewStyle.lectureEditBtn}>
-                                        <Button variant="contained" onClick={() => handleOpenLectureInfoPage(video)}>
-                                            수정
-                                        </Button>
-                                        <Button variant="contained" color='error' onClick={() => handleDeleteVideo(video)}>
-                                            삭제
-                                        </Button>
-                                    </div>
+                                ))
+                                :
+                                <div className={adminLectureVideoViewStyle.noneLectureItem}>
+                                    <Typography>비디오 강의가 존재하지 않습니다. 생성을 해주세요.</Typography>
                                 </div>
-                            ))
-                        ))}
+                        }
                     </div>
                     <div className={adminLectureVideoViewStyle.paginationContainer}>
                         <Pagination

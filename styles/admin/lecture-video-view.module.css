@@ -40,6 +40,13 @@
     padding: 1rem;
 }
 
+.noneLectureItem {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
 .lectureInfo {
     flex: 9;
     margin-right: 1rem;
