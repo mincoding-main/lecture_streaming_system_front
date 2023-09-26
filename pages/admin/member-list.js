@@ -26,7 +26,8 @@ export default function MemberList() {
         const fetchMembers = async () => {
             try {
                 const data = await fetchAllMembers();
-                setMembers(data);
+                const sortedMembers = Array.from(data).sort((a, b) => a.id - b.id);
+                setMembers(sortedMembers);
             } catch (error) {
                 console.error('Error fetching Members:', error);
             }
