@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchLectureVideo, fetchLecture } from '@/utils/api'
 import { useRouter } from 'next/router';
 import { useAuthCheck } from '@/utils/auth-check'
-import { Button, List, ListItem, ListItemText, Paper } from '@mui/material';
+import { List, ListItem, ListItemText, Paper, ListItemButton } from '@mui/material';
 import lectureStreamingStyle from '@/styles/main/lecture-streaming.module.css';
 
 export default function LectureStreaming() {
@@ -34,7 +34,9 @@ export default function LectureStreaming() {
     const fetchLectureAllVideoData = async (lectureId) => {
         try {
             const lecture = await fetchLecture(lectureId);
-            setTagetVideoAllItems(lecture.lectureItemList);
+            const videoAllItems = lecture.lectureItemList;
+            const sortedLectures = Array.from(videoAllItems).sort((a, b) => a.id - b.id);
+            setTagetVideoAllItems(sortedLectures);
 
         } catch (error) {
             console.error('Failed to fetch data:', error);
@@ -56,9 +58,6 @@ export default function LectureStreaming() {
                         <div className={lectureStreamingStyle.streamingVideo}>
                             <iframe
                                 src={tagetVideoItem.video.src + "&autoplay=1"}
-                                width="100%"
-                                height="100%"
-                                frameBorder="0"
                                 allowFullScreen
                                 allow="autoplay"
                             />
@@ -68,16 +67,15 @@ export default function LectureStreaming() {
                         <Paper elevation={3} className={lectureStreamingStyle.listPaper}>
                             <List>
                                 {tagetVideoAllItems.map(video => (
-                                    <ListItem
+                                    <ListItemButton
                                         key={video.id}
-                                        button
                                         onClick={() => {
                                             const videoPath = `/lecture/lecture-streaming/${lectureId}/${video.id}`;
                                             router.push(videoPath);
                                         }}
                                     >
                                         <ListItemText primary={video.title} secondary={video.content} />
-                                    </ListItem>
+                                    </ListItemButton>
                                 ))}
                             </List>
                         </Paper>

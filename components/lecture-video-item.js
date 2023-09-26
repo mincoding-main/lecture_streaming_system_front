@@ -9,11 +9,11 @@ import { useRouter } from 'next/router';
 
 export default function LectureListCard({ Videos, LectureId }) {
     const router = useRouter();
-
+    const sotredVideos = Array.from(Videos).sort((a, b) => a.id - b.id);
     return (
         <List className={lectureDetailStyle.videoContainer}>
-            {Videos && Videos.length > 0 ? (
-                Videos.map((video) => (
+            {sotredVideos && sotredVideos.length > 0 ? (
+                sotredVideos.map((video) => (
                     <ListItem
                         key={video.id}
                         className={lectureDetailStyle.videoListItem}
